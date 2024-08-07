@@ -20,6 +20,7 @@ router.post("/login", login)
 router.post("/logout", logout)
 router.post("/postRole", postRole)
 router.post("/postPermissions", postPermissions)
+
 router.get("/getRoles", getRoles)
 router.get("/getPermissions", getPermissions)
 router.get("/profile", validationToken, profile)
