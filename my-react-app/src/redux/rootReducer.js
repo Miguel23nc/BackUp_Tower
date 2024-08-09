@@ -1,16 +1,16 @@
 
-import { LOGIN } from "./actions"
+import {  ERRORES } from "./actions"
 
 const initialState = {
-    userData: []
+    errores: []
 }
 
 const rootReducer = (state = initialState , action) => {
     switch (action.type) {
-        case LOGIN:
+        case ERRORES:
             return {
                 ...state,
-                userData : action.payload
+                errores : action.payload
             }
         default:
             return state

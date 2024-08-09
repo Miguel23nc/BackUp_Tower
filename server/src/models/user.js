@@ -4,7 +4,7 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     ruc: {
       type: String,
@@ -20,22 +20,27 @@ const userSchema = mongoose.Schema(
       type: String,
       ref: "Role",
     },
-    modules: [
+    module: {
+      type: String,
+      ref: "Module",
+    },
+    submodules: [
       {
-        moduleId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Module",
+        submoduleName: {
+          type: String,
+          ref: "Submodule",
         },
-        permissions: [String],
+        permissions: [
+          {
+            type: String,
+            ref: "Permission",
+          },
+        ],
       },
     ],
     business: {
-      name: {
-        type: String,
-      },
-      description: {
-        type: String,
-      },
+      type: String,
+      ref: "Business",
     },
     password: {
       type: String,

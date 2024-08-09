@@ -1,11 +1,15 @@
-import axios from "axios"
-export const LOGIN = "LOGIN"
+import axios from "axios";
+export const ERRORES = "ERRORES";
 
-export const login = (userData) => async (dispatch) => {
-    const response = await axios.post("http://localhost:3001/api/register", userData)
-    const data = response.data
+export const setErrorsA = (error) => async (dispatch) => {
+  try {
+    const err = error;
+    console.log(error);
     dispatch({
-        type: LOGIN,
-        payload: data
-    })
-}
+      type: ERRORES,
+      payload: err,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -40,7 +40,7 @@ const examples = [
     },
   ],
   [
-    { area: "RRHH" },
+    { area: "Recursos Humanos" },
     {
       name: "Clientes",
       link: "/clientes",
@@ -69,19 +69,18 @@ const examples = [
 const SideBar = () => {
   const { user } = useAuth();
   const isSuperRole = user
-    ? ["sistemas", "gerencia general"]?.includes(user?.rol?.toLowerCase())
+    ? ["admin", "gerencia general"]?.includes(user?.role?.toLowerCase())
     : null;
 
-  // Si es super role, mostramos todas las opciones
   const userOptions = isSuperRole
     ? examples
     : examples?.filter(
-        (example) => example[0].area.toLowerCase() === user?.rol.toLowerCase()
+        (example) => example[0]?.area?.toLowerCase() === user?.module?.toLowerCase()
       );
 
   return (
     <div
-      className="bg-sky-600 absolute items-center flex flex-col 
+      className="bg-sky-600 absolute z-50 items-center  flex flex-col 
          w-20 border-r border-t-stone-400 h-screen"
     >
       <div className=" mt-[-18px]">

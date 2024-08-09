@@ -17,19 +17,15 @@ const login = async (req, res) => {
         }
         const response = await compare(password, user.password)
         if (!response) return res.status(400).json({ message: "Contraseña incorrecta" });
-        const userData = {
-            ruc: user.ruc,
-            email: user.email,
-            rol: user.role,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt
-        }
+        const userData = user.toObject()
+        delete userData.password
 
-        const token = generatetoken({ ruc: user.ruc })
+        const token = generatetoken(userData)
         res.cookie("token", token)
         res.status(200).json(userData)
 
     } catch (error) {
+        console.log(error);
         return res.status(400).json({ message: "error en login" })
     }
 }
