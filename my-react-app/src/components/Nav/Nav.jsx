@@ -9,7 +9,7 @@ const Nav = () => {
     const { user } = useAuth()
 
     return (
-        <div className="flex justify-between ml-20 items-center px-12
+        <div className="flex justify-between ml-20 bg-white items-center px-12
                         h-20  border-b border-t-stone-400">
             <div className=" flex justify-around 
                             items-center  m-2 rounded-lg h-14">

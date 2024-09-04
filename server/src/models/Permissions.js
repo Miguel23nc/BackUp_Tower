@@ -5,8 +5,8 @@ const permissionsSchema = mongoose.Schema(
     name: {
       type: String,
       require: true,
+      unique: true
     },
-    description: String,
   },
   { timestamps: true }
 );

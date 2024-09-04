@@ -1,6 +1,6 @@
 const { compare } = require("bcrypt");
-const User = require("../../models/user");
 const generatetoken = require("../../utils/jwt");
+const Employee = require("../../models/Employee");
 
 const login = async (req, res) => {
 
@@ -10,7 +10,7 @@ const login = async (req, res) => {
         if (!email || !password) {
             return res.status(200).json({ message: "Falta email o password" })
         }
-        const user = await User.findOne({ email })
+        const user = await Employee.findOne({ email })
 
         if (!user) {
             return res.status(400).json({ message: "Usuario no encontrado" });
@@ -22,7 +22,7 @@ const login = async (req, res) => {
 
         const token = generatetoken(userData)
         res.cookie("token", token)
-        res.status(200).json(userData)
+        return res.status(200).json(userData)
 
     } catch (error) {
         console.log(error);

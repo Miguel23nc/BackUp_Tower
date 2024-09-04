@@ -1,18 +1,15 @@
 const Submodule = require("../../models/SubModule");
 
 const createSubmodule = async (req, res) => {
-  const { name, description, moduleId } = req.body;
+  const { name, module } = req.body;
   try {
-    const newSubmodule = new Submodule({
-      name,
-      description,
-      module: moduleId,
-    });
+    const newSubmodule = new Submodule({ name, module });
 
     const savedSubmodule = await newSubmodule.save();
-    return res.status(200).json(savedSubmodule)
+    return res.status(200).json(savedSubmodule);
   } catch (error) {
-    console.log("error",error);
+    return res.status(500).json({message : error});
+
   }
 };
 

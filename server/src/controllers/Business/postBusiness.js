@@ -1,4 +1,4 @@
-const Business = require("../../models/Business");
+const Business = require("../../models/BusinessEmployee");
 
 const createBusiness = async (req, res) => {
   try {

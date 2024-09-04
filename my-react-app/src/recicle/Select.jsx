@@ -6,8 +6,8 @@ const Select = ({ name, label, value, onChange, options, multiple, error }) => {
     : "border-gray-300";
 
   return (
-    <div className="flex flex-col relative w-60 h-40 justify-center items-start">
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+    <div className="flex flex-col relative w-60 mx-8 h-20 justify-center items-start">
+      <label className="block text-sm font-medium text-gray-700">
         {label}
       </label>
       <select

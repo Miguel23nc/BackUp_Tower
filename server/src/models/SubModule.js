@@ -6,13 +6,13 @@ const submoduleSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    description: String,
     module: {
       type: String,
       ref: "Module",
-      required: true,
+      required: true
     },
   },
+
   { timestamps: true }
 );
 
