@@ -35,16 +35,6 @@ export const AuthProvider = ({ children }) => {
       setErrors(error?.response?.data?.message);
     }
   };
-  const createClient = async (user) => {
-    try {
-      const response = await axios.post("/createClient", user);
-      const data = response.data;
-      setResponse(data.message);
-    } catch (error) {
-      console.log(error);
-      setErrors(error?.response?.data?.message);
-    }
-  };
 
   const logout = async () => {
     try {
@@ -71,6 +61,27 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const createClient = async (user) => {
+    try {
+      const response = await axios.post("/createClient", user);
+      const data = response.data;
+      setResponse(data.message);
+    } catch (error) {
+      console.log(error);
+      setErrors(error?.response?.data?.message);
+    }
+  };
+  const updateClient = async (user) => {
+    try {
+      const response = await axios.patch("/patchClient", user);
+      const data = response.data;
+      setResponse(data.message);
+      return data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error?.response?.data?.message);
+    }
+  };
   const updateEmployee = async (user) => {
     try {
       const response = await axios.patch("/patchEmployee", user);
@@ -156,7 +167,8 @@ export const AuthProvider = ({ children }) => {
         setErrors,
         response,
         setResponse,
-        createClient
+        createClient,
+        updateClient,
       }}
     >
       {children}

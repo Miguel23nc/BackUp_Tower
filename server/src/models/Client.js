@@ -28,6 +28,10 @@ const clientSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
     economicSector: {
       type: String,
       required: true,

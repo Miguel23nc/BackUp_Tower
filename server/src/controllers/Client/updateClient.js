@@ -1,24 +1,51 @@
-const Client = require("../models/Client");
+const Client = require("../../models/Client");
+const { hashPassword } = require("../../utils/bcrypt");
 
 const updateClient = async (req, res) => {
-  const { id } = req.params;
-  const { name, email, phone } = req.body;
+  const {
+    _id,
+    razonsocial,
+    ruc,
+    direction,
+    phoneCode,
+    phoneNumber,
+    email,
+    password,
+    economicSector,
+    condition,
+    directory,
+  } = req.body;
 
   try {
-    const client = await Client.findByIdAndUpdate(
-      id,
-      { name, email, phone },
-      { new: true }
-    );
+    const userFound = await Client.findById(_id);
 
-    if (!client) {
-      return res.status(404).json({ error: "Client not found" });
+    if (!userFound) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    return res.json(client);
+    if (razonsocial) userFound.razonsocial = razonsocial;
+    if (ruc) userFound.ruc = ruc;
+    if (direction) userFound.direction = direction;
+    if (phoneCode) userFound.phoneCode = phoneCode;
+    if (phoneNumber) userFound.phoneNumber = phoneNumber;
+    if (directory) userFound.directory = directory;
+    if (email) userFound.email = email;
+    if (economicSector) userFound.economicSector = economicSector;
+    if (condition) userFound.condition = condition;
+
+    if (password) {
+      userFound.password = await hashPassword(password);
+    }
+
+    await userFound.save();
+
+    return res.status(200).json({
+      message: "Usuario actualizado correctamente",
+      updatedUser: userFound,
+    });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Server error" });
+    console.log(error);
+    return res.status(500).json({ message: error.message });
   }
 };
 

@@ -9,7 +9,6 @@ const FormMultiple = ({ set, resetForm, initialData }) => {
     phoneNumberDirectory: initialData?.phoneNumberDirectory || "",
     emailDirectory: initialData?.emailDirectory || "",
   });
-  console.log(initialData);
   useEffect(() => {
     if (resetForm) {
       setDirectorio({
@@ -21,18 +20,6 @@ const FormMultiple = ({ set, resetForm, initialData }) => {
       });
     }
   }, [resetForm]);
-
-  // useEffect(() => {
-  //   if (initialData) {
-  //     setDirectorio({
-  //       name: initialData.name || "",
-  //       charge: initialData.charge || "",
-  //       phoneCodeDirectory: initialData.phoneCodeDirectory || "+51",
-  //       phoneNumberDirectory: initialData.phoneNumberDirectory || "",
-  //       emailDirectory: initialData.emailDirectory || "",
-  //     });
-  //   }
-  // }, [initialData]);
 
   useEffect(() => {
     if (
@@ -57,7 +44,7 @@ const FormMultiple = ({ set, resetForm, initialData }) => {
     const { name, value } = e.target;
     setDirectorio((prevData) => ({
       ...prevData,
-      [name]: name === "name" ? value.toUpperCase() : value,
+      [name]: (name === "name" ? value.toUpperCase() : value),
     }));
   };
 

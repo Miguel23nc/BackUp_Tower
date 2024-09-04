@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import useref from "../../../../recicle/useRef";
 import { useAuth } from "../../../../context/AuthContext";
-import { getEmployees } from "../../../../redux/actions";
+import { getClients } from "../../../../redux/actions";
 import Input from "../../../../recicle/Inputs";
 import Directorio from "../List/Directorio";
 import ButtonOk from "../../../../recicle/Buttons";
 
 const Edit = (props) => {
   const { setShowEdit, client } = props;
-  const { updateEmployee } = useAuth();
+  const { updateClient } = useAuth();
   const ref = useref(setShowEdit);
   const dispatch = useDispatch();
   const [edition, setEdition] = useState({
@@ -49,8 +49,8 @@ const Edit = (props) => {
 
   const upDate = async () => {
     try {
-      const response = await updateEmployee(nonMatchingProperties);
-      dispatch(getEmployees());
+      const response = await updateClient(nonMatchingProperties);
+      dispatch(getClients());
       console.log("Exito", response);
     } catch (error) {
       console.error("Failed to update employee:", error);
@@ -69,8 +69,10 @@ const Edit = (props) => {
         flex-wrap ml-10 mx-6 h-[80%] "
       >
         <h1 className="">CLIENTE</h1>
-        <div className="flex content-center border-2  border-black rounded-lg
-        min-h-[55%] h-96 p-2 flex-wrap">
+        <div
+          className="flex content-center border  border-slate-400 rounded-lg
+        min-h-[58%] px-2 flex-wrap"
+        >
           <Input
             id="razonSocial"
             label="Razón Social"

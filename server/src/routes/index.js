@@ -19,6 +19,7 @@ const updateEmployeePartial = require("../controllers/Employee/updateEmployee");
 const deleteEmployee = require("../controllers/Employee/deleteEmployee");
 const createClient = require("../controllers/Client/createClient");
 const getClients = require("../controllers/Client/getClients");
+const updateClient = require("../controllers/Client/updateClient");
 
 const router = Router();
 
@@ -32,6 +33,7 @@ router.post("/createBusiness", createBusiness);
 router.post("/createClient", createClient)
 
 router.patch("/patchEmployee", updateEmployeePartial);
+router.patch("/patchClient", updateClient);
 router.delete("/deleteEmployee", deleteEmployee);
 
 router.get("/getClients", getClients);
