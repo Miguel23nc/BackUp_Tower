@@ -1,20 +1,23 @@
+const server = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const routes = require("./routes/index");
+const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
+const app = server();
 
-const server = require("express")
-const morgan = require("morgan")
-const cors = require("cors")
-const cookieParser = require("cookie-parser")
-const routes = require("./routes/index")
-const bodyParser = require("body-parser")
-const app = server()
-
-app.use(morgan("dev"))
-app.use(bodyParser.json())
-app.use(cors({
+app.use(fileUpload());
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(
+  cors({
     origin: "http://localhost:5173",
-    credentials: true
-}))
-app.use(cookieParser())
-app.use(server.json())
-app.use("/api", routes)
+    credentials: true,
+  })
+);
+app.use(cookieParser());
+app.use(server.json());
+app.use("/api", routes);
 
-module.exports = app
+module.exports = app;

@@ -1,34 +1,60 @@
-const Employee = require("../../models/Employee");
+const Employee = require("../../models/Employees/Employee");
 const { hashPassword } = require("../../utils/bcrypt");
 
 const updateEmployeePartial = async (req, res) => {
-  
   const {
     _id,
     name,
-    dni,
+    lastname,
+    typeDocument,
+    documentNumber,
+    state,
+    dateOfBirth,
+    genre,
+    civilStatus,
+    phone,
+    telephone,
     email,
+    location,
+    charge,
+    sueldo,
+    user,
+    password,
     modules,
     phoneCode,
     phoneNumber,
     business,
-    password,
+    sede,
   } = req.body;
 
   try {
     const userFound = await Employee.findById(_id);
+    console.log(userFound);
 
     if (!userFound) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
     if (name) userFound.name = name;
-    if (dni) userFound.dni = dni;
+    if (lastname) userFound.lastname = lastname;
+    if (typeDocument) userFound.typeDocument = typeDocument;
+    if (documentNumber) userFound.documentNumber = documentNumber;
+    if (state) userFound.state = state;
+    if (dateOfBirth) userFound.dateOfBirth = dateOfBirth;
+    if (genre) userFound.genre = genre;
+    if (civilStatus) userFound.civilStatus = civilStatus;
+    if (phone) userFound.phone = phone;
+    if (telephone) userFound.telephone = telephone;
     if (email) userFound.email = email;
+    if (location) userFound.location = location;
+    if (charge) userFound.charge = charge;
+    if (sueldo) userFound.sueldo = sueldo;
+    if (user) userFound.user = user;
     if (modules) userFound.modules = modules;
     if (phoneCode) userFound.phoneCode = phoneCode;
     if (phoneNumber) userFound.phoneNumber = phoneNumber;
     if (business) userFound.business = business;
+    if (sede) userFound.sede = sede;
 
     if (password) {
       userFound.password = await hashPassword(password);
@@ -38,7 +64,6 @@ const updateEmployeePartial = async (req, res) => {
 
     return res.status(200).json({
       message: "Usuario actualizado correctamente",
-      updatedUser: userFound,
     });
   } catch (error) {
     console.log(error);

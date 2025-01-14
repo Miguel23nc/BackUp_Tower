@@ -1,6 +1,6 @@
 const { compare } = require("bcrypt");
 const generatetoken = require("../../utils/jwt");
-const Employee = require("../../models/Employee");
+const Employee = require("../../models/Employees/Employee");
 
 const login = async (req, res) => {
 

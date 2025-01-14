@@ -1,49 +1,86 @@
-const Employee = require("../../models/Employee");
+const Business = require("../../models/Business");
+const Employee = require("../../models/Employees/Employee");
 const { hashPassword } = require("../../utils/bcrypt");
 
-const register = async (req, res) => {
-  const {
-    name,
-    dni,
-    email,
-    modules,
-    phoneCode,
-    phoneNumber,
-    business,
-    password,
-  } = req.body;
-
+const registerEmployee = async (req, res) => {
   try {
-    const userFoundEmail = await Employee.findOne({ email });
-    if (userFoundEmail)
-      return res.status(400).json({
-        message: "Usuario ya existente",
-      });
-
-    const userFoundDni = await Employee.findOne({ dni });
-    if (userFoundDni)
-      return res.status(400).json({
-        message: "Usuario ya existente",
-      });
-
-    const hashedPassword = await hashPassword(password);
-
-    const userCreate = new Employee({
+    const {
       name,
-      dni,
+      lastname,
+      documentType,
+      documentNumber,
+      state,
+      dateOfBirth,
+      genre,
+      civilStatus,
+      phone,
+      telephone,
       email,
+      location,
+      address,
+      charge,
+      sueldo,
+      user,
+      password,
+      photo,
       modules,
-      phoneCode,
-      phoneNumber,
       business,
+      sede,
+    } = req.body;
+
+    // Hash the password
+    const hashedPassword = await hashPassword(password);
+    const findEmployee = await Employee.findOne({ documentNumber });
+    if (findEmployee) {
+      return res.status(400).json({ message: "El Colaborador ya existe" });
+    }
+    if (!hashedPassword) {
+      return res
+        .status(500)
+        .json({ message: "Error al hashear la contraseña" });
+    }
+    const findBusiness = await Business.findOne({ razonSocial: business });
+
+    if (!findBusiness) {
+      return res.status(404).json({ message: "Empresa no encontrada" });
+    }
+    const newEmployee = new Employee({
+      name,
+      lastname,
+      documentType,
+      documentNumber,
+      state,
+      dateOfBirth,
+      genre,
+      civilStatus,
+      phone,
+      telephone,
+      email,
+      location,
+      address,
+      charge,
+      sueldo,
+      user,
       password: hashedPassword,
+      photo,
+      modules,
+      business,
+      sede,
     });
 
-    await userCreate.save();
-    return res.status(200).json({ message: "Usuario creado correctamente" });
+    // Save the employee to the database
+    await newEmployee.save();
+
+    res.status(201).json({
+      message: "Colaborador registrado exitosamente",
+      employee: newEmployee,
+    });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: error });
+    res.status(500).json({
+      message: "Error al registrar Colaborador",
+      error: error.message,
+    });
   }
 };
-module.exports = register;
+
+module.exports = registerEmployee;

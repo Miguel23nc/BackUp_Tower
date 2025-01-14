@@ -1,11 +1,10 @@
-const Employee = require("../../models/Employee");
+const Employee = require("../../models/Employees/Employee");
 
 const deleteEmployee = async (req, res) => {
   const { _id } = req.body;
 
   try {
-    console.log(req.body);
-    console.log(_id);
+
     const userDelete = await Employee.findByIdAndDelete(_id);
 
     if (!userDelete) {

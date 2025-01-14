@@ -1,9 +1,9 @@
-require("dotenv").config()
-const { PORT } = process.env
-const app = require("./src/app.js")
-const connectDB = require("./src/dbConnection.js")
+require("dotenv").config();
+const { PORT } = process.env;
+const app = require("./src/app.js");
+const connectDB = require("./src/dbConnection.js");
 
-connectDB()
+connectDB();
 
-app.listen(3001)
+app.listen(PORT || 3001);
 console.log("server ok", PORT);
