@@ -1,20 +1,20 @@
 import { useDispatch } from "react-redux";
-import ButtonOk from "../../../../recicle/Buttons";
-import { getEmployees } from "../../../../redux/actions";
+import ButtonOk from "../../../../recicle/Buttons/Buttons";
+import { getClients } from "../../../../redux/actions";
 import { useAuth } from "../../../../context/AuthContext";
 import useref from "../../../../recicle/useRef";
 
-const Delete = ({ setShowDelete, employee }) => {
-  const id = employee._id;
+const Delete = ({ setShowDelete, client }) => {
+  const id = client._id;
+  console.log(id);
   const ref = useref(setShowDelete);
   const dispatch = useDispatch();
-  const { deleteEmployee } = useAuth();
+  const { deleteClient } = useAuth();
 
   const handleDelete = async () => {
     try {
-      const response = await deleteEmployee(id);
-      dispatch(getEmployees());
-
+      const response = await deleteClient(id);
+      dispatch(getClients());
       console.log("Response: ", response);
     } catch (error) {
       console.log(error);

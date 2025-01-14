@@ -10,7 +10,7 @@
     padding-right: 15px;
     padding-left: 15px;
     background-color: white;
-    
+
 }
 
 .PhoneInputInput {
@@ -24,4 +24,9 @@
 .PhoneInputCountry {
     margin-right: 0;
     color: #007bff;
+}
+
+input:disabled {
+    background-color: #ffffff;
+    cursor: not-allowed;
 }

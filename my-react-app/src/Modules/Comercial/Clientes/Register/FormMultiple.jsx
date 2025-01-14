@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Input from "../../../../recicle/Inputs";
+import Input from "../../../../recicle/Inputs/Inputs";
 
 const FormMultiple = ({ set, resetForm, initialData }) => {
   const [directorio, setDirectorio] = useState({

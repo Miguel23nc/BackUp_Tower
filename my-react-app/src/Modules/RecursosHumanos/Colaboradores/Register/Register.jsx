@@ -1,112 +1,105 @@
 import { useEffect, useState } from "react";
 import PopUp from "../../../../recicle/popUps";
-import FormOne from "./FormOne";
-import Permissions from "./Permissions";
-import ButtonOk from "../../../../recicle/Buttons";
+import FormOne from "./DatosBásicos/FormOne";
+import ButtonOk from "../../../../recicle/Buttons/Buttons";
 import { useAuth } from "../../../../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessage } from "../../../../redux/actions";
+import CardPlegable from "../../../../recicle/Divs/CardPlegable";
+import FormMultiple from "./ModulosPermisos/FormMultiple";
+import RemoveItemAdd from "../../../../components/RemoveAdd/RemoveItemAdd";
+import Ubicacion from "./DatosBásicos/Ubicacion";
+import imageCloudinary from "../../../../api/cloudinaryImage";
+import useValidation from "./validate";
 
 const Register = () => {
-  const [showPopUp, setShowPopUp] = useState(false);
-  const [showForm, setShowForm] = useState(true);
-  const [showPermissions, setShowPermissions] = useState(true);
-  const [userData, setUserData] = useState([]);
-  const [form1, setForm1] = useState(null);
-  const [form2, setForm2] = useState(null);
-  const [resetForm, setResetForm] = useState(false);
-  const { signup, setErrors, setResponse } = useAuth();
-  const errorForms = useSelector((state) => state.error);
+  const { signup, response } = useAuth();
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    dni: "",
     name: "",
+    lastname: "",
+    documentType: "",
+    documentNumber: "",
+    dateOfBirth: "",
+    genre: "",
+    phone: "",
+    telephone: "",
+    civilStatus: "",
     email: "",
+    location: {
+      departamento: "",
+      provincia: "",
+      distrito: "",
+      direccion: "",
+    },
     business: "",
-    phoneCode: "+51",
-    phoneNumber: "",
+    sede: "",
+    charge: "",
+    sueldo: "",
+    user: "",
+    photo: "",
     password: "",
+    modules: [
+      {
+        name: "",
+        submodule: {
+          name: "",
+          permissions: [],
+        },
+      },
+    ],
   });
-  const handleShowForm = () => {
-    setShowForm(!showForm);
-  };
-  const handleShowPermissions = () => {
-    setShowPermissions(!showPermissions);
-  };
-  useEffect(() => {
-    if (form1 && form2) {
-      form1["modules"] = form2;
-      setUserData(form1);
-    }
-  }, [form1, form2]);
-  const handleClosePopUp = () => {
-    dispatch(setMessage("", ""));
-    setShowPopUp(false);
-    setResponse(null);
-    setErrors(null);
-  };
-  useEffect(() => {
-    if (errorForms.message) {
-      setShowPopUp(true);
-    }
-  }, [errorForms]);
+
+  const { error, validateForm } = useValidation(formData);
 
   const register = async () => {
+    const formIsValid = validateForm(formData);
     try {
-      if (!errorForms.message) {
-        if (!form1 || !form2) {
-          dispatch(setMessage("Faltan datos", "Error"));
-          setShowPopUp(true);
-        } else {
-          const newUserData = {
-            ...userData,
-            dni: Number(userData.dni),
-          };
-          await signup(newUserData);
-          setResetForm(true);
+      console.log("formIsValid", formIsValid);
+      if (formIsValid) {
+        const pathImage = await imageCloudinary(formData.photo);
+        const newFormData = {
+          ...formData,
+          photo: pathImage,
+        };
+        await signup(newFormData);
+        if (response) {
+          dispatch(setMessage(response, "Ok"));
         }
       } else {
-        dispatch(setMessage("Ocurrió un problema", "Error"));
-        setShowPopUp(true);
+        dispatch(setMessage("Faltan datos", "Error"));
       }
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
+      dispatch(setMessage(error, "Error"));
     }
   };
+  console.log("formData", formData);
 
   return (
     <div className="flex flex-col w-full p-6">
-      {showPopUp && <PopUp onClose={handleClosePopUp} message={errorForms} />}
-
-      <ButtonOk
-        type="ok"
-        styles="ml-12 mt-8 px-8  mx-4 "
-        children="Datos Básicos"
-        onClick={handleShowForm}
-      />
-      {showForm && (
-        <FormOne
-          setFormData={setFormData}
-          formData={formData}
-          setForm1={setForm1}
-          resetForm={resetForm}
+      <PopUp />
+      <CardPlegable title="Datos del Colaborador">
+        <FormOne setForm={setFormData} error={error} form={formData} />
+      </CardPlegable>
+      <CardPlegable title="Ubicación">
+        <Ubicacion setForm={setFormData} error={error} form={formData} />
+      </CardPlegable>
+      <CardPlegable title="Permisos">
+        <RemoveItemAdd
+          ItemComponent={FormMultiple}
+          data="modules"
+          estilos=" flex justify-center items-center"
+          directory={formData.modules}
+          setForm={setFormData}
+          error={error}
         />
-      )}
-
-      <ButtonOk
-        type="ok"
-        styles="ml-12 mt-8 px-8  mx-4 "
-        children="Modulos y permisos"
-        onClick={handleShowPermissions}
-      />
-      {showPermissions && (
-        <Permissions setForm2={setForm2} resetForm={resetForm} />
-      )}
+      </CardPlegable>
 
       <div className="flex justify-center ">
         <ButtonOk type="ok" onClick={register} children="Registrar" />
-        <ButtonOk children="Cancelar" />
+        <ButtonOk children="Cancelar" onClick={() => setResetForm(true)} />
       </div>
     </div>
   );

@@ -4,9 +4,39 @@ import Cookies from "js-cookie";
 import { verifyToken } from "../api/verifyToken";
 import { setMessage } from "../redux/actions";
 import { useDispatch } from "react-redux";
+import {
+  create_Contrato,
+  delete_Contrato,
+  update_Contrato,
+} from "./CRUD/Recursos Humanos/Contratos";
+import {
+  create_Employee,
+  delete_Employee,
+  update_Employee,
+} from "./CRUD/Recursos Humanos/Colaboradores";
+import {
+  create_plantilla_contrato,
+  delete_plantilla_contrato,
+  update_plantilla_contrato,
+} from "./CRUD/Recursos Humanos/PlantillasContrato";
+import {
+  create_AsistenciaColaborador,
+  delete_AsistenciaColaborador,
+  update_AsistenciaColaborador,
+} from "./CRUD/Recursos Humanos/AsistenciaColaborador";
+import {
+  create_AsistenciaVisitante,
+  delete_AsistenciaVisitante,
+  update_AsistenciaVisitante,
+} from "./CRUD/Recursos Humanos/AsistenciaVisitante";
+import {
+  delete_BoletasDePago,
+  enviar_BoletasDePago,
+  post_BoletasDePago,
+  update_BoletasDePago,
+} from "./CRUD/Recursos Humanos/BoletasDePago";
 
 export const AuthContext = createContext();
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -46,19 +76,14 @@ export const AuthProvider = ({ children }) => {
       setErrors(error?.response?.data?.message);
     }
   };
-
-  const signup = async (user) => {
-    try {
-      const response = await axios.post("/registerEmployee", user);
-      const data = response.data;
-      setResponse(data.message);
-    } catch (error) {
-      console.log(error);
-      setErrors(
-        error?.response?.data?.message?._message ||
-          error?.response?.data?.message
-      );
-    }
+  const signup = async (employee) => {
+    await create_Employee(employee, setResponse, setErrors);
+  };
+  const updateEmployee = async (employee) => {
+    await update_Employee(employee, setResponse, setErrors);
+  };
+  const deleteEmployee = async (id) => {
+    await delete_Employee(id, setResponse, setErrors);
   };
 
   const createClient = async (user) => {
@@ -82,21 +107,9 @@ export const AuthProvider = ({ children }) => {
       setErrors(error?.response?.data?.message);
     }
   };
-  const updateEmployee = async (user) => {
+  const deleteClient = async (id) => {
     try {
-      const response = await axios.patch("/patchEmployee", user);
-      const data = response.data;
-      setResponse(data.message);
-      setUser(data.updatedUser);
-      return data;
-    } catch (error) {
-      console.log(error);
-      setErrors(error?.response?.data?.message);
-    }
-  };
-  const deleteEmployee = async (id) => {
-    try {
-      const response = await axios.delete("/deleteEmployee", {
+      const response = await axios.delete("/deleteClient", {
         data: { _id: id },
       });
       const data = response.data;
@@ -106,6 +119,148 @@ export const AuthProvider = ({ children }) => {
       console.log(error);
       setErrors(error?.response?.data?.message);
     }
+  };
+
+  const createCotizacion = async (user) => {
+    try {
+      const response = await axios.post("/createCotizacion", user);
+      const data = response.data;
+      setResponse(data.cotizacion.correlativa);
+    } catch (error) {
+      console.log(error);
+      setErrors(
+        error?.response?.data?.message?._message ||
+          error?.response?.data?.message
+      );
+    }
+  };
+
+  const deleteCotizacion = async (id) => {
+    try {
+      const response = await axios.delete("/deleteCotizacion", {
+        data: { _id: id },
+      });
+      const data = response.data;
+      setResponse(data.message);
+      return data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error?.response?.data?.message);
+    }
+  };
+  const patchCotizacion = async (user) => {
+    try {
+      const response = await axios.patch("/patchCotizacion", user);
+      const data = response.data;
+      setResponse(data.message);
+      return data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error?.response?.data?.message);
+    }
+  };
+  const postBusiness = async (user) => {
+    try {
+      const response = await axios.post("/createBusiness", user);
+      const data = response.data;
+      setResponse(data.message);
+    } catch (error) {
+      console.log(error);
+      setErrors(error?.response?.data?.message);
+    }
+  };
+  const deleteBusiness = async (id) => {
+    try {
+      const response = await axios.delete("/deleteBusiness", {
+        data: { _id: id },
+      });
+      const data = response.data;
+      setResponse(data.message);
+      return data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error?.response?.data?.message);
+    }
+  };
+
+  const updateBusiness = async (user) => {
+    try {
+      const response = await axios.patch("/patchBusiness", user);
+      const data = response.data;
+      setResponse(data.message);
+      return data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error?.response?.data?.message);
+    }
+  };
+  const createContrato = async (contract) => {
+    await create_Contrato(contract, setErrors, setResponse);
+  };
+  const updateContrato = async (contract) => {
+    await update_Contrato(contract, setErrors, setResponse);
+  };
+  const deleteContrato = async (id) => {
+    await delete_Contrato(id, setErrors, setResponse);
+  };
+
+  const createPlantillaContrato = async (plantilla_contrato) => {
+    await create_plantilla_contrato(plantilla_contrato, setResponse, setErrors);
+  };
+  const updatePlantillaContrato = async (plantilla_contrato) => {
+    await update_plantilla_contrato(plantilla_contrato, setResponse, setErrors);
+  };
+  const deletePlantillaContrato = async (id) => {
+    await delete_plantilla_contrato(id, setResponse, setErrors);
+  };
+
+  const createAsistenciaColaborador = async (AsistenciaColaborador) => {
+    await create_AsistenciaColaborador(
+      AsistenciaColaborador,
+      setResponse,
+      setErrors
+    );
+  };
+  const updateAsistenciaColaborador = async (AsistenciaColaborador) => {
+    await update_AsistenciaColaborador(
+      AsistenciaColaborador,
+      setResponse,
+      setErrors
+    );
+  };
+  const deleteAsistenciaColaborador = async (id) => {
+    await delete_AsistenciaColaborador(id, setResponse, setErrors);
+  };
+
+  const createAsistenciaVisitante = async (AsistenciaVisitante) => {
+    await create_AsistenciaVisitante(
+      AsistenciaVisitante,
+      setResponse,
+      setErrors
+    );
+  };
+  const updateAsistenciaVisitante = async (AsistenciaVisitante) => {
+    await update_AsistenciaVisitante(
+      AsistenciaVisitante,
+      setResponse,
+      setErrors
+    );
+  };
+  const deleteAsistenciaVisitante = async (id) => {
+    await delete_AsistenciaVisitante(id, setResponse, setErrors);
+  };
+
+  const postBoletasDePago = async (BoletasDePago) => {
+    await post_BoletasDePago(BoletasDePago, setResponse, setErrors);
+  };
+  const updateBoletasDePago = async (BoletasDePago) => {
+    await update_BoletasDePago(BoletasDePago, setResponse, setErrors);
+  };
+  const deleteBoletasDePago = async (id) => {
+    await delete_BoletasDePago(id, setResponse, setErrors);
+  };
+  const enviarBoletasDePago = async (BoletasDePago) => {
+    await enviar_BoletasDePago(BoletasDePago, setResponse, setErrors);
   };
 
   useEffect(() => {
@@ -136,13 +291,10 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(false);
           }
         } catch (error) {
-          console.log(error);
-
           if (error?.response?.data?.message === "Token expirado") {
             console.log("expirado");
             await logout();
           }
-
           setUser(null);
           setIsAuthenticated(false);
         }
@@ -169,6 +321,29 @@ export const AuthProvider = ({ children }) => {
         setResponse,
         createClient,
         updateClient,
+        deleteClient,
+        createCotizacion,
+        deleteCotizacion,
+        patchCotizacion,
+        postBusiness,
+        deleteBusiness,
+        updateBusiness,
+        createContrato,
+        updateContrato,
+        deleteContrato,
+        createPlantillaContrato,
+        updatePlantillaContrato,
+        deletePlantillaContrato,
+        createAsistenciaColaborador,
+        updateAsistenciaColaborador,
+        deleteAsistenciaColaborador,
+        createAsistenciaVisitante,
+        updateAsistenciaVisitante,
+        deleteAsistenciaVisitante,
+        postBoletasDePago,
+        updateBoletasDePago,
+        deleteBoletasDePago,
+        enviarBoletasDePago,
       }}
     >
       {children}

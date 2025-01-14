@@ -5,16 +5,19 @@ const useref = (setShow) => {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
-        const dropdowns = document.querySelectorAll('.p-dropdown-panel, .p-multiselect-panel');
-        let clickedInsideDropdown = false;
-        
-        dropdowns.forEach(dropdown => {
-          if (dropdown.contains(e.target)) {
-            clickedInsideDropdown = true;
+        const excludeElements = document.querySelectorAll(
+          '.p-dropdown-panel, .p-multiselect-panel, .MuiPickersPopper-root'
+        );
+
+        let clickedInsideExclusion = false;
+
+        excludeElements.forEach((element) => {
+          if (element.contains(e.target)) {
+            clickedInsideExclusion = true;
           }
         });
 
-        if (!clickedInsideDropdown) {
+        if (!clickedInsideExclusion) {
           setShow(false);
         }
       }
@@ -30,4 +33,3 @@ const useref = (setShow) => {
 };
 
 export default useref;
-

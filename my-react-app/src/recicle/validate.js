@@ -1,19 +1,17 @@
 export const validateForm1 = (formData1) => {
+  const { dni, name, email, password, business, phoneNumber } = formData1;
   const newErrors = {};
-
-  if (!formData1.ruc) {
-    newErrors.ruc = "RUC is required";
-  } else if (formData1.ruc.length < 11) {
-    newErrors.ruc = "RUC must be 11 characters long";
-  }
-  if (!formData1.name) newErrors.name = "Name is required";
-  if (!formData1.email) newErrors.email = "Email is required";
-  if (!formData1.password) {
-    newErrors.password = "Password is required";
-  } else if (formData1.password.length < 6) {
-    newErrors.password = "Password must be at least 6 characters long";
-  }
-  if (!formData1.role) newErrors.role = "Rol is Requerid";
+  const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!dni) newErrors.dni = "Se requiere DNI";
+  if (!name) newErrors.name = "Se requiere nombre y apellido";
+  if (!email) newErrors.email = "Se requiere dirección de correo electrónico";
+  if (email && !regexEmail.test(email)) newErrors.email = "Email invalido";
+  if (!business) newErrors.business = "Se requiere empresa";
+  if (!password) newErrors.password = "Se requiere contraseña";
+  if (password && password.length < 6)
+    newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+  if (!phoneNumber) newErrors.phoneNumber = "Se requiere teléfono";
+  if (dni && dni?.length !== 8) newErrors.dni = "DNI debe tener 8 dígitos";
   return newErrors;
 };
 
@@ -23,14 +21,15 @@ export const validateForm2 = (
   selectedPermissions
 ) => {
   const errors = {};
-
-  if (!selectedModule) errors.selectedModule = "Module is required";
-  if (!selectedSubModule) errors.selectedSubModule = "Submodule is required";
-  if (selectedPermissions.length === 0)
-    errors.selectedPermissions = "At least one permission is required";
-
+  if (!selectedModule) errors.selectedModule = "Se requiere módulo";
+  if (!selectedSubModule) errors.selectedSubModule = "Se requiere submódulo";
+  if (selectedPermissions?.length === 0)
+    errors.selectedPermissions = "Se requiere al menos un permiso";
   return errors;
 };
+
+export const validateRevomeAdd = (formData) => {};
+
 export const validateClient1 = (clientData) => {
   const {
     ruc,
@@ -44,14 +43,17 @@ export const validateClient1 = (clientData) => {
   } = clientData;
   const errors = {};
 
-  if (!ruc) errors.ruc = "RUC is required";
-  if (!razonSocial) errors.razonSocial = "Razon Social is required";
-  if (!direction) errors.direction = "Direction is required";
-  if (!phoneNumber) errors.phoneNumber = "Phone number is required";
-  if (!email) errors.email = "Email is required";
-  if (!password) errors.password = "Password is required";
-  if (!economicSector) errors.economicSector = "Economic sector is required";
-  if (!condition) errors.condition = "Condition is required";
+  if (!ruc) errors.ruc = "Ruc es obligatorio";
+  if (!razonSocial) errors.razonSocial = "Razon social es obligatorio";
+  if (!direction) errors.direction = "Direccion es obligatorio";
+  if (!phoneNumber) errors.phoneNumber = "Telefono es obligatorio";
+  if (!email) errors.email = "Email es obligatorio";
+  if (!password) errors.password = "La contraseña es obligatoria";
+  if (password && password.length < 6)
+    errors.password = "La contraseña debe tener al menos 6 caracteres";
+  if (!economicSector)
+    errors.economicSector = "Sector economico es obligatorio";
+  if (!condition) errors.condition = "Condicion es obligatorio";
 
   return errors;
 };
@@ -71,6 +73,6 @@ export const validateClient2 = (directory) => {
   if (!phoneCodeDirectory) errors.phoneCodeDirectory = "Phone code is required";
   if (!phoneNumberDirectory)
     errors.phoneNumberDirectory = "Phone number is required";
-  
+
   return errors;
 };

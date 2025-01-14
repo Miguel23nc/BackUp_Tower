@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "./axios";
+import { setMessage } from "../redux/actions";
 
 export const axiosOptions = () => {
   const [modules, setModules] = useState([]);
@@ -32,14 +33,3 @@ export const axiosOptions = () => {
   return { modules, submodules, permissions, employees, error };
 };
 
-// export const consultarRuc = async (numeroRuc, dispatch) => {
-//   try {
-//     const response = await axios.get(
-//       `http://localhost:3001/api/ruc?numeroRuc=${numeroRuc}`
-//     );
-//     return response.data?.razonSocial || "";
-//   } catch (error) {
-//     dispatch(setMessage("Error al consultar RUC", "Error"));
-//     return "Error al consultar RUC"
-//   }
-// };

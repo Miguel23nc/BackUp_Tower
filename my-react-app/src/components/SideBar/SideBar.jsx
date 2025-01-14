@@ -3,17 +3,18 @@ import OptionSideBar from "./OptionSideBar";
 import useModulesAndSubModules from "./Links";
 
 const SideBar = () => {
-  const {links} = useModulesAndSubModules();
-  const userOptions = links
+  const { links } = useModulesAndSubModules();
+  const userOptions = links;
+
   return (
     <div
       className="bg-sky-600 fixed  z-50 items-center  flex flex-col 
          w-20 border-r border-t-stone-400 min-h-screen"
     >
       <div className=" mt-[-18px]">
-        <div className="w-14 flex justify-center  items-center h-14 m-2 my-8 bg-orange-300 rounded-full">
+        <div className="w-14 flex justify-center items-center h-14 m-2 my-8 bg-orange-300 rounded-full">
           <Link to={"/home"}>
-            <span>LOGO</span>
+            <span className="font-semibold text-sm text-blue-800">TOWER</span>
           </Link>
         </div>
       </div>
@@ -22,7 +23,7 @@ const SideBar = () => {
           ? userOptions?.map((options, index) => (
               <OptionSideBar
                 key={index}
-                icon={<img src="" alt="icon" />}
+                icon={<img src={`/${options.module}.png`} alt="icon" />}
                 options={options}
               />
             ))

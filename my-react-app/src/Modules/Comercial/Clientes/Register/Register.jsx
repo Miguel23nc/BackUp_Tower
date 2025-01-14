@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import PopUp from "../../../../recicle/popUps";
 import FormOne from "./FormOne";
 import Permissions from "./Permissions";
-import ButtonOk from "../../../../recicle/Buttons";
 import { useAuth } from "../../../../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessage } from "../../../../redux/actions";
+import ButtonOk from "../../../../recicle/Buttons/Buttons";
+import PopUp from "../../../../recicle/popUps";
 
 const Register = () => {
   const [showPopUp, setShowPopUp] = useState(false);
@@ -69,7 +69,7 @@ const Register = () => {
 
   console.log(form1);
   return (
-    <div className="flex flex-col w-full p-6">
+    <div className="flex flex-col justify-center w-full p-6">
       {showPopUp && <PopUp onClose={handleClosePopUp} message={errorForms} />}
 
       <ButtonOk

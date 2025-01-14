@@ -9,7 +9,6 @@ import { setMessage } from "../../redux/actions";
 const Login = () => {
   const navigate = useNavigate();
   const { signin, isAuthenticated, errors, setErrors } = useAuth();
-  const [showPopUp, setShowPopUp] = useState(false);
   const errorForms = useSelector((state) => state.error);
   const dispatch = useDispatch();
   console.log(errorForms);
@@ -20,40 +19,29 @@ const Login = () => {
   } = useForm();
 
   useEffect(() => {
-    if (errorForms.message) {
-      setShowPopUp(true);
-    }
-  }, [errorForms]);
-
-  useEffect(() => {
     if (isAuthenticated) navigate("/home");
   }, [isAuthenticated, navigate]);
 
   const onSubmit = async (data) => {
     try {
       await signin(data);
+      if (errors) {
+        dispatch(setMessage(errors, "Error"));
+        setErrors(null);
+      }
     } catch (error) {
-      console.log(error);
+      dispatch(setMessage("Error al iniciar sesión", "Error"));
     }
-  };
-
-  const handleClosePopUp = () => {
-    dispatch(setMessage("", ""));
-    setShowPopUp(false);
-    setErrors(null);
   };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      {showPopUp && <PopUp onClose={handleClosePopUp} message={errorForms} />}
+      <PopUp />
       <div className="flex flex-col justify-center w-1/5 h-3/5 lg:p-12 bg-cyan-500 shadow-lg shadow-cyan-500/50 rounded-2xl">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h1 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             LOGIN
           </h1>
-          <h2 className="mt-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Crea tu cuenta
-          </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

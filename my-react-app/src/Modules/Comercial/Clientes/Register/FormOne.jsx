@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-
-import Input from "../../../../recicle/Inputs";
 import { useDispatch, useSelector } from "react-redux";
 import { consultarRuc } from "./Axios";
 import { validateClient1 } from "../../../../recicle/validate";
+import Input from "../../../../recicle/Inputs/Inputs";
 
 const FormOne = ({ setForm1, resetForm }) => {
   const errors = useSelector((state) => state.error);
@@ -90,6 +89,7 @@ const FormOne = ({ setForm1, resetForm }) => {
         name="ruc"
         value={formData.ruc}
         onChange={handleChange}
+        error={form1?.ruc}
       />
       {loading ? (
         <p>Cargando Razón Social...</p>
@@ -98,6 +98,7 @@ const FormOne = ({ setForm1, resetForm }) => {
           label="Razón Social"
           type="text"
           name="razonSocial"
+          width="w-96 ml-8"
           value={formData.razonSocial}
           readOnly
         />
@@ -108,6 +109,7 @@ const FormOne = ({ setForm1, resetForm }) => {
         name="direction"
         value={formData.direction}
         onChange={handleChange}
+        error={form1?.direction}
       />
       <div className="flex ml-8 ">
         <Input
@@ -130,6 +132,7 @@ const FormOne = ({ setForm1, resetForm }) => {
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleChange}
+          error={form1?.phoneNumber}
         />
       </div>
       <Input
@@ -138,13 +141,16 @@ const FormOne = ({ setForm1, resetForm }) => {
         name="email"
         value={formData.email}
         onChange={handleChange}
+        error={form1?.email}
       />
       <Input
         label="Contraseña"
         type="password"
         name="password"
+        width="w-40 ml-8"
         value={formData.password}
         onChange={handleChange}
+        error={form1?.password}
       />
       <Input
         label="Sector Económico"
@@ -152,13 +158,16 @@ const FormOne = ({ setForm1, resetForm }) => {
         name="economicSector"
         value={formData.economicSector}
         onChange={handleChange}
+        error={form1?.economicSector}
       />
       <Input
         label="Condición de Pago"
-        type="condition"
+        type="select"
+        options={["Contado", "Crédito"]}
         name="condition"
         value={formData.condition}
         onChange={handleChange}
+        error={form1?.condition}
       />
     </form>
   );

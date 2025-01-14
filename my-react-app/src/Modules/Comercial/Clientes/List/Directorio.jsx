@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ButtonOk from "../../../../recicle/Buttons";
+import ButtonOk from "../../../../recicle/Buttons/Buttons";
 import FormMultiple from "../Register/FormMultiple";
 
 const Directorio = ({ directory, setEdition }) => {
@@ -19,13 +19,10 @@ console.log(formData);
   };
 
   const handleUpdateFormData = (id, newData) => {
-    // Actualiza el formData local con los datos nuevos
     const updatedForms = formData.map((form) =>
       form.id === id ? { ...form, initialData: newData } : form
     );
-    // Actualiza el estado local de formData
     setFormData(updatedForms);
-    // Actualiza el estado global usando setEdition
     setEdition((prevEdition) => ({
       ...prevEdition,
       directory: updatedForms.map((form) => form.initialData),
@@ -43,7 +40,7 @@ console.log(formData);
   return (
     <div>
       {formData.map((form) => (
-        <div key={form.id} className="border rounded">
+        <div key={form.id} className="border mt-2 border-slate-300 rounded">
           <FormMultiple
             initialData={form.initialData}
             set={(newData) => handleUpdateFormData(form.id, newData)}

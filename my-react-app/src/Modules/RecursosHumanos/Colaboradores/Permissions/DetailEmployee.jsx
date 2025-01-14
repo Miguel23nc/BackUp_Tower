@@ -1,77 +1,93 @@
-import React from "react";
-import moment from "moment";
-import useref from "../../../../recicle/useRef";
-import ButtonOk from "../../../../recicle/Buttons";
-const Details = (props) => {
-  const { setShowDetail, buttonok, employee } = props;
-  const detailsRef = useref(setShowDetail);
+import Details from "../../../../components/Principal/Permissions/View";
+import PDetail from "../../../../recicle/PDtail";
 
-  const handleCloseDetail = () => {
-    setShowDetail(false);
-  };
+const DetailEmployee = ({ setShowDetail, selected }) => {
+  const {
+    name,
+    lastname,
+    email,
+    documentType,
+    documentNumber,
+    state,
+    dateOfBirth,
+    genre,
+    civilStatus,
+    phone,
+    telephone,
+    charge,
+    sueldo,
+    user,
+    photo,
+    business,
+    location,
+    modules,
+  } = selected;
 
   return (
-    <div
-      ref={detailsRef}
-      className={`w-[70%] h-[80%] bg-white flex flex-col justify-center
-         border-stone-500 border shadow-lg fixed top-20 z-50 rounded-xl`}
-    >
-      <div className="flex justify-center h-[80%]">
-        <div className="w-[60%] h-[90%]">
-          <div className="p-10 m-5 h-full overflow-y-auto bg-slate-100 rounded-lg shadow-black shadow-sm">
-            <h3 className="text-2xl font-bold ">Módulos</h3>
-            {employee.modules.map((module, index) => (
-              <div key={index} className="mt-2">
-                <p>
-                  <strong>Módulo:</strong> {module.name}
-                </p>
-                <p>
-                  <strong>Submódulo:</strong> {module.submodule.name}
-                </p>
-                <p>
-                  <strong>Permisos:</strong>{" "}
-                  {module.submodule.permissions.join(", ")}
-                </p>
-              </div>
-            ))}
+    <Details setShowDetail={setShowDetail}>
+      <div className="flex justify-around pt-3">
+        <div>
+          <h3 className="text-2xl font-bold">Datos básicos</h3>
+          <div className="mt-2">
+            <PDetail content="NOMBRES: " value={name} />
+            <PDetail content="APELLIDOS: " value={lastname} />
+            <PDetail content="CORREO: " value={email} />
+            <PDetail content="TIPO DE DOCUMENTO: " value={documentType} />
+            <PDetail content="NÚMERO DE DOCUMENTO: " value={documentNumber} />
+            <PDetail content="ESTADO: " value={state} />
+            <PDetail
+              content="FECHA DE NACIMIENTO: "
+              value={new Date(dateOfBirth).toLocaleDateString("es-PE", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            />
+            <PDetail content="GÉNERO: " value={genre} />
+            <PDetail content="ESTADO CIVIL: " value={civilStatus} />
+            <PDetail content="TELÉFONO: " value={phone} />
+            <PDetail content="TELÉFONO FIJO: " value={telephone} />
+            <PDetail content="CARGO: " value={charge} />
+            <PDetail content="SUELDO: " value={sueldo} />
+            <PDetail content="USUARIO: " value={user} />
+            <PDetail content="EMPRESA: " value={business} />
           </div>
         </div>
-
-        <div className="fl">
-          <div className="w-60 p-4 m-5 h-[36%] bg-slate-100 rounded-lg shadow-black shadow-sm">
-            <img alt={employee.name} src="./" />
-          </div>
-          <div className="w-60 p-4 m-5 h-[50%] bg-slate-100 rounded-lg shadow-black shadow-sm">
+        <div>
+          <h3 className="text-2xl font-bold ">Módulos</h3>
+          {modules?.map((module, index) => (
+            <div key={index} className="mt-2">
+              <PDetail content="Módulo: " value={module.name} />
+              <PDetail content="Submódulo: " value={module.submodule.name} />
+              <PDetail
+                content="Permisos: "
+                value={module.submodule.permissions.join(", ")}
+              />
+            </div>
+          ))}
+        </div>
+        <div>
+          {photo && (
             <p>
-              <strong>Nombre:</strong> {employee.name}
+              <strong>FOTO:</strong>{" "}
+              <img
+                src={photo}
+                alt={`${name} ${lastname}`}
+                className="h-40 w-40 rounded-full"
+              />
             </p>
-            <p>
-              <strong>DNI:</strong> {employee.dni}
-            </p>
-            <p>
-              <strong>Email:</strong> {employee.email}
-            </p>
-            <p>
-              <strong>Empresa:</strong> {employee.business}
-            </p>
-            <p>
-              <strong>Teléfono:</strong> +{employee.phoneCode}{" "}
-              {employee.phoneNumber}
-            </p>
-            <p>
-              <strong>Fecha de Registro:</strong>{" "}
-              {moment(employee.createdAt).format("DD/MM/YYYY HH:mm")}
-            </p>
+          )}
+          <h3 className="text-2xl font-bold mt-3">Ubicación</h3>
+          <div className="mt-2">
+            <PDetail content="Departamento: " value={location?.departamento} />
+            <PDetail content="Provincia: " value={location?.provincia} />
+            <PDetail content="Distrito: " value={location?.distrito} />
+            <PDetail content="Dirección: " value={location?.direccion} />
           </div>
         </div>
       </div>
-
-      <div className="flex justify-end p-3">
-        {buttonok}
-        <ButtonOk onClick={handleCloseDetail} children="Cerrar" />
-      </div>
-    </div>
+    </Details>
   );
 };
 
-export default Details;
+export default DetailEmployee;

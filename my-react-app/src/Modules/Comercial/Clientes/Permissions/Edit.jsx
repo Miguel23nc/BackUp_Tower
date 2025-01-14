@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import useref from "../../../../recicle/useRef";
 import { useAuth } from "../../../../context/AuthContext";
 import { getClients } from "../../../../redux/actions";
-import Input from "../../../../recicle/Inputs";
 import Directorio from "../List/Directorio";
-import ButtonOk from "../../../../recicle/Buttons";
+import ButtonOk from "../../../../recicle/Buttons/Buttons";
+import { deepDiff } from "../../../validateEdit";
+import Input from "../../../../recicle/Inputs/Inputs";
 
 const Edit = (props) => {
   const { setShowEdit, client } = props;
@@ -37,13 +38,9 @@ const Edit = (props) => {
     }
   };
 
-  const getNonMatchingProperties = (obj1, obj2) => {
-    return Object.fromEntries(
-      Object.entries(obj1).filter(([key, value]) => obj2[key] !== value)
-    );
-  };
+  const comparation = deepDiff(client, edition);
   const nonMatchingProperties = {
-    ...getNonMatchingProperties(edition, client),
+    ...comparation,
     _id: edition._id,
   };
 
@@ -70,7 +67,7 @@ const Edit = (props) => {
       >
         <h1 className="">CLIENTE</h1>
         <div
-          className="flex content-center border  border-slate-400 rounded-lg
+          className="flex content-center border  border-slate-300 rounded-lg
         min-h-[58%] px-2 flex-wrap"
         >
           <Input
@@ -153,7 +150,7 @@ const Edit = (props) => {
             value={edition.condition}
           />
         </div>
-        <div className="min-h-[30%]   py-3 items-start">
+        <div className="min-h-[30%]  border-slate-300  py-3 items-start">
           <h1>Directorio</h1>
           <Directorio directory={edition.directory} setEdition={setEdition} />
         </div>

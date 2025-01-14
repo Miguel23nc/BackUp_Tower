@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import List from "./List/List";
-import Register from "./Register/Register";
+import List from "../Clientes/List/List";
+import Register from "../Clientes/Register/Register";
 
 const Clientes = () => {
   const { user } = useAuth();
@@ -9,12 +9,13 @@ const Clientes = () => {
     if (user) {
       const { modules } = user;
       const hasPermission1 = modules?.filter(
-        (module) => module.submodule.name === "Colaboradores"
+        (module) => module.submodule.name === "Clientes"
       );
       const hasPermission2 = hasPermission1[0].submodule.permissions;
       return hasPermission2;
     }
   };
+
   const permissionCreate = hasPermission().some(
     (permission) => permission === "write"
   );
@@ -27,14 +28,17 @@ const Clientes = () => {
   const permissionDelete = hasPermission().some(
     (permission) => permission === "delete"
   );
-  const [change, setCahnge] = useState("Listar");
+  useEffect(() => {
+    permissionRead ? setCahnge("Listar") : setCahnge("Crear");
+  }, [permissionRead, permissionCreate]);
+  const [change, setCahnge] = useState("");
   const handleSelect = (e) => {
     const { value } = e.target;
     setCahnge(value);
   };
 
   return (
-    <div className="w-full" style={{ backgroundColor: "#f8f9fa" }}>
+    <div className="w-full" >
       <div className="flex justify-start  pt-2 px-14">
         <select
           id="1"
@@ -51,6 +55,7 @@ const Clientes = () => {
         <Register />
       ) : (
         <List
+          permissionRead={permissionRead}
           permissionEdit={permissionEdit}
           permissionDelete={permissionDelete}
         />
@@ -59,4 +64,4 @@ const Clientes = () => {
   );
 };
 
-export default Clientes
+export default Clientes;

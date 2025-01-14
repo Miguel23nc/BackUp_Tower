@@ -9,10 +9,10 @@ import { getClients, setMessage } from "../../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "../../../../recicle/popUps";
 import { useAuth } from "../../../../context/AuthContext";
-import Detail from "../Permissions/Detail.jsx"
+import Detail from "../Permissions/Detail.jsx";
 import Delete from "../Permissions/Delete";
 import Edit from "../Permissions/Edit.jsx";
-const List = ({ permissionEdit, permissionDelete }) => {
+const List = ({ permissionEdit, permissionDelete, permissionRead }) => {
   const [showDetail, setShowDetail] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -110,10 +110,7 @@ const List = ({ permissionEdit, permissionDelete }) => {
         />
       )}
       {showDelete && (
-        <Delete
-          setShowDelete={setShowDelete}
-          client={selectedClient}
-        />
+        <Delete setShowDelete={setShowDelete} client={selectedClient} />
       )}
       <div className="w-full">
         <DataTable
@@ -160,13 +157,16 @@ const List = ({ permissionEdit, permissionDelete }) => {
             sortable
             style={{ minWidth: "8rem" }}
           ></Column>
-          <Column
-            body={(rowData) => (
-              <button onClick={() => handleShowDetail(rowData)}>Ver</button>
-            )}
-            exportable={false}
-            style={{ minWidth: "4rem" }}
-          ></Column>
+          {permissionRead && (
+            <Column
+              body={(rowData) => (
+                <button onClick={() => handleShowDetail(rowData)}>Ver</button>
+              )}
+              exportable={false}
+              style={{ minWidth: "4rem" }}
+            ></Column>
+          )}
+
           <Column
             body={actionBodyTemplate}
             exportable={false}
