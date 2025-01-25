@@ -17,6 +17,7 @@ const ListAVisitante = ({
   useEffect(() => {
     if (Visitantes.length === 0) dispatch(getAsistenciaVisitantes());
   }, [dispatch]);
+console.log("permissionEdit", permissionEdit);
 
   return (
     <ListPrincipal

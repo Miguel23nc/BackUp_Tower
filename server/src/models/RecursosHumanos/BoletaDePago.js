@@ -46,9 +46,13 @@ const boletaDePagosSchema = mongoose.Schema(
     },
     remuneraciones: [
       {
-        datosContables: {
+        codigoPlame: {
           type: String,
-          ref: "DatosContables",
+          required: true,
+        },
+        concepto: {
+          type: String,
+          required: true,
         },
         monto: {
           type: String,

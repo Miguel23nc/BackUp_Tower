@@ -21,6 +21,7 @@ const Register = () => {
     lastname: "",
     documentType: "",
     documentNumber: "",
+    type: "",
     dateOfBirth: "",
     genre: "",
     phone: "",
@@ -56,8 +57,8 @@ const Register = () => {
   const register = async () => {
     const formIsValid = validateForm(formData);
     try {
-      console.log("formIsValid", formIsValid);
-      if (formIsValid) {
+      if (formIsValid === true) {
+        //se moverá al backend :
         const pathImage = await imageCloudinary(formData.photo);
         const newFormData = {
           ...formData,

@@ -2,16 +2,25 @@ import { useDispatch } from "react-redux";
 import { setMessage } from "../../../redux/actions";
 import PopUp from "../../../recicle/popUps";
 import ButtonOk from "../../../recicle/Buttons/Buttons";
+import useSendMessage from "../../../recicle/senMessage";
 
 const Register = ({ validate, registrar, children }) => {
-  const dispatch = useDispatch();
+  console.log("validate", validate);
+
+  const sendMessage = useSendMessage();
   const enviar = async () => {
-    dispatch(setMessage("Cargando...", "Info"));
+    sendMessage("Enviando...", "Espere");
     try {
-      if (validate) {
-        await registrar();
+      const validation = validate();
+      console.log("validate", validation);
+
+      if (!validation) {
+        sendMessage("Faltan datos", "Error");
       } else {
-        dispatch(setMessage("Campos Incompletos", "Error"));
+        const response = await registrar();
+        if (response) {
+          sendMessage("Registro exitoso", "Ok");
+        }
       }
     } catch (error) {
       console.log("Error : ", error);

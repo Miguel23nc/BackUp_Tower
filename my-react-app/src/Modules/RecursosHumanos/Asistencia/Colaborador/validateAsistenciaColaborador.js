@@ -8,6 +8,7 @@ const useValidation = () => {
     inicioAlmuerzo: false,
     finAlmuerzo: false,
     colaborador: false,
+    tipoAsistencia: false,
   });
 
   // Función de validación
@@ -19,6 +20,7 @@ const useValidation = () => {
       inicioAlmuerzo: formData.inicioAlmuerzo === "",
       finAlmuerzo: formData.finAlmuerzo === "",
       colaborador: formData.colaborador === "",
+      tipoAsistencia: formData.tipoAsistencia === "",
     };
 
     setError(newError);

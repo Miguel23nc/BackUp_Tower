@@ -9,7 +9,7 @@ const AsistenciaVisitante = () => {
       ItemReporte={ReporteAsistenciaVisistante}
       ItemList={ListAVisitante}
       ItemRegister={RegisterAsistenciaVisitante}
-      submodule="ASISTENCIA VISITANTES"
+      submodule="ASISTENCIA"
     />
   );
 };

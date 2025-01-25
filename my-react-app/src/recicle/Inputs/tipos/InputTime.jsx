@@ -6,13 +6,22 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import "../stilos.css";
 import { TimePicker } from "@mui/x-date-pickers";
-const InputTime = ({ label, setForm, value, name, errorOnclick,...otrasProps }) => {
+const InputTime = ({
+  label,
+  setForm,
+  value,
+  name,
+  errorOnclick,
+  ...otrasProps
+}) => {
   const [fecha, setFecha] = useState(null);
   const [error, setError] = useState(false);
   const [animation, setAnimation] = useState(false);
 
   // En tu componente
-  const parsedValue = value ? dayjs(value, "DD/MM/YYYY") : null;
+  console.log("value", value);
+
+  const parsedValue = value ? dayjs(value, "hh:mm A") : null;
 
   const styleError = "border-red-500 animate-shake";
   const styleNormal = "border-gray-300";
@@ -35,7 +44,7 @@ const InputTime = ({ label, setForm, value, name, errorOnclick,...otrasProps }) 
     if (fecha) {
       setForm((prevData) => ({
         ...prevData,
-        [name]: fecha.format("DD/MM/YYYY"),
+        [name]: fecha.format("hh:mm A"),
       }));
       setError(false);
       setAnimation(false);
@@ -48,6 +57,7 @@ const InputTime = ({ label, setForm, value, name, errorOnclick,...otrasProps }) 
       setAnimation(true);
     }
   };
+  console.log("fecha", fecha);
 
   return (
     <div className="flex flex-col mx-3 h-20">
@@ -69,7 +79,6 @@ const InputTime = ({ label, setForm, value, name, errorOnclick,...otrasProps }) 
           />
         </DemoContainer>
       </LocalizationProvider>
-     
     </div>
   );
 };

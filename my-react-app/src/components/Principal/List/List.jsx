@@ -75,7 +75,11 @@ const ListPrincipal = ({
         )}
         {permissionApprove && (
           <Button
-            icon={rowData.state === "APROBADO" ? "pi pi-times" : "pi pi-check"}
+            icon={
+              rowData.state === "APROBADO" || rowData.state === "ACTIVO"
+                ? "pi pi-times"
+                : "pi pi-check"
+            }
             rounded
             outlined
             className="mr-2"

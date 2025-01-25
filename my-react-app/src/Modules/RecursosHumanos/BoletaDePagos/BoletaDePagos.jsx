@@ -4,6 +4,7 @@ import Enviar from "./Enviar/Enviar";
 import ListBoletaDePagos from "./List/List";
 import RegisterBoletaDePagos from "./Register/Register";
 import { useEffect, useState } from "react";
+import ReporteBoletasDePago from "./Report/Reporte";
 
 const BoletaDePagos = () => {
   const { user } = useAuth();
@@ -21,23 +22,24 @@ const BoletaDePagos = () => {
     }
   };
   const permissionCreate = hasPermission()?.some(
-    (permission) => permission === "WRITE"
+    (permission) => permission === "CREAR"
   );
   const permissionRead = hasPermission()?.some(
-    (permission) => permission === "READ"
-  );
-  const permissionEdit = hasPermission()?.some(
-    (permission) => permission === "UPDATE"
-  );
-  const permissionDelete = hasPermission()?.some(
-    (permission) => permission === "DELETE"
+    (permission) => permission === "VER"
   );
   const permissionReport = hasPermission()?.some(
-    (permission) => permission === "REPORT"
+    (permission) => permission === "REPORTAR"
+  );
+  const permissionEdit = hasPermission()?.some(
+    (permission) => permission === "EDITAR"
+  );
+  const permissionDelete = hasPermission()?.some(
+    (permission) => permission === "ELIMINAR"
   );
   const permissionApprove = hasPermission()?.some(
-    (permission) => permission === "APPROVE"
+    (permission) => permission === "APROBAR"
   );
+
   useEffect(() => {
     if (permissionRead) {
       setChange("Listar");
@@ -62,7 +64,7 @@ const BoletaDePagos = () => {
       />
     );
   } else if (change === "Reporte") {
-    children = "Reporte";
+    children = <ReporteBoletasDePago />;
   } else if (change === "Enviar") {
     children = <Enviar />;
   } else {

@@ -24,18 +24,5 @@ const update_Employee = async (employee, setResponse, setErrors) => {
     setErrors(error?.response?.data?.message);
   }
 };
-const delete_Employee = async (id, setResponse, setErrors) => {
-  try {
-    const response = await axios.delete("/deleteEmployee", {
-      data: { _id: id },
-    });
-    const data = response.data;
-    setResponse(data.message);
-    return data;
-  } catch (error) {
-    console.log(error);
-    setErrors(error?.response?.data?.message);
-  }
-};
 
-export { create_Employee, update_Employee, delete_Employee };
+export { create_Employee, update_Employee };

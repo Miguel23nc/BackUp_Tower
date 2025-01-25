@@ -20,22 +20,22 @@ const ReadOrCreate = ({ ItemRegister, ItemList, ItemReporte, submodule }) => {
   console.log("hasPermission", hasPermission());
 
   const permissionCreate = hasPermission()?.some(
-    (permission) => permission === "WRITE"
+    (permission) => permission === "CREAR"
   );
   const permissionRead = hasPermission()?.some(
-    (permission) => permission === "READ"
+    (permission) => permission === "VER"
   );
   const permissionEdit = hasPermission()?.some(
-    (permission) => permission === "UPDATE"
+    (permission) => permission === "EDITAR"
   );
   const permissionDelete = hasPermission()?.some(
-    (permission) => permission === "DELETE"
+    (permission) => permission === "ELIMINAR"
   );
   const permissionReport = hasPermission()?.some(
-    (permission) => permission === "REPORT"
+    (permission) => permission === "REPORTAR"
   );
   const permissionApprove = hasPermission()?.some(
-    (permission) => permission === "APPROVE"
+    (permission) => permission === "APROBAR"
   );
   useEffect(() => {
     if (permissionRead) {

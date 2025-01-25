@@ -8,23 +8,20 @@ import "./stilos.css";
 import "primeicons/primeicons.css";
 import { AutoComplete } from "primereact/autocomplete";
 
-const Input = (props) => {
-  const {
-    prueba,
-    setForm,
-    label,
-    type,
-    name,
-    errorOnclick,
-    value,
-    setError,
-    ancho,
-    ...otherProps
-  } = props;
-
+const Input = ({
+  prueba,
+  setForm,
+  label,
+  type,
+  name,
+  errorOnclick,
+  value,
+  setError,
+  ancho,
+  ...OtherProps
+}) => {
   const [error, setErrorState] = useState(false);
   const [animation, setAnimation] = useState(false);
-
   const styleError = "border-red-500 animate-shake";
   const styleNormal = "border-gray-300";
   const styleConstant =
@@ -98,7 +95,7 @@ const Input = (props) => {
           value={value}
           maxSelectedLabels={4}
           onChange={handleChange}
-          options={otherProps.options}
+          options={OtherProps.options}
           display="chip"
           placeholder="Seleccione una opción"
           className={clase}
@@ -131,11 +128,11 @@ const Input = (props) => {
         <Dropdown
           value={value}
           onChange={handleChange}
-          options={otherProps.options}
+          options={OtherProps.options}
           placeholder={label}
           className={estilo}
           editable
-          {...otherProps}
+          {...OtherProps}
         />
       );
       break;
@@ -148,7 +145,7 @@ const Input = (props) => {
           placeholder={error ? "Este campo es obligatorio" : label}
           onChange={handleChange}
           onBlur={handleBlur}
-          {...otherProps}
+          {...OtherProps}
           className={estilo}
         />
       );

@@ -2,8 +2,10 @@ const BoletaDePagos = require("../../../models/RecursosHumanos/BoletaDePago");
 
 const getBoletaDePagos = async (req, res) => {
   try {
-    const boleta = await BoletaDePagos.find()
-      .populate("colaborador", "business name lastname email")
+    const boleta = await BoletaDePagos.find().populate(
+      "colaborador",
+      "business name lastname email documentNumber"
+    );
 
     if (!boleta || boleta.length === 0) {
       return res.status(404).json({ message: "Boleta de pagos no encontrada" });

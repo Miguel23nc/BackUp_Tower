@@ -1,5 +1,6 @@
 import Input from "../../../../../recicle/Inputs/Inputs";
 import InputDate from "../../../../../recicle/Inputs/tipos/InputDate";
+import InputTime from "../../../../../recicle/Inputs/tipos/InputTime";
 
 const DatosDeAsistencia = ({ setForm, error, form }) => {
   return (
@@ -11,28 +12,28 @@ const DatosDeAsistencia = ({ setForm, error, form }) => {
         setForm={setForm}
         errorOnclick={error.fecha}
       />
-      <Input
+      <InputTime
         label="Hora de Entrada"
         name="ingreso"
         value={form.ingreso}
         setForm={setForm}
         errorOnclick={error.ingreso}
       />
-      <Input
+      <InputTime
         label="Hora de Salida"
         name="salida"
         value={form.salida}
         setForm={setForm}
         errorOnclick={error.salida}
       />
-      <Input
+      <InputTime
         label="inicio de Almuerzo"
         name="inicioAlmuerzo"
         value={form.inicioAlmuerzo}
         setForm={setForm}
         errorOnclick={error.inicioAlmuerzo}
       />
-      <Input
+      <InputTime
         label="Fin de Almuerzo"
         name="finAlmuerzo"
         value={form.finAlmuerzo}

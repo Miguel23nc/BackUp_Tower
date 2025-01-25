@@ -20,6 +20,12 @@ const employeeSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    type: {
+      type: String,
+      required: true,
+      enum: ["VISITANTE", "COLABORADOR", "GERENTE"],
+      default: "COLABORADOR",
+    },
     state: {
       type: String,
       required: true,

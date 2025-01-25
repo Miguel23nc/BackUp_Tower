@@ -19,7 +19,6 @@ const convertPathToPdf = async (archivoUrl) => {
     // console.log("Archivo agregado a la tarea:");
 
     await task.process();
-    // console.log("Archivo procesado con éxito");
 
     const pdfBuffer = await task.download();
     if (!pdfBuffer) throw new Error("No se pudo descargar el archivo PDF.");

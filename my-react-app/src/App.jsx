@@ -11,28 +11,32 @@ import Nav from "./components/Nav/Nav";
 import Error from "./components/Error/Error";
 import SideBar from "./components/SideBar/SideBar";
 import Title from "./components/Home/Title";
+import MarcarAsistencia from "./components/MarcarAsistencia/MarcarAsistencia";
+import CleanUrlWrapper from "./utils/clearBarra";
 
 function App() {
   const location = useLocation();
-  const path = ["/home", "/"].includes(location.pathname);
+  const path = ["/asistencia", "/home", "/"].includes(location.pathname);
 
   return (
     <AuthProvider>
       <Provider store={store}>
-        <div>
-          {!path && <SideBar />}
-          {!path && <Nav />}
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/*" element={<Error />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/home" element={<Home />} />
-              <Route path="/home/:title" element={<Title />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<Settings />} />
-            </Route>
-          </Routes>
-        </div>
+          <div>
+            {!path && <SideBar />}
+            {!path && <Nav />}
+
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/*" element={<Error />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/home/:title" element={<Title />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/asistencia" element={<MarcarAsistencia />} />
+              </Route>
+            </Routes>
+          </div>
       </Provider>
     </AuthProvider>
   );

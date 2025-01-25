@@ -13,7 +13,6 @@ const getSubModules = require("../controllers/SubModules/getsubModule");
 const getModules = require("../controllers/Modules/getModules");
 const getEmployee = require("../controllers/Employee/getEmployee");
 const updateEmployeePartial = require("../controllers/Employee/updateEmployee");
-const deleteEmployee = require("../controllers/Employee/deleteEmployee");
 const createClient = require("../controllers/Client/createClient");
 const getClients = require("../controllers/Client/getClients");
 const updateClient = require("../controllers/Client/updateClient");
@@ -49,6 +48,8 @@ const deleteBoletaDePago = require("../controllers/RecursosHumanos/BoletaDePagos
 const patchBoleDePago = require("../controllers/RecursosHumanos/BoletaDePagos/patchBoletaDePago");
 const enviarBoleta = require("../controllers/RecursosHumanos/BoletaDePagos/enviarBoleta");
 const recepcionBoleta = require("../controllers/RecursosHumanos/BoletaDePagos/recibirBoleta");
+const returnPdf = require("../controllers/RecursosHumanos/Asistencia/colaborador/returnPdf");
+const updateAsistenciaColaborador = require("../controllers/RecursosHumanos/Asistencia/colaborador/updateAsistenciaColaborador");
 
 const router = Router();
 
@@ -68,6 +69,7 @@ router.post("/postAsistenciaVisitante", createAsistenciaVisitante);
 router.post("/postBoletaDePagos", postBoletaDePagos);
 router.post("/postDatosContables", postDatosContables);
 router.post("/enviarBoletasDePago", enviarBoleta);
+router.post("/returnPdf", returnPdf);
 
 router.patch("/patchBusiness", updateBusinessPartial);
 router.patch("/patchCotizacion", updateCotizacionPartial);
@@ -75,13 +77,12 @@ router.patch("/patchEmployee", updateEmployeePartial);
 router.patch("/patchClient", updateClient);
 router.patch("/patchContract", putContracts);
 router.patch("/patchPlantillaDeContrato", putPlantillaDeContrato);
-router.patch("/patchAsistenciaColaborador", updateAsistenciaVisitante);
+router.patch("/patchAsistenciaColaborador", updateAsistenciaColaborador);
 router.patch("/patchAsistenciaVisitante", updateAsistenciaVisitante);
 router.patch("/patchBoletaDePago", patchBoleDePago);
 
 router.delete("/deleteBoletaDePago", deleteBoletaDePago);
 router.delete("/deleteContract", deleteContract);
-router.delete("/deleteEmployee", deleteEmployee);
 router.delete("/deleteClient", deleteClient);
 router.delete("/deleteCotizacion", deleteCotizacion);
 router.delete("/deleteBusiness", deleteBusiness);

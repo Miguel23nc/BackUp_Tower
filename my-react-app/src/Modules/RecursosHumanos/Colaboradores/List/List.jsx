@@ -3,11 +3,11 @@ import React, { useEffect } from "react";
 import { getEmployees } from "../../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import EditEmployee from "../Permissions/EditEmployee";
-import DeleteEmployee from "../Permissions/DeleteEmployee";
 import ListPrincipal from "../../../../components/Principal/List/List";
 import DetailEmployee from "../Permissions/DetailEmployee";
+import ActiveInactive from "../Permissions/ActiveInactive";
 
-const List = ({ permissionEdit, permissionDelete, permissionRead }) => {
+const List = ({ permissionEdit, permissionRead, permissionApprove }) => {
   const employees = useSelector((state) => state.employees);
   const dispatch = useDispatch();
 
@@ -17,10 +17,10 @@ const List = ({ permissionEdit, permissionDelete, permissionRead }) => {
 
   return (
     <ListPrincipal
-      permissionDelete={permissionDelete}
       permissionEdit={permissionEdit}
       permissionRead={permissionRead}
-      DeleteItem={DeleteEmployee}
+      permissionApprove={permissionApprove}
+      ApproveItem={ActiveInactive}
       EditItem={EditEmployee}
       DetailItem={DetailEmployee}
       content={employees}

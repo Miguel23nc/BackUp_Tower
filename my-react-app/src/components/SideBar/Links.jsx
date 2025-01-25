@@ -11,7 +11,7 @@ const useModulesAndSubModules = () => {
       setLoading(true);
       try {
         const modules = user ? user.modules : [];
-        
+
         const grouped = modules.reduce((acc, mo) => {
           let moduleEntry = acc.find((entry) => entry.module === mo.name);
           if (!moduleEntry) {

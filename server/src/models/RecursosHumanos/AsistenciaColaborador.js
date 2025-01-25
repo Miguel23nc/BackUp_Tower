@@ -22,6 +22,12 @@ const asistenciaColaboradorSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Employee",
   },
+  minTarde: {
+    type: Number,
+  },
+  minExtras: {
+    type: Number,
+  },
 });
 
 const AsistenciaColaborador = mongoose.model(

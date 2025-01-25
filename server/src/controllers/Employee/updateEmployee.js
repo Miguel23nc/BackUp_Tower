@@ -8,6 +8,7 @@ const updateEmployeePartial = async (req, res) => {
     lastname,
     typeDocument,
     documentNumber,
+    type,
     state,
     dateOfBirth,
     genre,
@@ -39,6 +40,7 @@ const updateEmployeePartial = async (req, res) => {
     if (lastname) userFound.lastname = lastname;
     if (typeDocument) userFound.typeDocument = typeDocument;
     if (documentNumber) userFound.documentNumber = documentNumber;
+    if (type) userFound.type = type;
     if (state) userFound.state = state;
     if (dateOfBirth) userFound.dateOfBirth = dateOfBirth;
     if (genre) userFound.genre = genre;

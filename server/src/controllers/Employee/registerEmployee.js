@@ -49,6 +49,7 @@ const registerEmployee = async (req, res) => {
       lastname,
       documentType,
       documentNumber,
+      type,
       state,
       dateOfBirth,
       genre,
@@ -76,9 +77,10 @@ const registerEmployee = async (req, res) => {
       employee: newEmployee,
     });
   } catch (error) {
+    console.log("Error en registerEmployee:", error);
+
     res.status(500).json({
-      message: "Error al registrar Colaborador",
-      error: error.message,
+      message: error.message,
     });
   }
 };

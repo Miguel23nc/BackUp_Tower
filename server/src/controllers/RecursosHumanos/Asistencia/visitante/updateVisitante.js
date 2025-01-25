@@ -9,8 +9,11 @@ const updateAsistenciaVisitante = async (req, res) => {
     salida,
     inicioAlmuerzo,
     finAlmuerzo,
-  } = body;
+  } = req.body;
   try {
+    if (!_id) {
+      return res.status(400).json({ message: "El _id es requerido" });
+    }
     const findAsistenciaVisitante = await AsistenciaVisitante.findById(_id);
     if (!findAsistenciaVisitante) {
       return res

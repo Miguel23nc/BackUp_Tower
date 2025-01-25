@@ -11,7 +11,6 @@ import {
 } from "./CRUD/Recursos Humanos/Contratos";
 import {
   create_Employee,
-  delete_Employee,
   update_Employee,
 } from "./CRUD/Recursos Humanos/Colaboradores";
 import {
@@ -81,9 +80,6 @@ export const AuthProvider = ({ children }) => {
   };
   const updateEmployee = async (employee) => {
     await update_Employee(employee, setResponse, setErrors);
-  };
-  const deleteEmployee = async (id) => {
-    await delete_Employee(id, setResponse, setErrors);
   };
 
   const createClient = async (user) => {
@@ -310,7 +306,6 @@ export const AuthProvider = ({ children }) => {
         user,
         signup,
         updateEmployee,
-        deleteEmployee,
         signin,
         isAuthenticated,
         isLoading,

@@ -65,7 +65,6 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
             { datosContables: "0403", monto: "0" },
             { datosContables: "0404", monto: "0" },
             { datosContables: "0405", monto: "0" },
-            { datosContables: "0406", monto: "0" },
           ],
         }
   );
