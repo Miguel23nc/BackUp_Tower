@@ -27,6 +27,10 @@ const ExcelBoletas = () => {
     sendMessage("Procesando archivo... no toque nada", "Info");
     setFinalice(true);
     console.log("Subiendo archivo...");
+    let errors = {
+      errors: 0,
+      documentos: [],
+    };
 
     try {
       if (!file || !file.archivo) {
@@ -45,18 +49,21 @@ const ExcelBoletas = () => {
           diasTrabajados: row["Dias Trabajados"],
           fechaBoleta: row["Fecha de Boleta"],
         }));
+        console.log("llegamos al for");
 
         for (const boleta of mappedData) {
+          console.log("boleta", boleta);
+
           try {
             const findColaborador = colaboradores.find(
-              (colaborador) => colaborador.documento === boleta.documento
+              (colaborador) => colaborador.documentNumber === boleta.documento
             );
+            console.log("findColaborador", findColaborador);
+
             if (!findColaborador) {
-              sendMessage(
-                `Colaborador con documento ${boleta.documento} no encontrado`,
-                "Error"
-              );
-              continue; // Si no se encuentra el colaborador, saltamos a la siguiente boleta
+              errors.errors += 1;
+              errors.documentos.push(boleta.documento);
+              continue;
             }
 
             const newForm = {
@@ -98,7 +105,10 @@ const ExcelBoletas = () => {
           }
         }
 
-        sendMessage("Todas las boletas han sido procesadas", "Success");
+        sendMessage(
+          `Hubo ${errors.errors} error(es): ${errors.documentos} `,
+          "Success"
+        );
       };
       reader.readAsArrayBuffer(file.archivo);
     } catch (error) {
