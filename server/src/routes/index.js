@@ -49,7 +49,7 @@ const enviarBoleta = require("../controllers/RecursosHumanos/BoletaDePagos/envia
 const recepcionBoleta = require("../controllers/RecursosHumanos/BoletaDePagos/recibirBoleta");
 const returnPdf = require("../controllers/RecursosHumanos/Asistencia/colaborador/returnPdf");
 const updateAsistenciaColaborador = require("../controllers/RecursosHumanos/Asistencia/colaborador/updateAsistenciaColaborador");
-const deleteBoletaDePago = require("../controllers/RecursosHumanos/BoletaDePagos/deleteBoletaDEPago");
+const deleteBoletaDePago = require("../controllers/RecursosHumanos/BoletaDePagos/deleteBoletaDePago");
 
 const router = Router();
 
