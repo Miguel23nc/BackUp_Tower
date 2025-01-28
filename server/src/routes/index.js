@@ -44,12 +44,12 @@ const getBoletaDePagos = require("../controllers/RecursosHumanos/BoletaDePagos/g
 const postBoletaDePagos = require("../controllers/RecursosHumanos/BoletaDePagos/postBoletaDePagos");
 const postDatosContables = require("../controllers/RecursosHumanos/BoletaDePagos/postDatosContables");
 const getDatosContables = require("../controllers/RecursosHumanos/BoletaDePagos/getDatosContables");
-const deleteBoletaDePago = require("../controllers/RecursosHumanos/BoletaDePagos/deleteBoletaDEPago");
 const patchBoleDePago = require("../controllers/RecursosHumanos/BoletaDePagos/patchBoletaDePago");
 const enviarBoleta = require("../controllers/RecursosHumanos/BoletaDePagos/enviarBoleta");
 const recepcionBoleta = require("../controllers/RecursosHumanos/BoletaDePagos/recibirBoleta");
 const returnPdf = require("../controllers/RecursosHumanos/Asistencia/colaborador/returnPdf");
 const updateAsistenciaColaborador = require("../controllers/RecursosHumanos/Asistencia/colaborador/updateAsistenciaColaborador");
+const deleteBoletaDePago = require("../controllers/RecursosHumanos/BoletaDePagos/deleteBoletaDEPago");
 
 const router = Router();
 
