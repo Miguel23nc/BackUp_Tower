@@ -5,6 +5,7 @@ import ListBoletaDePagos from "./List/List";
 import RegisterBoletaDePagos from "./Register/Register";
 import { useEffect, useState } from "react";
 import ReporteBoletasDePago from "./Report/Reporte";
+import ExcelBoletas from "./Permissions/ExcelBoletas";
 
 const BoletaDePagos = () => {
   const { user } = useAuth();
@@ -67,10 +68,12 @@ const BoletaDePagos = () => {
     children = <ReporteBoletasDePago />;
   } else if (change === "Enviar") {
     children = <Enviar />;
+  } else if (change === "Excel") {
+    children = <ExcelBoletas />;
   } else {
     children = "No hay nada";
   }
-  const options = ["Listar", "Crear", "Reporte", "Enviar"];
+  const options = ["Listar", "Crear", "Reporte", "Enviar", "Excel"];
   const [isOpen, setIsOpen] = useState(false);
   const handleOptionClick = (option) => {
     setChange(option);

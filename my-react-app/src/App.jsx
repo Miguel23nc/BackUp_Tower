@@ -1,18 +1,24 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./components/Login/Login";
-import Home from "./components/Home/Home";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
-import Profile from "./components/Nav/Profile.Button";
-import Settings from "./components/Nav/Settings.Button";
-import Nav from "./components/Nav/Nav";
+
 import Error from "./components/Error/Error";
-import SideBar from "./components/SideBar/SideBar";
-import Title from "./components/Home/Title";
-import MarcarAsistencia from "./components/MarcarAsistencia/MarcarAsistencia";
-import CleanUrlWrapper from "./utils/clearBarra";
+
+import { lazy, Suspense } from "react";
+import Loading from "./components/Loading/Loading";
+
+const Home = lazy(() => import("./components/Home/Home"));
+const SideBar = lazy(() => import("./components/SideBar/SideBar"));
+const Nav = lazy(() => import("./components/Nav/Nav"));
+const Profile = lazy(() => import("./components/Nav/Profile.Button"));
+const Settings = lazy(() => import("./components/Nav/Settings.Button"));
+const Title = lazy(() => import("./components/Home/Title"));
+const MarcarAsistencia = lazy(() =>
+  import("./components/MarcarAsistencia/MarcarAsistencia")
+);
 
 function App() {
   const location = useLocation();
@@ -21,6 +27,7 @@ function App() {
   return (
     <AuthProvider>
       <Provider store={store}>
+        <Suspense fallback={<Loading />}>
           <div>
             {!path && <SideBar />}
             {!path && <Nav />}
@@ -37,6 +44,7 @@ function App() {
               </Route>
             </Routes>
           </div>
+        </Suspense>
       </Provider>
     </AuthProvider>
   );

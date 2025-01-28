@@ -4,7 +4,7 @@ import {
   createTheme,
   generateUtilityClasses,
   identifier_default
-} from "./chunk-VBXSUNX2.js";
+} from "./chunk-PEOS52A6.js";
 import {
   require_prop_types
 } from "./chunk-BYWRWTV4.js";
@@ -52,4 +52,4 @@ export {
   boxClasses_default,
   Box_default
 };
-//# sourceMappingURL=chunk-RWAJPKOL.js.map
+//# sourceMappingURL=chunk-A75KGF7K.js.map

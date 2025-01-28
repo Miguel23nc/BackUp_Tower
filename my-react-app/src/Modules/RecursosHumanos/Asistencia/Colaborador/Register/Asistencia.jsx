@@ -1,4 +1,3 @@
-import Input from "../../../../../recicle/Inputs/Inputs";
 import InputDate from "../../../../../recicle/Inputs/tipos/InputDate";
 import InputTime from "../../../../../recicle/Inputs/tipos/InputTime";
 

@@ -7,7 +7,14 @@ const ProtectedRoute = () => {
   if (isLoading)
     return (
       <div className="flex flex-col justify-center items-center">
-        Loading...
+        <video
+          src="/RELOJ DE ARENA.mov" // Ruta relativa a la carpeta public
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="video-element"
+        />
       </div>
     );
 

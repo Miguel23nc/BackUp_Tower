@@ -3,7 +3,7 @@ import { setMessage } from "../redux/actions";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-const PopUp = () => {
+const PopUp = ({ ...OtherProps }) => {
   const { setResponse, setErrors } = useAuth();
   const [showPopUp, setShowPopUp] = useState(false);
   const errorForms = useSelector((state) => state.error);
@@ -42,6 +42,7 @@ const PopUp = () => {
           <div className="flex justify-center items-center w-full">
             <button
               onClick={handleClosePopUp}
+              {...OtherProps}
               className="text-white font-medium bg-blue-300 w-10/12 rounded-lg p-3  "
             >
               Ok
