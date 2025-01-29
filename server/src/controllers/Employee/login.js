@@ -21,8 +21,15 @@ const login = async (req, res) => {
     delete userData.password;
 
     const token = generatetoken(userData);
-    res.cookie("token", token);
-    return res.status(200).json(userData);
+    res.cookie("token", token, {
+      httpOnly: true, // Esto asegura que solo el servidor pueda acceder a la cookie
+      secure: true, // Asegura que la cookie solo se envíe por HTTPS
+      sameSite: "None", // Necesario para cookies entre diferentes dominios
+    });
+    return res.status(200).json({
+      data: userData,
+      token: token,
+    });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ message: "error en login" });

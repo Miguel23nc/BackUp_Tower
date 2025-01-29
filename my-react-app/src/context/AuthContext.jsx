@@ -39,7 +39,7 @@ export const AuthContext = createContext();
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth");
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
@@ -56,9 +56,15 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post("/login", user);
       const data = response.data;
-      console.log(data);
-      setUser(data);
-      setIsAuthenticated(true);
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("token_expiry", Date.now() + 8 * 60 * 60 * 1000);
+        setUser(data.data);
+        setIsAuthenticated(true);
+      } else {
+        throw new Error("Token no recibido");
+      }
     } catch (error) {
       console.log(error);
       setErrors(error?.response?.data?.message);
@@ -67,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post("/logout");
+      localStorage.removeItem("token");
       setUser(null);
       setIsAuthenticated(false);
     } catch (error) {
@@ -270,14 +276,15 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function checkLogin() {
-      const cookies = Cookies.get();
-      console.log("cookies", cookies);
-      
-      if (cookies.token) {
+      const token = localStorage.getItem("token");
+      const expiry = localStorage.getItem("token_expiry");
+      if (expiry && Date.now() > expiry) {
+        logout();
+      }
+      if (token) {
         try {
-          const response = await verifyToken();
+          const response = await verifyToken(token);
           console.log("response", response);
-          
           if (
             response?.response?.data?.message === "No se encuentra este usuario"
           ) {

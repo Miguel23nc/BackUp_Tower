@@ -3,9 +3,9 @@ const User = require("../../models//Employees/Employee");
 const { JWT_SECRET } = process.env;
 
 const verifyToken = async (req, res) => {
-  const { token } = req?.cookies;
+  const token = req.headers.authorization?.split(" ")[1]; // "Bearer <token>"
   console.log("token", token);
-  
+
   try {
     if (token) {
       jwt.verify(token, JWT_SECRET, async (err, user) => {
