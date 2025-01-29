@@ -1,4 +1,4 @@
-import CardSideBar from "./cardSideBar";
+import CardSideBar from "./CardSideBar";
 
 const LeftSideBar = ({ options, handleSubmit }) => {
   const sortSubModules = options.submodule.sort();
