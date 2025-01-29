@@ -56,13 +56,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post("/login", user);
       const data = response.data;
-      Cookies.set("token", data.token, {
-        expires: 1,
-        path: "/",
-        secure: true,
-        sameSite: "None",
-      });
-
       console.log(data);
       setUser(data);
       setIsAuthenticated(true);
