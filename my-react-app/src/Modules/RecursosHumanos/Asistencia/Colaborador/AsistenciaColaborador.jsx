@@ -1,6 +1,6 @@
 import ReadOrCreate from "../../../../components/Principal/Principal";
 import ListAColaborador from "./List/List";
-import RegisterAsistenciaColaborador from "./Register/REgister";
+import RegisterAsistenciaColaborador from "./Register/Register";
 import ReporteAsistenciaColaborador from "./Reporte/Resport";
 
 const AsistenciaColaborador = () => {
