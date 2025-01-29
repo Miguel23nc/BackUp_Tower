@@ -4,6 +4,8 @@ const { JWT_SECRET } = process.env;
 
 const verifyToken = async (req, res) => {
   const { token } = req?.cookies;
+  console.log("token", token);
+  
   try {
     if (token) {
       jwt.verify(token, JWT_SECRET, async (err, user) => {

@@ -271,9 +271,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     async function checkLogin() {
       const cookies = Cookies.get();
+      console.log("cookies", cookies);
+      
       if (cookies.token) {
         try {
           const response = await verifyToken();
+          console.log("response", response);
+          
           if (
             response?.response?.data?.message === "No se encuentra este usuario"
           ) {
