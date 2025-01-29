@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post("/login", user);
       const data = response.data;
+      console.log("data", data);
 
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -277,6 +278,8 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     async function checkLogin() {
       const token = localStorage.getItem("token");
+      console.log("token", token);
+
       const expiry = localStorage.getItem("token_expiry");
       if (expiry && Date.now() > expiry) {
         logout();
