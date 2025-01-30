@@ -22,6 +22,7 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
   const { postBoletasDePago } = useAuth();
   const dispatch = useDispatch();
   const datosContables = useSelector((state) => state.datosContables);
+console.log("datosContables", datosContables);
 
   useEffect(() => {
     if (datosContables.length === 0) dispatch(getDatosContables());

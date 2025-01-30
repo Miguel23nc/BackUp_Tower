@@ -169,6 +169,15 @@ const FormOne = ({ setForm, error, form }) => {
         setForm={setForm}
         errorOnclick={error.password}
       />
+      <Input
+        label="Tipo de Colaborador"
+        name="type"
+        type="select"
+        value={form.type}
+        options={["VISITANTE", "COLABORADOR", "GERENTE"]}
+        setForm={setForm}
+        errorOnclick={error.type}
+      />
     </form>
   );
 };

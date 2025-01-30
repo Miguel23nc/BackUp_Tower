@@ -5,110 +5,99 @@ import { useEffect, useState } from "react";
 import ButtonOk from "../../../../recicle/Buttons/Buttons";
 import useSendMessage from "../../../../recicle/senMessage";
 import PopUp from "../../../../recicle/popUps";
-import { useAuth } from "../../../../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployees } from "../../../../redux/actions";
+import axios from "../../../../api/axios";
 
 const ExcelBoletas = () => {
   const [file, setFile] = useState(null);
-  const { postBoletasDepago } = useAuth();
+  const [finalice, setFinalice] = useState(false);
+  const sendMessage = useSendMessage();
   const dispatch = useDispatch();
   const colaboradores = useSelector((state) => state.employees);
+
   useEffect(() => {
     if (colaboradores.length === 0) dispatch(getEmployees());
-  }, [colaboradores]);
-  console.log("colaboradores", colaboradores);
-
-  const [finalice, setFinalice] = useState(false);
-  console.log("file", file);
-  const sendMessage = useSendMessage();
+  }, [colaboradores, dispatch]);
 
   const handleUpload = async () => {
     sendMessage("Procesando archivo... no toque nada", "Info");
     setFinalice(true);
-    console.log("Subiendo archivo...");
-    let errors = {
-      errors: 0,
-      documentos: [],
-    };
+
+    if (!file || !file.archivo) {
+      sendMessage("Debe seleccionar un archivo", "Error");
+      setFinalice(false);
+      return;
+    }
 
     try {
-      if (!file || !file.archivo) {
-        return sendMessage("Debe seleccionar un archivo", "Error");
-      }
       const reader = new FileReader();
       reader.onload = async (event) => {
         const data = new Uint8Array(event.target.result);
         const workbook = XLSX.read(data, { type: "array" });
-        const sheetName = workbook.SheetNames[0]; // Usar la primera hoja
-        const sheet = workbook.Sheets[sheetName];
-        const rows = XLSX.utils.sheet_to_json(sheet); // Convertir a JSON
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet);
 
         const mappedData = rows.map((row) => ({
           documento: row["N° documento"],
           diasTrabajados: row["Dias Trabajados"],
           fechaBoleta: row["Fecha de Boleta"],
         }));
-        console.log("llegamos al for");
 
-        for (const boleta of mappedData) {
-          console.log("boleta", boleta);
+        let errores = [];
+
+        const promises = mappedData.map(async (boleta) => {
+          const findColaborador = colaboradores.find(
+            (colaborador) => colaborador.documentNumber === boleta.documento
+          );
+
+          if (!findColaborador) {
+            errores.push(boleta.documento);
+            return;
+          }
+
+          const newForm = {
+            colaborador: findColaborador._id,
+            diasTrabajados: boleta.diasTrabajados,
+            fechaBoletaDePago: boleta.fechaBoleta,
+            diasSubsidiados: "0",
+            horasTrabajadas: "192",
+            diasNoLaborales: "0",
+            remuneraciones: [{ datosContables: "0601", monto: "0" }],
+            descuentosAlTrabajador: [
+              { datosContables: "0602", monto: "0" },
+              { datosContables: "0603", monto: "0" },
+              { datosContables: "0604", monto: "0" },
+              { datosContables: "0605", monto: "0" },
+            ],
+            aportacionesDelEmpleador: [
+              { datosContables: "0606", monto: "0" },
+              { datosContables: "0607", monto: "0" },
+              { datosContables: "0608", monto: "0" },
+              { datosContables: "0609", monto: "0" },
+            ],
+          };
 
           try {
-            const findColaborador = colaboradores.find(
-              (colaborador) => colaborador.documentNumber === boleta.documento
-            );
-            console.log("findColaborador", findColaborador);
-
-            if (!findColaborador) {
-              errors.errors += 1;
-              errors.documentos.push(boleta.documento);
-              continue;
-            }
-
-            const newForm = {
-              colaborador: findColaborador._id,
-              diasTrabajados: boleta.diasTrabajados,
-              fechaBoletaDePago: boleta.fechaBoleta,
-              diasSubsidiados: "0",
-              horasTrabajadas: "192",
-              diasNoLaborales: "0",
-              remuneraciones: [
-                {
-                  datosContables: "0601",
-                  monto: "0",
-                },
-              ],
-              descuentosAlTrabajador: [
-                { datosContables: "0602", monto: "0" },
-                { datosContables: "0603", monto: "0" },
-                { datosContables: "0604", monto: "0" },
-                { datosContables: "0605", monto: "0" },
-              ],
-              aportacionesDelEmpleador: [
-                { datosContables: "0606", monto: "0" },
-                { datosContables: "0607", monto: "0" },
-                { datosContables: "0608", monto: "0" },
-                { datosContables: "0609", monto: "0" },
-              ],
-            };
-
-            const response = await postBoletasDepago(newForm);
-            console.log("Boleta registrada:", response.data);
-
-            // Esperamos un segundo entre cada solicitud
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await axios.post("/postBoletaDePagos", newForm);
           } catch (error) {
             console.error("Error al registrar boleta:", boleta, error);
-            sendMessage(`${boleta.documento} ${error}`, "Error");
-            continue; // Si hay un error, saltamos a la siguiente boleta
+            errores.push(boleta.documento);
           }
-        }
+        });
 
-        sendMessage(
-          `Hubo ${errors.errors} error(es): ${errors.documentos} `,
-          "Success"
-        );
+        await Promise.allSettled(promises);
+
+        if (errores.length > 0) {
+          sendMessage(
+            `Se creó con éxito ${mappedData.length - errores.length}. Hubo ${
+              errores.length
+            } error(es): ${errores.join(", ")}`,
+            "Error"
+          );
+        } else {
+          sendMessage("Boletas registradas correctamente.", "Success");
+        }
       };
       reader.readAsArrayBuffer(file.archivo);
     } catch (error) {
