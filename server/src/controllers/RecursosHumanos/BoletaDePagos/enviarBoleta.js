@@ -3,7 +3,6 @@ const nodemailer = require("nodemailer");
 const convertPathToPdf = require("../../../utils/convertToPdf");
 const BoletaDePagos = require("../../../models/RecursosHumanos/BoletaDePago");
 const dayjs = require("dayjs");
-const PQueue = require("p-queue"); // Manejo de colas
 
 const enviarBoleta = async (req, res) => {
   const { datosBoleta } = req.body;
@@ -41,8 +40,8 @@ const enviarBoleta = async (req, res) => {
     });
 
     const errores = [];
-    const queue = new PQueue({ concurrency: 2 }); // Máximo 2 correos simultáneos
-
+    const { default: PQueue } = await import("p-queue");
+    const queue = new PQueue({ concurrency: 2 }); // Instanciar PQueue con 'new'
     // Iterar sobre cada boleta y agregar la tarea a la cola
     for (const {
       email,
@@ -87,15 +86,67 @@ const enviarBoleta = async (req, res) => {
                 encoding: "base64",
               },
             ],
-            html: `
-              <html>
-                <body>
-                  <h1>Estimado/a ${colaborador},</h1>
-                  <p>Le informamos que su boleta de pago correspondiente al mes de ${fechaBoletaDePago} ha sido generada.</p>
-                  <p>${empresa}</p>
+            html: `        <!DOCTYPE html>
+            <html lang="es">
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Boleta de Pago</title>
+            <style>
+              body {
+                  font-family: Arial, sans-serif;
+                  background-color: #f4f4f4;
+                  margin: 0;
+                  padding: 20px;
+                }
+                .container {
+                  background-color: #ffffff;
+                  border-radius: 5px;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  padding: 20px;
+                  max-width: 600px;
+                  margin: auto;
+                }
+                h1 {
+                  color: #4CAF50; /* Verde */
+                }
+                p {
+                  color: #555;
+                  line-height: 1.5;
+                }
+                .button {
+                  display: inline-block;
+                  background-color: #FFC107; /* Amarillo */
+                  color: #ffffff;
+                  padding: 10px 15px;
+                  text-decoration: none;
+                  border-radius: 5px;
+                  margin-top: 20px;
+                }
+                .footer {
+                    margin-top: 20px;
+                    font-size: 12px;
+                    color: #777;
+                  }
+                  </style>
+              </head>
+              <body>
+                  <div class="container">
+                <h1>Estimado/a ${colaborador},</h1>
+                <p>Le informamos que su boleta de pago correspondiente al mes de ${fechaBoletaDePago} ha sido generada.</p>
+                <p>Si tiene alguna pregunta o necesita más información, no dude en ponerse en contacto con el departamento de recursos humanos.</p>
+                <p>Saludos cordiales,</p>
+                <p>${empresa}</p>
+                <div class="footer">
+                <p>Este es un correo automático, por favor no responda.</p>
+                <img src="http://localhost:3001/api/recepcionBoleta?boletaId=${boletaId}" style="display:none;" alt="pixel de seguimiento" />
+      
+                </div>
+                </div>
                 </body>
-              </html>
-            `,
+            </html>
+      
+                  `,
           };
 
           await transporter.sendMail(mailOptions);
@@ -108,11 +159,11 @@ const enviarBoleta = async (req, res) => {
       });
     }
 
-    // Esperar a que todos los correos se procesen en la cola
     await queue.onIdle();
-    console.log(`Correos enviados con ${errores.length} error(es).`);
+    console.log("Errores:", errores);
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ message: error.message });
   }
 };
 

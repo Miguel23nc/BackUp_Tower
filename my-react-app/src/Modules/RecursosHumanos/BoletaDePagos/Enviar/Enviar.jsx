@@ -14,9 +14,11 @@ import dayjs from "dayjs";
 import { useAuth } from "../../../../context/AuthContext";
 import renderDoc from "./renderDoc";
 import documentoCloudinary from "../../../../api/cloudinaryDocument";
+import PopUp from "../../../../recicle/popUps";
 
 const Enviar = () => {
   const { enviarBoletasDePago } = useAuth();
+  const [deshabilitar, setDeshabilitar] = useState(false);
   const [form, setForm] = useState({
     empresa: "",
     fechaBoletaDePago: "",
@@ -54,6 +56,7 @@ const Enviar = () => {
 
   const enviarCorreo = async () => {
     showMessage("Enviando Correo...", "Espere");
+    setDeshabilitar(true);
     try {
       const formIsValide = validateForm(form);
       if (formIsValide) {
@@ -76,7 +79,9 @@ const Enviar = () => {
         });
 
         const newForm = await Promise.all(datosBoleta);
-        const response = await enviarBoletasDePago(newForm);
+        console.log("newForm", newForm);
+
+        const response = await enviarBoletasDePago({ datosBoleta: newForm });
         if (!response)
           return showMessage("Error al generar la boleta", "Error");
         showMessage(response, "Ok");
@@ -86,11 +91,14 @@ const Enviar = () => {
     } catch (error) {
       console.log("error", error);
       showMessage(error, "Error");
+    } finally {
+      setDeshabilitar(false);
     }
   };
 
   return (
     <div>
+      <PopUp disabled={deshabilitar} />
       <CardPlegable title="Datos de Envío">
         <div className="flex">
           <Input
