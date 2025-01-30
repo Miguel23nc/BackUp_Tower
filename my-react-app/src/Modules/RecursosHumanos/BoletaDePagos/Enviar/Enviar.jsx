@@ -64,19 +64,21 @@ const Enviar = () => {
           showMessage("No hay boletas disponibles", "Error");
           return;
         }
-        const datosBoleta = boletasFiltrado.map(async (item) => {
-          const docxTranscript = await renderDoc(item);
-          const cloudinaryUrl = await documentoCloudinary(docxTranscript);
-          return {
-            archivoUrl: cloudinaryUrl,
-            email: item.colaborador.email,
-            fechaBoletaDePago: item.fechaBoletaDePago,
-            empresa: item.colaborador.business,
-            colaborador:
-              item.colaborador.lastname + " " + item.colaborador.name,
-            boletaId: item._id,
-          };
-        });
+        const datosBoleta = boletasFiltrado
+          .filter((item) => !item.envio)
+          .map(async (item) => {
+            const docxTranscript = await renderDoc(item);
+            const cloudinaryUrl = await documentoCloudinary(docxTranscript);
+            return {
+              archivoUrl: cloudinaryUrl,
+              email: item.colaborador.email,
+              fechaBoletaDePago: item.fechaBoletaDePago,
+              empresa: item.colaborador.business,
+              colaborador:
+                item.colaborador.lastname + " " + item.colaborador.name,
+              boletaId: item._id,
+            };
+          });
 
         const newForm = await Promise.all(datosBoleta);
         console.log("newForm", newForm);
