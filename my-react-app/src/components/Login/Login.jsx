@@ -5,10 +5,12 @@ import PopUp from "../../recicle/popUps";
 import { useAuth } from "../../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessage } from "../../redux/actions";
+import useSendMessage from "../../recicle/senMessage";
 
 const Login = () => {
   const navigate = useNavigate();
   const { signin, isAuthenticated, errors, setErrors } = useAuth();
+  const sendMessage = useSendMessage();
   const errorForms = useSelector((state) => state.error);
   const dispatch = useDispatch();
   console.log(errorForms);
@@ -23,6 +25,7 @@ const Login = () => {
   }, [isAuthenticated, navigate]);
 
   const onSubmit = async (data) => {
+    sendMessage("Iniciando sesión...", "Info");
     try {
       await signin(data);
       if (errors) {
