@@ -10,6 +10,7 @@ const registerEmployee = async (req, res) => {
       documentType,
       documentNumber,
       state,
+      type,
       dateOfBirth,
       genre,
       civilStatus,
