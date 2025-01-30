@@ -13,7 +13,7 @@ const OptionSideBar = ({ icon, options }) => {
   return (
     <div
       ref={ref}
-      className="w-14 flex justify-center  h-14 m-2 my-8 bg-orange-300 rounded-full"
+      className="w-14 flex justify-center  h-14 m-2 my-8 bg-slate-100  rounded-full"
     >
       {mostrar && <LeftSideBar handleSubmit={handleSubmit} options={options} />}
       <button className="p-2" onClick={handleSubmit}>{icon}</button>

@@ -41,7 +41,7 @@ const enviarBoleta = async (req, res) => {
 
     const errores = [];
     const { default: PQueue } = await import("p-queue");
-    const queue = new PQueue({ concurrency: 2 }); // Instanciar PQueue con 'new'
+    const queue = new PQueue({ concurrency: 3 }); // Instanciar PQueue con 'new'
     // Iterar sobre cada boleta y agregar la tarea a la cola
     for (const {
       email,
@@ -73,16 +73,18 @@ const enviarBoleta = async (req, res) => {
             errores.push({ email, error: "La boleta ya fue enviada." });
             return;
           }
+          const fs = require("fs");
+          const pdfBuffer = fs.readFileSync(archivoUrl);
 
           const mailOptions = {
-            from: `Pruebas Locales <${email}>`,
+            from: `Pruebas Locales <${EMAIL_USER}>`,
             to: email,
             subject: "Boleta de Pago",
             text: "Boleta de Pago",
             attachments: [
               {
                 filename: "Boleta_de_Pago.pdf",
-                content: archivoUrl,
+                content: pdfBuffer,
                 encoding: "base64",
               },
             ],
