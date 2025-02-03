@@ -93,8 +93,8 @@ const Register = () => {
     } catch (error) {
       dispatch(setMessage(error, "Error"));
     } finally {
-      dispatch(setMessage("", ""));
       setDeshabilitar(false);
+      dispatch(setMessage("", ""));
     }
   };
 

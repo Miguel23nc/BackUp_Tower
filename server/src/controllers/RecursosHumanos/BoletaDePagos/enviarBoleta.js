@@ -29,14 +29,14 @@ const enviarBoleta = async (req, res) => {
       return res.status(400).json({ message: "Faltan datos para procesar." });
     }
 
-    const newData = datosBoleta.map(async (data) => {
-      const newUrl = await convertPathToPdf(data.archivoUrl);
-      return {
-        ...data,
-        archivoUrl: newUrl,
-      };
-    });
-    const datosBoletaDePago = await Promise.all(newData);
+    // const newData = datosBoleta.map(async (data) => {
+    //   const newUrl = await convertPathToPdf(data.archivoUrl);
+    //   return {
+    //     ...data,
+    //     archivoUrl: newUrl,
+    //   };
+    // });
+    // const datosBoletaDePago = await Promise.all(newData);
 
     // Responder inmediatamente al cliente
     res.status(200).json({
@@ -46,6 +46,7 @@ const enviarBoleta = async (req, res) => {
     let EMAIL_USER;
     let EMAIL_PASS;
     let SMTP;
+    let PORT = 465;
     // Configurar transporte de nodemailer
     switch (business) {
       case "LADIAMB":
@@ -62,6 +63,7 @@ const enviarBoleta = async (req, res) => {
         EMAIL_USER = EMAIL_TOWERANDTOWER;
         EMAIL_PASS = PASS_TOWERANDTOWER;
         SMTP = SMTP_TOWERANDTOWER;
+        PORT = 587;
         break;
       case "ECOLOGY":
         EMAIL_USER = EMAIL_ECOLOGY;
@@ -77,19 +79,23 @@ const enviarBoleta = async (req, res) => {
         EMAIL_USER = EMAIL_TOWERANDTOWER;
         EMAIL_PASS = PASS_TOWERANDTOWER;
         SMTP = SMTP_TOWERANDTOWER;
+        PORT = 587;
         break;
     }
 
     const transporter = nodemailer.createTransport({
       host: SMTP,
-      port: 465,
-      secure: true,
+      port: PORT,
+      secure: PORT === 465,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
       connectionTimeout: 5000, // 5 segundos
       sendTimeout: 10000, // 10 segundos
+      ...(business === "TOWER AND TOWER" && {
+        tls: { rejectUnauthorized: false },
+      }),
     });
 
     const errores = [];
@@ -103,7 +109,7 @@ const enviarBoleta = async (req, res) => {
       fechaBoletaDePago,
       boletaId,
       archivoUrl,
-    } of datosBoletaDePago) {
+    } of datosBoleta) {
       queue.add(async () => {
         try {
           if (
@@ -128,7 +134,7 @@ const enviarBoleta = async (req, res) => {
           }
 
           const mailOptions = {
-            from: `Pruebas Locales <${EMAIL_USER}>`,
+            from: `Boleta de Pago <${EMAIL_USER}>`,
             to: email,
             subject: "Boleta de Pago",
             text: "Boleta de Pago",
