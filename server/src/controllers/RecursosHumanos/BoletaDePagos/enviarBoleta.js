@@ -29,14 +29,14 @@ const enviarBoleta = async (req, res) => {
       return res.status(400).json({ message: "Faltan datos para procesar." });
     }
 
-    // const newData = datosBoleta.map(async (data) => {
-    //   const newUrl = await convertPathToPdf(data.archivoUrl);
-    //   return {
-    //     ...data,
-    //     archivoUrl: newUrl,
-    //   };
-    // });
-    // const datosBoletaDePago = await Promise.all(newData);
+    const newData = datosBoleta.map(async (data) => {
+      const newUrl = await convertPathToPdf(data.archivoUrl);
+      return {
+        ...data,
+        archivoUrl: newUrl,
+      };
+    });
+    const datosBoletaDePago = await Promise.all(newData);
 
     // Responder inmediatamente al cliente
     res.status(200).json({
@@ -109,7 +109,7 @@ const enviarBoleta = async (req, res) => {
       fechaBoletaDePago,
       boletaId,
       archivoUrl,
-    } of datosBoleta) {
+    } of datosBoletaDePago) {
       queue.add(async () => {
         try {
           if (
