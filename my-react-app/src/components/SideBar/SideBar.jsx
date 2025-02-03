@@ -11,9 +11,9 @@ const SideBar = () => {
       className="bg-sky-600 border-r-2 border-slate-900 shadow-[4px_0_8px_rgba(128,128,128,0)] shadow-gray-300  bg-gradient-to-b from-[#455a6f] to-[#263241] fixed  z-50 items-center  flex flex-col 
          w-20  min-h-screen"
     >
-      <div className=" w-14 flex justify-center items-center h-14 m-2 my-8 rounded-full">
+      <div className=" w-18 flex justify-center items-center h-18 my-8 rounded-full">
         <Link to={"/home"}>
-          <img src="/ISOTIPO SOFT TOWER.svg" width={55} alt="LOGO TOWER" />
+          <img src="/ISOTIPO SOFT TOWER.svg" width={66} height={66} alt="LOGO TOWER" />
         </Link>
       </div>
       <div>

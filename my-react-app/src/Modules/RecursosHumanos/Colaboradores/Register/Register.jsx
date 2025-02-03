@@ -55,6 +55,7 @@ const Register = () => {
   const { error, validateForm } = useValidation(formData);
 
   const register = async () => {
+    dispatch(setMessage("Espere por favor...", "Cargando"));
     const formIsValid = validateForm(formData);
     try {
       if (formIsValid === true) {

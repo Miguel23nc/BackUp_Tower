@@ -30,10 +30,12 @@ const Login = () => {
       await signin(data);
       if (errors) {
         dispatch(setMessage(errors, "Error"));
-        setErrors(null);
+        return setErrors(null);
       }
     } catch (error) {
       dispatch(setMessage("Error al iniciar sesión", "Error"));
+    } finally {
+      sendMessage("", "");
     }
   };
 

@@ -25,7 +25,7 @@ const Options = (props) => {
   return (
     <div
       ref={ref}
-      className={` bg-slate-200 flex justify-center items-center w-14 m-4 h-14 rounded-full`}
+      className={` bg-slate-200 flex justify-center items-center w-16 m-4 h-16 rounded-full`}
     >
       <button onClick={() => handleSubmit(mostrar)}>{content}</button>
       {mostrar && (

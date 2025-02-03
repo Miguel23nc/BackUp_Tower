@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import useModulesAndSubModules from "../SideBar/Links";
 import { useAuth } from "../../context/AuthContext";
+import Loading from "../Loading/Loading";
 
 const ProtectedComponent = ({ allowedSubmodules, children }) => {
   const { user } = useAuth();
@@ -11,7 +12,7 @@ const ProtectedComponent = ({ allowedSubmodules, children }) => {
   }
 
   if (loading) {
-    return <div>Cargando permisos...</div>;
+    return <Loading />;
   }
   const hasAccess = userPermissions.some((module) =>
     module.submodule.some((submodule) =>

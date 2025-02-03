@@ -83,7 +83,10 @@ const Enviar = () => {
         const newForm = await Promise.all(datosBoleta);
         console.log("newForm", newForm);
 
-        const response = await enviarBoletasDePago({ datosBoleta: newForm });
+        const response = await enviarBoletasDePago({
+          datosBoleta: newForm,
+          business: form.empresa,
+        });
         if (!response)
           return showMessage("Error al generar la boleta", "Error");
         showMessage(response, "Ok");

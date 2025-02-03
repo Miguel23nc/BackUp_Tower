@@ -68,7 +68,7 @@ const FormMultiple = ({ set, resetForm, initialData, error: errorOnclick }) => {
   // const error = errorOnclick.modules[0];
 
   return (
-    <div className="flex my-2 items-end justify-center">
+    <div className="flex my-2 items-end flex-wrap justify-center">
       <Input
         label="Modulos"
         value={data.modulo}
