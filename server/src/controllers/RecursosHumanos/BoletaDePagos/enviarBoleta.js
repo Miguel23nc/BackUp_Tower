@@ -1,11 +1,27 @@
-const { EMAIL_PASS, EMAIL_USER } = process.env;
+const {
+  EMAIL_LADIAMB,
+  PASS_LADIAMB,
+  SMTP_LADIAMB,
+  EMAIL_CORPEMSE,
+  PASS_CORPEMSE,
+  SMTP_CORPEMSE,
+  EMAIL_TOWERANDTOWER,
+  PASS_TOWERANDTOWER,
+  SMTP_TOWERANDTOWER,
+  EMAIL_ECOLOGY,
+  PASS_ECOLOGY,
+  SMTP_ECOLOGY,
+  EMAIL_INVERSIONESLURIN,
+  PASS_INVERSIONESLURIN,
+  SMTP_INVERSIONESLURIN,
+} = process.env;
 const nodemailer = require("nodemailer");
 const convertPathToPdf = require("../../../utils/convertToPdf");
 const BoletaDePagos = require("../../../models/RecursosHumanos/BoletaDePago");
 const dayjs = require("dayjs");
 
 const enviarBoleta = async (req, res) => {
-  const { datosBoleta } = req.body;
+  const { datosBoleta, business } = req.body;
   console.log("datosBoleta", datosBoleta);
 
   try {
@@ -27,10 +43,47 @@ const enviarBoleta = async (req, res) => {
       message: "El proceso de envío de correos ha comenzado.",
     });
 
+    let EMAIL_USER;
+    let EMAIL_PASS;
+    let SMTP;
     // Configurar transporte de nodemailer
+    switch (business) {
+      case "LADIAMB":
+        EMAIL_USER = EMAIL_LADIAMB;
+        EMAIL_PASS = PASS_LADIAMB;
+        SMTP = SMTP_LADIAMB;
+        break;
+      case "CORPEMSE":
+        EMAIL_USER = EMAIL_CORPEMSE;
+        EMAIL_PASS = PASS_CORPEMSE;
+        SMTP = SMTP_CORPEMSE;
+        break;
+      case "TOWER AND TOWER":
+        EMAIL_USER = EMAIL_TOWERANDTOWER;
+        EMAIL_PASS = PASS_TOWERANDTOWER;
+        SMTP = SMTP_TOWERANDTOWER;
+        break;
+      case "ECOLOGY":
+        EMAIL_USER = EMAIL_ECOLOGY;
+        EMAIL_PASS = PASS_ECOLOGY;
+        SMTP = SMTP_ECOLOGY;
+        break;
+      case "INVERSIONES LURIN":
+        EMAIL_USER = EMAIL_INVERSIONESLURIN;
+        EMAIL_PASS = PASS_INVERSIONESLURIN;
+        SMTP = SMTP_INVERSIONESLURIN;
+        break;
+      default:
+        EMAIL_USER = EMAIL_TOWERANDTOWER;
+        EMAIL_PASS = PASS_TOWERANDTOWER;
+        SMTP = SMTP_TOWERANDTOWER;
+        break;
+    }
+
     const transporter = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-      port: 2525,
+      host: SMTP,
+      port: 465,
+      secure: true,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
@@ -73,8 +126,6 @@ const enviarBoleta = async (req, res) => {
             errores.push({ email, error: "La boleta ya fue enviada." });
             return;
           }
-          const fs = require("fs");
-          const pdfBuffer = fs.readFileSync(archivoUrl);
 
           const mailOptions = {
             from: `Pruebas Locales <${EMAIL_USER}>`,
@@ -84,7 +135,7 @@ const enviarBoleta = async (req, res) => {
             attachments: [
               {
                 filename: "Boleta_de_Pago.pdf",
-                content: pdfBuffer,
+                content: archivoUrl,
                 encoding: "base64",
               },
             ],
