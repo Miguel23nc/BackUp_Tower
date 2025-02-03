@@ -29,6 +29,7 @@ const Representante = ({ setForm, error, form }) => {
       <Input
         label="Número de Documento"
         name="documentNumber"
+        maxLength={8}
         setForm={setActualForm}
         value={documentNumber}
         errorOnclick={error.representative.documentNumber}

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import useValidation from "../validateEmpresas";
 import { useDispatch, useSelector } from "react-redux";
 import {
   consultRuc,
@@ -13,9 +12,11 @@ import imageCloudinary from "../../../../api/cloudinaryImage.jsx";
 import CardPlegable from "../../../../recicle/Divs/CardPlegable.jsx";
 import DatosEmpresa from "./Empresa.jsx";
 import Representante from "./Representante.jsx";
+import useValidation from "../validateEmpresas.js";
 
 const Register = () => {
   const { postBusiness, response } = useAuth();
+  const [deshabilitar, setDeshabilitar] = useState(false);
   const [form, setForm] = useState({
     ruc: "",
     razonSocial: "",
@@ -60,10 +61,14 @@ const Register = () => {
   }, [responseRuc]);
 
   const { error, validateForm } = useValidation(form);
+  console.log("Register -> error", error);
 
   const enviar = async () => {
+    dispatch(setMessage("Cargando...", "Espere"));
+    setDeshabilitar(true);
     try {
       const formIsValid = validateForm(form);
+      console.log("EMPRESAS -> Register -> formIsValid", formIsValid);
 
       if (formIsValid) {
         const pathLogo = await imageCloudinary(form.logo);
@@ -87,12 +92,15 @@ const Register = () => {
       }
     } catch (error) {
       dispatch(setMessage(error, "Error"));
+    } finally {
+      dispatch(setMessage("", ""));
+      setDeshabilitar(false);
     }
   };
 
   return (
     <div className="flex flex-col">
-      <PopUp />
+      <PopUp disabled={deshabilitar} />
       <CardPlegable title="Datos de la Empresa">
         <DatosEmpresa error={error} setForm={setForm} form={form} />
       </CardPlegable>

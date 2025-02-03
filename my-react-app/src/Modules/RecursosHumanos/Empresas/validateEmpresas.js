@@ -20,21 +20,25 @@ const useValidation = () => {
       ruc: formData.ruc === "",
       razonSocial: formData.razonSocial === "",
       address: formData.address === "",
-      logo: formData.logo === "",
+      logo: !formData.logo,
       representative: {
         name: formData.representative.name === "",
         documentType: formData.representative.documentType === "",
         documentNumber: formData.representative.documentNumber === "",
-        signature: formData.representative.signature === "",
+        signature: !formData.representative.signature,
       },
     };
 
     setError(newError);
 
-    // Verifica si el formulario es válido
-    return Object.values(newError).every((field) => field === false);
+    const formIsValid = Object.values(newError).every(
+      (field) =>
+        field === false ||
+        (typeof field === "object" &&
+          Object.values(field).every((subfield) => subfield === false))
+    );
 
-    // return formIsValid;
+    return formIsValid;
   };
 
   return { error, validateForm };
