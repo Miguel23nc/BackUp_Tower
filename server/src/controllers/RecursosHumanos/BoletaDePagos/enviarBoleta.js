@@ -49,28 +49,28 @@ const enviarBoleta = async (req, res) => {
     let PORT = 465;
     // Configurar transporte de nodemailer
     switch (business) {
-      case "LADIAMB":
+      case "LADIAMB S.A.C":
         EMAIL_USER = EMAIL_LADIAMB;
         EMAIL_PASS = PASS_LADIAMB;
         SMTP = SMTP_LADIAMB;
         break;
-      case "CORPEMSE":
+      case "CORPEMSE S.A.C":
         EMAIL_USER = EMAIL_CORPEMSE;
         EMAIL_PASS = PASS_CORPEMSE;
         SMTP = SMTP_CORPEMSE;
         break;
-      case "TOWER AND TOWER":
+      case "TOWER AND TOWER S.A":
         EMAIL_USER = EMAIL_TOWERANDTOWER;
         EMAIL_PASS = PASS_TOWERANDTOWER;
         SMTP = SMTP_TOWERANDTOWER;
         PORT = 587;
         break;
-      case "ECOLOGY":
+      case "ECOLOGY SCRL":
         EMAIL_USER = EMAIL_ECOLOGY;
         EMAIL_PASS = PASS_ECOLOGY;
         SMTP = SMTP_ECOLOGY;
         break;
-      case "INVERSIONES LURIN":
+      case "INVERSIONES LURIN S.A.C":
         EMAIL_USER = EMAIL_INVERSIONESLURIN;
         EMAIL_PASS = PASS_INVERSIONESLURIN;
         SMTP = SMTP_INVERSIONESLURIN;

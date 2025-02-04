@@ -27,6 +27,8 @@ const registerEmployee = async (req, res) => {
       modules,
       business,
       sede,
+      dateStart,
+      regimenPension,
     } = req.body;
 
     // Hash the password
@@ -68,6 +70,8 @@ const registerEmployee = async (req, res) => {
       modules,
       business,
       sede,
+      dateStart,
+      regimenPension,
     });
 
     // Save the employee to the database

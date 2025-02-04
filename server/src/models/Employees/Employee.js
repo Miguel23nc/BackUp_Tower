@@ -85,6 +85,12 @@ const employeeSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    regimenPension: {
+      type: String,
+    },
+    dateStart: {
+      type: String,
+    },
     modules: [
       {
         name: {

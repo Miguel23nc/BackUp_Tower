@@ -11,6 +11,7 @@ import RemoveItemAdd from "../../../../components/RemoveAdd/RemoveItemAdd";
 import Ubicacion from "./DatosBásicos/Ubicacion";
 import imageCloudinary from "../../../../api/cloudinaryImage";
 import useValidation from "./validate";
+import ExcelColaboradores from "../Permissions/ExcelBoletas";
 
 const Register = () => {
   const { signup, response } = useAuth();
@@ -81,6 +82,7 @@ const Register = () => {
 
   return (
     <div className="flex flex-col w-full p-6">
+      <ExcelColaboradores />
       <PopUp />
       <CardPlegable title="Datos del Colaborador">
         <FormOne setForm={setFormData} error={error} form={formData} />

@@ -4,7 +4,7 @@ const getBoletaDePagos = async (req, res) => {
   try {
     const boleta = await BoletaDePagos.find().populate(
       "colaborador",
-      "business name lastname email documentNumber"
+      "business name lastname email documentNumber documentType regimen"
     );
 
     if (!boleta || boleta.length === 0) {
@@ -13,7 +13,6 @@ const getBoletaDePagos = async (req, res) => {
     return res.status(200).json(boleta);
   } catch (error) {
     console.log("Error en getBoletaDePagos:", error);
-
     return res.status(500).json({ message: error.message });
   }
 };

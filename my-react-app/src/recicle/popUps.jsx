@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 const PopUp = ({ ...OtherProps }) => {
+  console.log("OtherProps", OtherProps);
+
   const { setResponse, setErrors } = useAuth();
   const [showPopUp, setShowPopUp] = useState(false);
   const errorForms = useSelector((state) => state.error);

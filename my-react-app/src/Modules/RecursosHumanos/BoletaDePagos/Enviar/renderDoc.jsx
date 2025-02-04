@@ -1,113 +1,116 @@
-import axios from "../../../../api/axios";
-import documentoCloudinary from "../../../../api/cloudinaryDocument";
 import convertDocx from "../../../../utils/convertDocx";
+const {
+  VITE_PLANTILLA_INVERSIONES_LURIN,
+  VITE_PLANTILLA_LADIAMB,
+  VITE_PLANTILLA_TOWERANDTOWER,
+  VITE_PLANTILLA_ECOLOGY,
+  VITE_PLANTILLA_CORPEMSE,
+} = import.meta.env;
 
-const renderDoc = async (boleta) => {
+const renderDoc = async (boleta, business, datosContables) => {
+  let PLANTILLA_DOCUMENT;
+  switch (business.razonSocial) {
+    case "INVERSIONES LURIN S.A.C":
+      PLANTILLA_DOCUMENT = VITE_PLANTILLA_INVERSIONES_LURIN;
+      break;
+    case "LADIAMB S.A.C":
+      PLANTILLA_DOCUMENT = VITE_PLANTILLA_LADIAMB;
+      break;
+    case "TOWER AND TOWER S.A":
+      PLANTILLA_DOCUMENT = VITE_PLANTILLA_TOWERANDTOWER;
+      break;
+    case "ECOLOGY SCRL":
+      PLANTILLA_DOCUMENT = VITE_PLANTILLA_ECOLOGY;
+      break;
+    case "CORPEMSE S.A.C":
+      PLANTILLA_DOCUMENT = VITE_PLANTILLA_CORPEMSE;
+      break;
+    default:
+      PLANTILLA_DOCUMENT = VITE_PLANTILLA_TOWERANDTOWER;
+      break;
+  }
   try {
-    console.log("Boletas de pago:", boleta);
+    console.log("Datos de la boleta:", boleta);
+    console.log("Datos de la Empresa:", business);
 
-    const formattedData = {
-      ruc_empresa: "20123456789",
-      razonSocial_empresa: "LABORATORIO DE INSTRUMENTOS AMBIENTALES S.A.C",
-      fechaBoletaDePago: "2024-12-01",
-      tipoD: "DNI",
-      numeroD: "12345678",
-      colaborador: "Juan Perez",
-      situacion: "Planilla",
-      ingreso: "",
-      tipoT: "Empleado",
-      regimen: "AFP",
-      días: 30,
-      horas: 240,
-      ingresos: [
-        {
-          isFirst: true,
-          codigo: "0120",
-          concepto: "REMUNERACIÓN POR CUMPLEAÑOS",
+    const transformData = (data) => {
+      const ingresos = data.remuneraciones.map((remuneracion, index) => {
+        const conceptoObj = datosContables.find(
+          (item) => item.codigoPlame === remuneracion.datosContables
+        );
+        return {
+          isFirst: index === 0,
+          codigo: remuneracion.datosContables,
+          concepto: conceptoObj
+            ? conceptoObj.concepto
+            : "Concepto no encontrado",
           tipo: "INGRESOS",
-          monto: 200,
-        },
-        {
-          isFirst: false,
-          codigo: "0130",
-          concepto: "BONO EXTRAORDINARIO",
-          tipo: "INGRESOS",
-          monto: 300,
-        },
-      ],
-      descuentos: [
-        {
-          isFirst: true,
-          codigo: "0200",
-          concepto: "CONTRIBUCIÓN PREVISIONAL",
+          monto: parseFloat(remuneracion.monto),
+        };
+      });
+      const descuentos = data.descuentosAlTrabajador.map((descuento, index) => {
+        const conceptoObj = datosContables.find(
+          (item) => item.codigoPlame === descuento.datosContables
+        );
+        return {
+          isFirst: index === 0,
+          codigo: descuento.datosContables,
+          concepto: conceptoObj
+            ? conceptoObj.concepto
+            : "Concepto no encontrado",
           tipo: "APORTES DEL TRABAJADOR",
-          monto: 150,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          tipo: "APORTES DEL TRABAJADOR",
-          monto: 50,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          tipo: "APORTES DEL TRABAJADOR",
-          monto: 50,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          tipo: "APORTES DEL TRABAJADOR",
-          monto: 50,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          tipo: "APORTES DEL TRABAJADOR",
-          monto: 50,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          tipo: "APORTES DEL TRABAJADOR",
-          monto: 50,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          tipo: "APORTES DEL TRABAJADOR",
-          monto: 50,
-        },
-      ],
-      aportes: [
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          monto: 50,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          monto: 50,
-        },
-        {
-          codigo: "0210",
-          concepto: "DESCUENTO POR INASISTENCIAS",
-          monto: 50,
-        },
-      ],
+          monto: parseFloat(descuento.monto),
+        };
+      });
+      const aportes = data.aportacionesDelEmpleador.map((aporte) => {
+        const conceptoObj = datosContables.find(
+          (item) => item.codigoPlame === aporte.datosContables
+        );
+        return {
+          codigo: aporte.datosContables,
+          concepto: conceptoObj
+            ? conceptoObj.concepto
+            : "Concepto no encontrado",
+          monto: parseFloat(aporte.monto),
+        };
+      });
+      const totalIngresos = ingresos.reduce(
+        (sum, ingreso) => sum + ingreso.monto,
+        0
+      );
+      const totalDescuentos = descuentos.reduce(
+        (sum, descuento) => sum + descuento.monto,
+        0
+      );
 
-      total: 600, // Total neto a pagar
+      const total = totalIngresos - totalDescuentos;
+      const formattedData = {
+        ruc_empresa: business.ruc,
+        razonSocial_empresa: business.razonSocial,
+        fechaBoletaDePago: data.fechaBoletaDePago,
+        tipoD: data.colaborador.documentType,
+        numeroD: data.colaborador.documentNumber,
+        colaborador: data.colaborador.lastname + " " + data.colaborador.name,
+        situacion: data.situacion,
+        ingreso: data.ingreso,
+        tipoT: data.tipoT,
+        regimen: data.regimen,
+        días: parseInt(data.diasTrabajados),
+        horas: parseInt(data.horasTrabajadas),
+        ingresos,
+        descuentos,
+        aportes,
+        total: total,
+      };
+
+      return formattedData;
     };
-    const archivo =
-      "https://res.cloudinary.com/ddci9jvnh/raw/upload/v1736441604/MENBRETE_DE_LABORATORIO_1_ehqrzl.docx";
+    const formExcel = transformData(boleta);
+    console.log("Boletas de pago:", formExcel);
 
-    const convertir = await convertDocx(
-      formattedData,
-      archivo,
-      "Boleta_de_Pago"
-    );
+    const archivo = PLANTILLA_DOCUMENT;
+
+    const convertir = await convertDocx(formExcel, archivo, "Boleta_de_Pago");
     if (!convertir)
       throw new Error(
         "No se pudo completar el proceso de renderizado de la boleta",

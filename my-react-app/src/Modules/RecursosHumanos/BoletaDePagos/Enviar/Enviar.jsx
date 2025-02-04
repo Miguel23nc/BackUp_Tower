@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import {
   getBoletaDePagos,
   getBusiness,
+  getContracts,
+  getDatosContables,
   setMessage,
 } from "../../../../redux/actions";
 import useValidation from "./validateEnviar";
@@ -17,13 +19,25 @@ import documentoCloudinary from "../../../../api/cloudinaryDocument";
 import PopUp from "../../../../recicle/popUps";
 
 const Enviar = () => {
+  const dispatch = useDispatch();
   const { enviarBoletasDePago } = useAuth();
   const [deshabilitar, setDeshabilitar] = useState(false);
   const [form, setForm] = useState({
     empresa: "",
     fechaBoletaDePago: "",
   });
-  const dispatch = useDispatch();
+  const AllContratos = useSelector((state) => state.contracts);
+  useEffect(() => {
+    if (AllContratos.length === 0) dispatch(getContracts());
+  }, [AllContratos, dispatch]);
+  console.log("AllContratos", AllContratos);
+
+  const datosContables = useSelector((state) => state.datosContables);
+  console.log("datosContables", datosContables);
+
+  useEffect(() => {
+    if (datosContables.length === 0) dispatch(getDatosContables());
+  }, [dispatch, datosContables]);
   const business = useSelector((state) => state.business);
   useEffect(() => {
     if (business.length === 0) {
@@ -43,7 +57,7 @@ const Enviar = () => {
   const boletasFiltrado = useMemo(() => {
     return boletas?.filter(
       (item) =>
-        item.colaborador.business === form.empresa &&
+        item.colaborador?.business === form.empresa &&
         item.fechaBoletaDePago ===
           dayjs(form.fechaBoletaDePago).format("MM/YYYY")
     );
@@ -55,8 +69,8 @@ const Enviar = () => {
   };
 
   const enviarCorreo = async () => {
-    showMessage("Enviando Correo...", "Espere");
     setDeshabilitar(true);
+    showMessage("Enviando Correo...", "Espere");
     try {
       const formIsValide = validateForm(form);
       if (formIsValide) {
@@ -67,7 +81,26 @@ const Enviar = () => {
         const datosBoleta = boletasFiltrado
           .filter((item) => !item.envio)
           .map(async (item) => {
-            const docxTranscript = await renderDoc(item);
+            // const findContrato = AllContratos.find(
+            //   (contrato) =>
+            //     contrato.item.colaborador.documentNumber ===
+            //     item.colaborador.documentNumber
+            // );
+            const newForm = {
+              // regimen: findContrato.item.regimenPension,
+              // ingreso: findContrato.item.dateStart,
+              situacion: "ACTIVO O SUBSIDIADO",
+              tipoT: "EMPLEADO",
+              ...item,
+            };
+            const findBusiness = business.find(
+              (empresa) => empresa.razonSocial === item.colaborador.business
+            );
+            const docxTranscript = await renderDoc(
+              newForm,
+              findBusiness,
+              datosContables
+            );
             const cloudinaryUrl = await documentoCloudinary(docxTranscript);
             return {
               archivoUrl: cloudinaryUrl,
