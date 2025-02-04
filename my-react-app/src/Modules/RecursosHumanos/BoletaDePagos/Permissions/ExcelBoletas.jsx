@@ -15,6 +15,7 @@ const ExcelBoletas = () => {
   const sendMessage = useSendMessage();
   const dispatch = useDispatch();
   const colaboradores = useSelector((state) => state.employees);
+  console.log("colaboradores", colaboradores);
 
   useEffect(() => {
     if (colaboradores.length === 0) dispatch(getEmployees());
@@ -46,14 +47,19 @@ const ExcelBoletas = () => {
 
         let errores = [];
 
-        const promises = mappedData.map(async (boleta) => {
+        // 🔄 Enviar de UNA en UNA en orden
+        for (let boleta of mappedData) {
+          console.log("boleta", boleta);
+
           const findColaborador = colaboradores.find(
-            (colaborador) => colaborador.documentNumber === boleta.documento
+            (colaborador) =>
+              colaborador.documentNumber === boleta.documento.toString()
           );
+          console.log("findColaborador", findColaborador);
 
           if (!findColaborador) {
             errores.push(boleta.documento);
-            return;
+            continue;
           }
 
           const newForm = {
@@ -84,20 +90,15 @@ const ExcelBoletas = () => {
             console.error("Error al registrar boleta:", boleta, error);
             errores.push(boleta.documento);
           }
-        });
-
-        await Promise.allSettled(promises);
-
-        if (errores.length > 0) {
-          sendMessage(
-            `Se creó con éxito ${mappedData.length - errores.length}. Hubo ${
-              errores.length
-            } error(es): ${errores.join(", ")}`,
-            "Error"
-          );
-        } else {
-          sendMessage("Boletas registradas correctamente.", "Success");
+          await new Promise((resolve) => setTimeout(resolve, 2000));
         }
+
+        sendMessage(
+          `Se creó con éxito ${mappedData.length - errores.length}. Hubo ${
+            errores.length
+          } error(es): ${errores.join(", ")}`,
+          "Atención"
+        );
       };
       reader.readAsArrayBuffer(file.archivo);
     } catch (error) {

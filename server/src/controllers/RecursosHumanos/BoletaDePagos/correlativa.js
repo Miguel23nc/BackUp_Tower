@@ -3,13 +3,10 @@ const BoletaDePagos = require("../../../models/RecursosHumanos/BoletaDePago");
 const generarCorrelativa = async (fechaOperacion) => {
   try {
     console.log("fechaOperacion : ", fechaOperacion);
-
-    // Extraemos el año de la fecha de operación y lo formateamos en dos dígitos (por ejemplo 24 para 2024)
-    const añoActual = fechaOperacion.getFullYear().toString().slice(2); // Obtiene "24" para 2024
-    const correlativaBase = `${añoActual}`; // "24"
+    const añoActual = fechaOperacion.getFullYear().toString().slice(2);
+    const correlativaBase = `${añoActual}`;
     console.log("correlativaBase : ", correlativaBase);
 
-    // Buscamos la última correlativa del año actual con el formato 2400001, 2400002, ...
     const ultimaCotizacion = await BoletaDePagos.findOne({
       correlativa: {
         $gte: Number(`${correlativaBase}00001`), // Busca correlativas para el año actual, por ejemplo, 2400001
@@ -18,20 +15,15 @@ const generarCorrelativa = async (fechaOperacion) => {
     })
       .sort({ correlativa: -1 }) // Ordenamos de mayor a menor para obtener la última correlativa
       .limit(1);
-
-    console.log("ultimaCotizacion : ", ultimaCotizacion);
-
     let nuevoNumero;
 
     if (ultimaCotizacion) {
-      // Extraemos el número secuencial de la última correlativa
       const ultimaCorrelativa = parseInt(
         ultimaCotizacion.correlativa.toString().slice(2), // Obtenemos solo los números después del año (por ejemplo 000001)
         10
       );
       console.log("ultimaCorrelativa : ", ultimaCorrelativa);
 
-      // Verificar que ultimaCorrelativa es un número válido
       if (isNaN(ultimaCorrelativa)) {
         throw new Error(
           `La última correlativa no es válida: ${ultimaCotizacion.correlativa}`

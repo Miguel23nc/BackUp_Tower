@@ -16,9 +16,6 @@ const postBoletaDePagos = async (req, res) => {
   try {
     const [month, year] = fechaBoletaDePago.split("/");
     const fechaOperacionDate = new Date(`${year}/${month}`);
-    const correlativa = await generarCorrelativa(fechaOperacionDate);
-    if (!correlativa)
-      return res.status(500).json({ message: "Error al generar correlativa" });
 
     const boletaFound = await BoletaDePagos.findOne({
       fechaBoletaDePago,
@@ -45,6 +42,9 @@ const postBoletaDePagos = async (req, res) => {
         .status(400)
         .json({ message: "Por favor llena todos los campos" });
     }
+    const correlativa = await generarCorrelativa(fechaOperacionDate);
+    if (!correlativa)
+      return res.status(500).json({ message: "Error al generar correlativa" });
     const boleta = new BoletaDePagos({
       correlativa,
       fechaBoletaDePago,

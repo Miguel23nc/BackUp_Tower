@@ -30,36 +30,40 @@ const ExcelColaboradores = () => {
         const workbook = XLSX.read(data, { type: "array" });
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const rows = XLSX.utils.sheet_to_json(sheet);
-
-        const mappedData = rows.map((row) => ({
-          colaborador: row["APELLIDOS Y NOMBRES"],
-          documentType: row["TIPO DE DOCUMENTO"],
-          documentNumber: row["NÚMERO DE DOCUMENTO"],
-          dateOfBirth: "01/01/2000",
-          genre: row["GÉNERO"],
-          civilStatus: "SOLTERO",
-          phone: row["NÚMERO PERRSONAL"],
-          email: row["CORREO PERSONAL"],
-          location: {
-            departamento: row["DEPARTAMENTO"],
-            provincia: row[" PROVINCIA"],
-            distrito: row["DISTRITO"],
-            direccion: row["DIRECCIÓN"],
-          },
-          charge: row["CARGO"],
-          sueldo: row["SUELDO"],
-          user: row["USUARIO"],
-          password: "123456",
-          photo: "foto.png",
-          business: row["EMPRESA"],
-          sede: row["SEDE"],
-          dateStart: row["FECHA DE INGRESO"],
-          regimenPension: row["REGIMEN DE PENSION"],
-        }));
+        const mappedData = rows.map((row) => {
+          const formattedDateStart = XLSX.utils.format_cell(
+            row["FECHA DE INGRESO"]
+          );
+          return {
+            colaborador: row["APELLIDOS Y NOMBRES"],
+            dateStart: formattedDateStart,
+            regimenPension: row["REGIMEN DE PENSION"],
+            genre: row["GÉNERO"],
+            documentType: row["TIPO DE DOCUMENTO"],
+            documentNumber: row["NÚMERO DE DOCUMENTO"].toString(),
+            dateOfBirth: "01/01/2000",
+            civilStatus: "SOLTERO",
+            phone: row["NÚMERO PERRSONAL"],
+            email: row["CORREO PERSONAL"],
+            location: {
+              departamento: row["DEPARTAMENTO"],
+              provincia: row[" PROVINCIA"],
+              distrito: row["DISTRITO"],
+              direccion: row["DIRECCIÓN"],
+            },
+            charge: row["CARGO"],
+            sueldo: row["SUELDO"],
+            user: row["USUARIO"],
+            password: "123456",
+            photo: "foto.png",
+            business: row["EMPRESA"],
+            sede: row["SEDE"],
+          };
+        });
 
         let errores = [];
 
-        const promises = mappedData.map(async (boleta) => {
+        for (const boleta of mappedData) {
           const newForm = {
             lastname: boleta.colaborador.split(" ").slice(0, 2).join(" "),
             name: boleta.colaborador.split(" ").slice(2).join(" "),
@@ -67,25 +71,24 @@ const ExcelColaboradores = () => {
           };
 
           try {
-            console.log("newForm", newForm);
+            console.log("Registrando:", newForm);
             await signup(newForm);
           } catch (error) {
             console.error("Error al registrar boleta:", boleta, error);
-            errores.push(boleta.documento);
+            errores.push(boleta.documentNumber);
           }
-        });
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
 
-        await Promise.allSettled(promises);
         console.log("errores", errores);
-        console.log("mappedData", mappedData);
+        sendMessage(
+          `Se creó con éxito ${mappedData.length - errores.length}. Hubo ${
+            errores.length
+          } error(es): ${errores.join(", ")}`,
+          "Atención"
+        );
       };
       reader.readAsArrayBuffer(file.archivo);
-      sendMessage(
-        `Se creó con éxito ${mappedData.length - errores.length}. Hubo ${
-          errores.length
-        } error(es): ${errores.join(", ")}`,
-        "Error"
-      );
     } catch (error) {
       console.error("Error al procesar el archivo:", error);
       sendMessage("Error al procesar el archivo", "Error");
