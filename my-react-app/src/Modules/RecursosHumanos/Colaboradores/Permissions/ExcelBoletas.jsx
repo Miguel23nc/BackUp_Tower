@@ -31,19 +31,16 @@ const ExcelColaboradores = () => {
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const rows = XLSX.utils.sheet_to_json(sheet);
         const mappedData = rows.map((row) => {
-          const formattedDateStart = XLSX.utils.format_cell(
-            row["FECHA DE INGRESO"]
-          );
           return {
             colaborador: row["APELLIDOS Y NOMBRES"],
-            dateStart: formattedDateStart,
+            dateStart: row["FECHA DE INGRESO"],
             regimenPension: row["REGIMEN DE PENSION"],
             genre: row["GÉNERO"],
             documentType: row["TIPO DE DOCUMENTO"],
-            documentNumber: row["NÚMERO DE DOCUMENTO"].toString(),
+            documentNumber: row["NÚMERO DE DOCUMENTO"]?.toString(),
             dateOfBirth: "01/01/2000",
             civilStatus: "SOLTERO",
-            phone: row["NÚMERO PERRSONAL"],
+            phone: row["NÚMERO PERRSONAL"]?.toString(),
             email: row["CORREO PERSONAL"],
             location: {
               departamento: row["DEPARTAMENTO"],
