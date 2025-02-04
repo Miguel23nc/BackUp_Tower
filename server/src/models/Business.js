@@ -28,7 +28,7 @@ const businessSchema = new mongoose.Schema({
       required: true,
     },
     documentNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     signature: {
