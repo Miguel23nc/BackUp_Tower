@@ -19,6 +19,7 @@ const EditBoletaDePagos = ({ setShowEdit, selected }) => {
   useEffect(() => {
     if (datosContables.length === 0) dispatch(getDatosContables());
   }, [datosContables]);
+  console.log("Edit -> datosContables", datosContables);
 
   useEffect(() => {
     if (colaboradores.length === 0) dispatch(getEmployees());

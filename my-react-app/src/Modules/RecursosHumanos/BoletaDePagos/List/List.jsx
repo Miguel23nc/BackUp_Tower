@@ -1,6 +1,6 @@
 import { Column } from "primereact/column";
 import ListPrincipal from "../../../../components/Principal/List/List";
-import { getBoletaDePagos } from "../../../../redux/actions";
+import { getBoletaDePagos, getDatosContables } from "../../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ViewBoletaDePago from "../Permissions/View";
@@ -17,7 +17,11 @@ const ListBoletaDePagos = ({
 }) => {
   const boletaDePagos = useSelector((state) => state.boletaDePagos);
   console.log("boletaDePagos", boletaDePagos);
-
+  const datosContables = useSelector((state) => state.datosContables);
+  console.log("datosContables", datosContables);
+  useEffect(() => {
+    if (datosContables.length === 0) dispatch(getDatosContables());
+  }, [datosContables]);
   const dispatch = useDispatch();
   useEffect(() => {
     if (boletaDePagos.length === 0) dispatch(getBoletaDePagos());
