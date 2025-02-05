@@ -68,50 +68,51 @@ const Enviar = () => {
     dispatch(setMessage(message, type));
   };
 
-  const enviarCorreo = async () => {
+  const enviarCorreo = async (arrayBoletas) => {
+    console.log("arrayBoletas", arrayBoletas);
+
     setDeshabilitar(true);
     showMessage("Enviando Correo...", "Espere");
     try {
       const formIsValide = validateForm(form);
       if (formIsValide) {
-        if (!boletasFiltrado || boletasFiltrado.length === 0) {
+        if (!arrayBoletas || arrayBoletas.length === 0) {
           showMessage("No hay boletas disponibles", "Error");
           return;
         }
-        const datosBoleta = boletasFiltrado
-          .filter((item) => !item.envio)
-          .map(async (item) => {
-            // const findContrato = AllContratos.find(
-            //   (contrato) =>
-            //     contrato.item.colaborador.documentNumber ===
-            //     item.colaborador.documentNumber
-            // );
-            const newForm = {
-              // regimen: findContrato.item.regimenPension,
-              // ingreso: findContrato.item.dateStart,
-              situacion: "ACTIVO O SUBSIDIADO",
-              tipoT: "EMPLEADO",
-              ...item,
-            };
-            const findBusiness = business.find(
-              (empresa) => empresa.razonSocial === item.colaborador.business
-            );
-            const docxTranscript = await renderDoc(
-              newForm,
-              findBusiness,
-              datosContables
-            );
-            const cloudinaryUrl = await documentoCloudinary(docxTranscript);
-            return {
-              archivoUrl: cloudinaryUrl,
-              email: item.colaborador.email,
-              fechaBoletaDePago: item.fechaBoletaDePago,
-              empresa: item.colaborador.business,
-              colaborador:
-                item.colaborador.lastname + " " + item.colaborador.name,
-              boletaId: item._id,
-            };
-          });
+        // .filter((item) => !item.envio)
+        const datosBoleta = arrayBoletas.map(async (item) => {
+          // const findContrato = AllContratos.find(
+          //   (contrato) =>
+          //     contrato.item.colaborador.documentNumber ===
+          //     item.colaborador.documentNumber
+          // );
+          const newForm = {
+            // regimen: findContrato.item.regimenPension,
+            // ingreso: findContrato.item.dateStart,
+            situacion: "ACTIVO O SUBSIDIADO",
+            tipoT: "EMPLEADO",
+            ...item,
+          };
+          const findBusiness = business.find(
+            (empresa) => empresa.razonSocial === item.colaborador.business
+          );
+          const docxTranscript = await renderDoc(
+            newForm,
+            findBusiness,
+            datosContables
+          );
+          const cloudinaryUrl = await documentoCloudinary(docxTranscript);
+          return {
+            archivoUrl: cloudinaryUrl,
+            email: item.colaborador.email,
+            fechaBoletaDePago: item.fechaBoletaDePago,
+            empresa: item.colaborador.business,
+            colaborador:
+              item.colaborador.lastname + " " + item.colaborador.name,
+            boletaId: item._id,
+          };
+        });
 
         const newForm = await Promise.all(datosBoleta);
         console.log("newForm", newForm);
@@ -158,7 +159,7 @@ const Enviar = () => {
           />
           <ButtonOk
             styles={" flex flex-col justify-end h-20 mx-4 py-3 "}
-            onClick={enviarCorreo}
+            onClick={() => enviarCorreo(boletasFiltrado)}
             children="Enviar a todos"
             type="ok"
           />

@@ -4,22 +4,16 @@ import RegisterBoletaDePagos from "../Register/Register";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getBoletaDePagos,
-  getDatosContables,
   getEmployees,
   setMessage,
 } from "../../../../redux/actions";
 import { useAuth } from "../../../../context/AuthContext";
-import { deepDiff, deepEqual, simpleDiff } from "../../../validateEdit";
+import { deepDiff } from "../../../validateEdit";
 import dayjs from "dayjs";
 
 const EditBoletaDePagos = ({ setShowEdit, selected }) => {
   const dispatch = useDispatch();
   const colaboradores = useSelector((state) => state.employees);
-  const datosContables = useSelector((state) => state.datosContables);
-  useEffect(() => {
-    if (datosContables.length === 0) dispatch(getDatosContables());
-  }, [datosContables]);
-  console.log("Edit -> datosContables", datosContables);
 
   useEffect(() => {
     if (colaboradores.length === 0) dispatch(getEmployees());
@@ -41,8 +35,6 @@ const EditBoletaDePagos = ({ setShowEdit, selected }) => {
 
   const changes = deepDiff(form, formEdit);
   console.log("changes", changes);
-  // const changesNormal = simpleDiff(form, formEdit);
-  // console.log("changesNormal", changesNormal);
 
   const upDate = async () => {
     try {
@@ -54,24 +46,17 @@ const EditBoletaDePagos = ({ setShowEdit, selected }) => {
           (colaborador) =>
             colaborador.lastname + " " + colaborador.name === form.colaborador
         );
-        let newForm;
+        let newForm = {
+          _id: form._id,
+          ...changes,
+        };
+        if (changes.fechaBoletaDePago) {
+          newForm.fechaBoletaDePago = dayjs(changes.fechaBoletaDePago).format(
+            "MM/YYYY"
+          );
+        }
         if (changes.colaborador) {
-          newForm = {
-            _id: form._id,
-            ...changes,
-            fechaBoletaDePago: dayjs(changes.fechaBoletaDePago).format(
-              "MM/YYYY"
-            ),
-            colaborador: colaboradorId._id,
-          };
-        } else {
-          newForm = {
-            _id: form._id,
-            ...changes,
-            fechaBoletaDePago: dayjs(changes.fechaBoletaDePago).format(
-              "MM/YYYY"
-            ),
-          };
+          newForm.colaborador = colaboradorId._id;
         }
         console.log("form apunto de enviar: ", newForm);
         await updateBoletasDePago(newForm);
