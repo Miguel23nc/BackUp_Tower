@@ -1,10 +1,10 @@
 const DatosContables = require("../../../models/RecursosHumanos/DatosContablesBoleta");
 
 const postDatosContables = async (req, res) => {
-  const { codigoPlame, cuentaContable, concepto, tipo } = req.body;
+  const { codigoPlame, concepto, tipo } = req.body;
 
   try {
-    if (!codigoPlame && !cuentaContable && !concepto && !tipo) {
+    if (!codigoPlame && !concepto && !tipo) {
       const fs = require("fs");
       const path = require("path");
       const conceptosPlame = JSON.parse(
@@ -15,7 +15,7 @@ const postDatosContables = async (req, res) => {
         .status(201)
         .json({ message: "Datos contables cargados desde JSON" });
     }
-    if (!codigoPlame || !cuentaContable || !concepto || !tipo) {
+    if (!codigoPlame || !concepto || !tipo) {
       return res
         .status(400)
         .json({ message: "Por favor llena todos los campos correctamente" });
@@ -28,7 +28,7 @@ const postDatosContables = async (req, res) => {
 
     const dato = new DatosContables({
       codigoPlame,
-      cuentaContable,
+
       concepto,
       tipo,
     });
