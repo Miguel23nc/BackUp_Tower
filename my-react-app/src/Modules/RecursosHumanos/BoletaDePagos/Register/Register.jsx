@@ -94,9 +94,9 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
         ) {
           dispatch(setMessage("Hay uno o mas campos vacios", "Alerta"));
         } else {
-          const colaboradorId = colaboradores.find(
+          const colaboradorId = colaboradores?.find(
             (colaborador) =>
-              colaborador.lastname + " " + colaborador.name === form.colaborador
+              colaborador?.lastname + " " + colaborador?.name === form?.colaborador
           );
           if (parseInt(form.horasTrabajadas) > 192) {
             dispatch(
@@ -109,8 +109,8 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
           }
           const newForm = {
             ...form,
-            colaborador: colaboradorId._id,
-            fechaBoletaDePago: dayjs(form.fechaBoletaDePago).format("MM/YYYY"),
+            colaborador: colaboradorId?._id,
+            fechaBoletaDePago: dayjs(form.fechaBoletaDePago)?.format("MM/YYYY"),
           };
           console.log("form apunto de enviar: ", newForm);
           await postBoletasDePago(newForm);

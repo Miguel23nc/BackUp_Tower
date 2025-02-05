@@ -55,6 +55,9 @@ const AportacionesDelEmpleador = ({
       });
     }
   }, [formAportacionesDelEmpleador]);
+  console.log("Register -> formAportacionesDelEmpleador", formAportacionesDelEmpleador);
+  console.log("Register -> initialData", initialData);
+  
   return (
     <Comun
       form={formAportacionesDelEmpleador}

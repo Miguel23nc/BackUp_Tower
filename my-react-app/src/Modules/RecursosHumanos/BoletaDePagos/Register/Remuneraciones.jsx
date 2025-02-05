@@ -8,8 +8,6 @@ const Remuneraciones = ({
   datosContables,
   initialData,
 }) => {
-  console.log("form", form);
-
   const [formRemuneraciones, setFormRemuneraciones] = useState({
     codigoPlame: initialData.datosContables || "",
     concepto: "",
@@ -39,6 +37,8 @@ const Remuneraciones = ({
       });
     }
   }, [formRemuneraciones]);
+  console.log("Register -> formRemuneraciones", formRemuneraciones);
+  console.log("Register -> initialData", initialData);
 
   return <Comun form={formRemuneraciones} setForm={setFormRemuneraciones} />;
 };
