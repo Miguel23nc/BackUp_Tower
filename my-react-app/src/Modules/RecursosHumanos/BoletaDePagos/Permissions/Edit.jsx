@@ -4,6 +4,7 @@ import RegisterBoletaDePagos from "../Register/Register";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getBoletaDePagos,
+  getDatosContables,
   getEmployees,
   setMessage,
 } from "../../../../redux/actions";
