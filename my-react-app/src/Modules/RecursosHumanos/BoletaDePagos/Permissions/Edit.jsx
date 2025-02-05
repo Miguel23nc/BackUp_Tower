@@ -8,7 +8,7 @@ import {
   setMessage,
 } from "../../../../redux/actions";
 import { useAuth } from "../../../../context/AuthContext";
-import { deepDiff, deepEqual, simpleDiff } from "../../../validateEdit";
+import { deepDiff } from "../../../validateEdit";
 import dayjs from "dayjs";
 
 const EditBoletaDePagos = ({ setShowEdit, selected }) => {
@@ -16,66 +16,67 @@ const EditBoletaDePagos = ({ setShowEdit, selected }) => {
   const colaboradores = useSelector((state) => state.employees);
 
   useEffect(() => {
-    if (colaboradores.length === 0) dispatch(getEmployees());
-  }, [colaboradores]);
+    if (colaboradores.length === 0) {
+      dispatch(getEmployees());
+    }
+  }, [dispatch, colaboradores.length]);
+
   const { updateBoletasDePago } = useAuth();
-  const colaboradorName =
-    selected?.colaborador?.lastname + " " + selected?.colaborador?.name;
-  const [form, setForm] = useState({
-    ...selected,
-    colaborador: colaboradorName,
-    fechaBoletaDePago: selected?.fechaBoletaDePago
-      ?.split("/")
-      .reverse()
-      .join("-"),
+  const colaboradorName = selected
+    ? `${selected?.colaborador?.lastname} ${selected?.colaborador?.name}`
+    : "";
+
+  const [form, setForm] = useState(() => {
+    if (!selected) return {};
+    return {
+      ...selected,
+      colaborador: colaboradorName,
+      fechaBoletaDePago: selected?.fechaBoletaDePago
+        ?.split("/")
+        .reverse()
+        .join("-"),
+    };
   });
+
   console.log("form", form);
   const [formEdit, setFormEdit] = useState({});
   console.log("formEdit", formEdit);
 
   const changes = deepDiff(form, formEdit);
   console.log("changes", changes);
-  // const changesNormal = simpleDiff(form, formEdit);
-  // console.log("changesNormal", changesNormal);
 
   const upDate = async () => {
     try {
-      if (Object.keys(changes).length === 0) {
+      if (Object.keys(changes)?.length === 0) {
         dispatch(setMessage("No hay cambios", "Error"));
         return;
-      } else {
-        const colaboradorId = colaboradores.find(
-          (colaborador) =>
-            colaborador.lastname + " " + colaborador.name === form.colaborador
-        );
-        let newForm;
-        if (changes.colaborador) {
-          newForm = {
-            _id: form._id,
-            ...changes,
-            fechaBoletaDePago: dayjs(changes.fechaBoletaDePago).format(
-              "MM/YYYY"
-            ),
-            colaborador: colaboradorId._id,
-          };
-        } else {
-          newForm = {
-            _id: form._id,
-            ...changes,
-            fechaBoletaDePago: dayjs(changes.fechaBoletaDePago).format(
-              "MM/YYYY"
-            ),
-          };
-        }
-        console.log("form apunto de enviar: ", newForm);
-        await updateBoletasDePago(newForm);
+      }
+
+      const colaboradorId = colaboradores.find(
+        (colaborador) =>
+          `${colaborador?.lastname} ${colaborador?.name}` === form?.colaborador
+      );
+
+      const newForm = {
+        _id: form._id,
+        ...changes,
+        fechaBoletaDePago: dayjs(changes.fechaBoletaDePago)?.format("MM/YYYY"),
+        ...(colaboradorId ? { colaborador: colaboradorId._id } : {}),
+      };
+
+      console.log("form apunto de enviar: ", newForm);
+      const response = await updateBoletasDePago(newForm);
+      if (response?.success) {
         dispatch(getBoletaDePagos());
+      } else {
+        console.log("Error al actualizar");
       }
     } catch (error) {
       console.log("error", error);
-      dispatch(setMessage(error, "Error"));
+      dispatch(setMessage(error.message || "Error desconocido", "Error"));
     }
   };
+
   return (
     <Edit setShowEdit={setShowEdit} upDate={upDate}>
       <RegisterBoletaDePagos
