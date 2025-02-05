@@ -22,9 +22,11 @@ const patchBoleDePago = async (req, res) => {
     if (!boletaDePago) {
       return res.status(404).json({ message: "Boleta de pago no encontrada" });
     }
+
     const existingBoleta = await BoletaDePagos.findOne({
+      _id: { $ne: _id },
+      colaborador: colaborador,
       fechaBoletaDePago: fechaBoletaDePago,
-      _id: { $ne: _id }, // No incluye el mismo ID
     });
 
     if (existingBoleta) {

@@ -1,4 +1,5 @@
 const {
+  URL_BACKEND,
   EMAIL_LADIAMB,
   PASS_LADIAMB,
   SMTP_LADIAMB,
@@ -19,6 +20,11 @@ const nodemailer = require("nodemailer");
 const convertPathToPdf = require("../../../utils/convertToPdf");
 const BoletaDePagos = require("../../../models/RecursosHumanos/BoletaDePago");
 const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const enviarBoleta = async (req, res) => {
   const { datosBoleta, business } = req.body;
@@ -198,7 +204,7 @@ const enviarBoleta = async (req, res) => {
                 <p>${empresa}</p>
                 <div class="footer">
                 <p>Este es un correo automático, por favor no responda.</p>
-                <img src="http://localhost:3001/api/recepcionBoleta?boletaId=${boletaId}" style="display:none;" alt="pixel de seguimiento" />
+                <img src="${URL_BACKEND}/recepcionBoleta?boletaId=${boletaId}" style="display:none;" alt="pixel de seguimiento" />
       
                 </div>
                 </div>
@@ -209,7 +215,9 @@ const enviarBoleta = async (req, res) => {
           };
 
           await transporter.sendMail(mailOptions);
-          findBoleta.envio = dayjs().format("DD/MM/YYYY hh:mm A");
+          findBoleta.envio = dayjs()
+            .tz("America/Lima")
+            .format("DD/MM/YYYY hh:mm A");
           await findBoleta.save();
         } catch (error) {
           console.log("Error enviando el correo a:", email);
