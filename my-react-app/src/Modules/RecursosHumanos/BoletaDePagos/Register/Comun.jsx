@@ -5,10 +5,11 @@ import { getDatosContables } from "../../../../redux/actions";
 
 const Comun = ({ form, setForm, habilitar }) => {
   const datosContables = useSelector((state) => state.datosContables);
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (datosContables.length === 0) dispatch(getDatosContables());
-  }, [datosContables]);
+  }, [datosContables.length, dispatch]);
   const codigosPlame = datosContables.map((a) => a.codigoPlame);
 
   return (
@@ -20,7 +21,6 @@ const Comun = ({ form, setForm, habilitar }) => {
         options={codigosPlame}
         value={form.codigoPlame || ""}
         setForm={setForm}
-        
       />
       <Input
         label="Concepto"
