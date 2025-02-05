@@ -69,18 +69,23 @@ const ExcelBoletas = () => {
             diasSubsidiados: "0",
             horasTrabajadas: "192",
             diasNoLaborales: "0",
-            remuneraciones: [{ datosContables: "0601", monto: "0" }],
+            remuneraciones: [
+              { datosContables: "0121", monto: "0" },
+              { datosContables: "0201", monto: "0" }
+            ],
             descuentosAlTrabajador: [
-              { datosContables: "0602", monto: "0" },
-              { datosContables: "0603", monto: "0" },
-              { datosContables: "0604", monto: "0" },
+              { datosContables: "0701", monto: "0" },
+              { datosContables: "0705", monto: "0" },
+              { datosContables: "0601", monto: "0" },
               { datosContables: "0605", monto: "0" },
+              { datosContables: "0606", monto: "0" },
+              { datosContables: "0608", monto: "0" },
             ],
             aportacionesDelEmpleador: [
-              { datosContables: "0606", monto: "0" },
-              { datosContables: "0607", monto: "0" },
-              { datosContables: "0608", monto: "0" },
-              { datosContables: "0609", monto: "0" },
+              { datosContables: "0803", monto: "0" },
+              { datosContables: "0804", monto: "0" },
+              { datosContables: "0810", monto: "0" },
+              { datosContables: "0814", monto: "0" },
             ],
           };
 
