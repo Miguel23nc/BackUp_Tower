@@ -1,15 +1,20 @@
 const dayjs = require("dayjs");
 const BoletaDePagos = require("../../../models/RecursosHumanos/BoletaDePago");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const recepcionBoleta = async (req, res) => {
   const { boletaId } = req.query;
-console.log("boletaId", boletaId);
+  console.log("boletaId", boletaId);
 
   if (boletaId) {
     const fechaRecepcion = new Date();
-    const fechaRecepcionFormatted = dayjs(fechaRecepcion).format(
-      "DD/MM/YYYY hh:mm:ss A"
-    );
+    const fechaRecepcionFormatted = dayjs(fechaRecepcion)
+      .tz("America/Lima")
+      .format("DD/MM/YYYY hh:mm A");
     await BoletaDePagos.findByIdAndUpdate(boletaId, {
       recepcion: fechaRecepcionFormatted,
     });
