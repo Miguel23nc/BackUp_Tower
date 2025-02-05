@@ -36,10 +36,10 @@ const enviarBoleta = async (req, res) => {
     }
 
     const newData = datosBoleta.map(async (data) => {
-      const newUrl = await convertPathToPdf(data.archivoUrl);
+      // const newUrl = await convertPathToPdf(data.archivoUrl);
       return {
         ...data,
-        archivoUrl: newUrl,
+        archivoUrl: data.archivoUrl,
       };
     });
     const datosBoletaDePago = await Promise.all(newData);
@@ -134,10 +134,6 @@ const enviarBoleta = async (req, res) => {
           if (!findBoleta) {
             throw new Error("Boleta no encontrada");
           }
-          if (findBoleta.envio) {
-            errores.push({ email, error: "La boleta ya fue enviada." });
-            return;
-          }
 
           const mailOptions = {
             from: `Boleta de Pago <${EMAIL_USER}>`,
@@ -146,8 +142,8 @@ const enviarBoleta = async (req, res) => {
             text: "Boleta de Pago",
             attachments: [
               {
-                filename: "Boleta_de_Pago.pdf",
-                content: archivoUrl,
+                filename: "Boleta_de_Pago.docx",
+                path: archivoUrl,
                 encoding: "base64",
               },
             ],

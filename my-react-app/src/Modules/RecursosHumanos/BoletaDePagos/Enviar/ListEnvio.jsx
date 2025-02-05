@@ -27,10 +27,9 @@ const ListEnvio = ({ boletasFiltrado, enviarCorreo }) => {
         body={(rowData) => (
           <Button
             variant="contained"
-            disabled={rowData.envio ? true : false}
-            onClick={rowData.envio ? null : () => enviarCorreo([rowData])}
+            onClick={() => enviarCorreo([rowData])}
           >
-            {rowData.envio ? "Enviado" : "Enviar"}
+            {rowData.envio ? "Reenviar" : "Enviar"}
           </Button>
         )}
         exportable={false}
