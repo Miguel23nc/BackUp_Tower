@@ -49,18 +49,19 @@ const ViewBoletaDePDetailago = ({ setShowDetail, selected }) => {
             <div key={remuneracion.id}>
               <PDetail
                 content="Codigo Plame: "
-                value={remuneracion.codigoPlame}
+                value={remuneracion.datosContables}
                 z
               />
-              <PDetail content="Concepto: " value={remuneracion.concepto} />
               <PDetail content="Monto: " value={remuneracion.monto} />
             </div>
           ))}
           <h3 className="text-2xl mt-3 font-bold ">Aportes del Empleador</h3>
           {aportacionesDelEmpleador.map((aportes) => (
             <div key={aportes.id}>
-              <PDetail content="Codigo Plame: " value={aportes.codigoPlame} />
-              <PDetail content="Concepto: " value={aportes.concepto} />
+              <PDetail
+                content="Codigo Plame: "
+                value={aportes.datosContables}
+              />
               <PDetail content="Monto: " value={aportes.monto} />
             </div>
           ))}
@@ -69,8 +70,10 @@ const ViewBoletaDePDetailago = ({ setShowDetail, selected }) => {
           <h3 className="text-2xl font-bold ">Descuentos al Trabajador</h3>
           {descuentosAlTrabajador.map((descuento) => (
             <div key={descuento.id}>
-              <PDetail content="Codigo Plame: " value={descuento.codigoPlame} />
-              <PDetail content="Concepto: " value={descuento.concepto} />
+              <PDetail
+                content="Codigo Plame: "
+                value={descuento.datosContables}
+              />
               <PDetail content="Monto: " value={descuento.monto} />
             </div>
           ))}

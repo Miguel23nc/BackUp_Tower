@@ -35,7 +35,7 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
   }, [colaboradores]);
 
   const colaboradorName = colaboradores.map(
-    (colaborador) => colaborador.lastname + " " + colaborador.name
+    (colaborador) => colaborador?.lastname + " " + colaborador?.name
   );
 
   const [form, setForm] = useState(
@@ -68,7 +68,8 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
           ],
         }
   );
-  console.log("form", form);
+  console.log("BOLETAS DE PAGO -> Regiter -> form", form);
+  console.log("BOLETAS DE PAGO -> Regiter -> formInitial", formInitial);
 
   const validateDescuentos = validateVacio(form.descuentosAlTrabajador);
   const validateAportes = validateVacio(form.aportacionesDelEmpleador);
