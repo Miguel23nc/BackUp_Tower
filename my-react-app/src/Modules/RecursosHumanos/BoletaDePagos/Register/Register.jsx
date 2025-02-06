@@ -141,7 +141,7 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
           form={form.remuneraciones}
           error={error}
           data="remuneraciones"
-          estilos="flex  border-none "
+          estilos="flex  "
           setForm={setForm}
           datosContables={datosContables}
         />
@@ -155,7 +155,7 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
           directory={form.descuentosAlTrabajador}
           error={error}
           data="descuentosAlTrabajador"
-          estilos="flex  border-none "
+          estilos="flex "
         />
       </CardPlegable>
       <CardPlegable title="Aportaciones del Empleador">
@@ -167,7 +167,7 @@ const RegisterBoletaDePagos = ({ formInitial, setFormEdit }) => {
           directory={form.aportacionesDelEmpleador}
           error={error}
           data="aportacionesDelEmpleador"
-          estilos="flex  border-none "
+          estilos="flex  "
         />
       </CardPlegable>
 

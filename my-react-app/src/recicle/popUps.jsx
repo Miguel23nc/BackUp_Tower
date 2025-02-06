@@ -44,8 +44,8 @@ const PopUp = ({ ...OtherProps }) => {
           <div className="flex justify-center items-center w-full">
             <button
               onClick={handleClosePopUp}
-              {...OtherProps}
-              className="text-white font-medium bg-blue-300 w-10/12 rounded-lg p-3  "
+              disabled={OtherProps.disabled}
+              className="text-white font-medium bg-blue-500 w-10/12 rounded-lg p-3  "
             >
               Ok
             </button>

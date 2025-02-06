@@ -94,6 +94,8 @@ const Enviar = () => {
             tipoT: "EMPLEADO",
             ...item,
           };
+          console.log("newForm", newForm);
+          
           const findBusiness = business.find(
             (empresa) => empresa.razonSocial === item.colaborador.business
           );

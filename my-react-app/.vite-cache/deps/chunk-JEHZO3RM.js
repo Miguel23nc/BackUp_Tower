@@ -19,7 +19,7 @@ import {
   useEventCallback_default,
   useForkRef_default,
   useFormControl
-} from "./chunk-MWZQPSDQ.js";
+} from "./chunk-PFBXLOOH.js";
 import {
   TransitionGroup_default
 } from "./chunk-KHFJTIKL.js";
@@ -47,7 +47,7 @@ import {
   useSlotProps_default,
   useTheme,
   useTimeout
-} from "./chunk-PEOS52A6.js";
+} from "./chunk-PKOUSKQA.js";
 import {
   require_prop_types
 } from "./chunk-BYWRWTV4.js";
@@ -61,6 +61,191 @@ import {
   __publicField,
   __toESM
 } from "./chunk-USJHI7ER.js";
+
+// node_modules/@mui/material/InputAdornment/inputAdornmentClasses.js
+function getInputAdornmentUtilityClass(slot) {
+  return generateUtilityClass("MuiInputAdornment", slot);
+}
+var inputAdornmentClasses = generateUtilityClasses("MuiInputAdornment", ["root", "filled", "standard", "outlined", "positionStart", "positionEnd", "disablePointerEvents", "hiddenLabel", "sizeSmall"]);
+var inputAdornmentClasses_default = inputAdornmentClasses;
+
+// node_modules/@mui/material/InputAdornment/InputAdornment.js
+var React = __toESM(require_react());
+var import_prop_types = __toESM(require_prop_types());
+var import_jsx_runtime = __toESM(require_jsx_runtime());
+var _span;
+var overridesResolver = (props, styles) => {
+  const {
+    ownerState
+  } = props;
+  return [styles.root, styles[`position${capitalize_default(ownerState.position)}`], ownerState.disablePointerEvents === true && styles.disablePointerEvents, styles[ownerState.variant]];
+};
+var useUtilityClasses = (ownerState) => {
+  const {
+    classes,
+    disablePointerEvents,
+    hiddenLabel,
+    position,
+    size,
+    variant
+  } = ownerState;
+  const slots = {
+    root: ["root", disablePointerEvents && "disablePointerEvents", position && `position${capitalize_default(position)}`, variant, hiddenLabel && "hiddenLabel", size && `size${capitalize_default(size)}`]
+  };
+  return composeClasses(slots, getInputAdornmentUtilityClass, classes);
+};
+var InputAdornmentRoot = styled_default("div", {
+  name: "MuiInputAdornment",
+  slot: "Root",
+  overridesResolver
+})(memoTheme_default(({
+  theme
+}) => ({
+  display: "flex",
+  maxHeight: "2em",
+  alignItems: "center",
+  whiteSpace: "nowrap",
+  color: (theme.vars || theme).palette.action.active,
+  variants: [{
+    props: {
+      variant: "filled"
+    },
+    style: {
+      [`&.${inputAdornmentClasses_default.positionStart}&:not(.${inputAdornmentClasses_default.hiddenLabel})`]: {
+        marginTop: 16
+      }
+    }
+  }, {
+    props: {
+      position: "start"
+    },
+    style: {
+      marginRight: 8
+    }
+  }, {
+    props: {
+      position: "end"
+    },
+    style: {
+      marginLeft: 8
+    }
+  }, {
+    props: {
+      disablePointerEvents: true
+    },
+    style: {
+      pointerEvents: "none"
+    }
+  }]
+})));
+var InputAdornment = React.forwardRef(function InputAdornment2(inProps, ref) {
+  const props = useDefaultProps({
+    props: inProps,
+    name: "MuiInputAdornment"
+  });
+  const {
+    children,
+    className,
+    component = "div",
+    disablePointerEvents = false,
+    disableTypography = false,
+    position,
+    variant: variantProp,
+    ...other
+  } = props;
+  const muiFormControl = useFormControl() || {};
+  let variant = variantProp;
+  if (variantProp && muiFormControl.variant) {
+    if (true) {
+      if (variantProp === muiFormControl.variant) {
+        console.error("MUI: The `InputAdornment` variant infers the variant prop you do not have to provide one.");
+      }
+    }
+  }
+  if (muiFormControl && !variant) {
+    variant = muiFormControl.variant;
+  }
+  const ownerState = {
+    ...props,
+    hiddenLabel: muiFormControl.hiddenLabel,
+    size: muiFormControl.size,
+    disablePointerEvents,
+    position,
+    variant
+  };
+  const classes = useUtilityClasses(ownerState);
+  return (0, import_jsx_runtime.jsx)(FormControlContext_default.Provider, {
+    value: null,
+    children: (0, import_jsx_runtime.jsx)(InputAdornmentRoot, {
+      as: component,
+      ownerState,
+      className: clsx_default(classes.root, className),
+      ref,
+      ...other,
+      children: typeof children === "string" && !disableTypography ? (0, import_jsx_runtime.jsx)(Typography_default, {
+        color: "textSecondary",
+        children
+      }) : (0, import_jsx_runtime.jsxs)(React.Fragment, {
+        children: [position === "start" ? (
+          /* notranslate needed while Google Translate will not fix zero-width space issue */
+          _span || (_span = (0, import_jsx_runtime.jsx)("span", {
+            className: "notranslate",
+            children: "​"
+          }))
+        ) : null, children]
+      })
+    })
+  });
+});
+true ? InputAdornment.propTypes = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * The content of the component, normally an `IconButton` or string.
+   */
+  children: import_prop_types.default.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: import_prop_types.default.object,
+  /**
+   * @ignore
+   */
+  className: import_prop_types.default.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: import_prop_types.default.elementType,
+  /**
+   * Disable pointer events on the root.
+   * This allows for the content of the adornment to focus the `input` on click.
+   * @default false
+   */
+  disablePointerEvents: import_prop_types.default.bool,
+  /**
+   * If children is a string then disable wrapping in a Typography component.
+   * @default false
+   */
+  disableTypography: import_prop_types.default.bool,
+  /**
+   * The position this adornment should appear relative to the `Input`.
+   */
+  position: import_prop_types.default.oneOf(["end", "start"]).isRequired,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: import_prop_types.default.oneOfType([import_prop_types.default.arrayOf(import_prop_types.default.oneOfType([import_prop_types.default.func, import_prop_types.default.object, import_prop_types.default.bool])), import_prop_types.default.func, import_prop_types.default.object]),
+  /**
+   * The variant to use.
+   * Note: If you are using the `TextField` component or the `FormControl` component
+   * you do not have to set this manually.
+   */
+  variant: import_prop_types.default.oneOf(["filled", "outlined", "standard"])
+} : void 0;
+var InputAdornment_default = InputAdornment;
 
 // node_modules/@mui/material/ButtonBase/touchRippleClasses.js
 function getTouchRippleUtilityClass(slot) {
@@ -77,11 +262,11 @@ var buttonBaseClasses = generateUtilityClasses("MuiButtonBase", ["root", "disabl
 var buttonBaseClasses_default = buttonBaseClasses;
 
 // node_modules/@mui/material/ButtonBase/ButtonBase.js
-var React4 = __toESM(require_react());
-var import_prop_types3 = __toESM(require_prop_types());
+var React5 = __toESM(require_react());
+var import_prop_types4 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/useLazyRipple/useLazyRipple.js
-var React = __toESM(require_react());
+var React2 = __toESM(require_react());
 var LazyRipple = class _LazyRipple {
   constructor() {
     __publicField(this, "mountEffect", () => {
@@ -110,10 +295,10 @@ var LazyRipple = class _LazyRipple {
   }
   static use() {
     const ripple = useLazyRef(_LazyRipple.create).current;
-    const [shouldMount, setShouldMount] = React.useState(false);
+    const [shouldMount, setShouldMount] = React2.useState(false);
     ripple.shouldMount = shouldMount;
     ripple.setShouldMount = setShouldMount;
-    React.useEffect(ripple.mountEffect, [shouldMount]);
+    React2.useEffect(ripple.mountEffect, [shouldMount]);
     return ripple;
   }
   mount() {
@@ -160,13 +345,13 @@ function createControlledPromise() {
 }
 
 // node_modules/@mui/material/ButtonBase/TouchRipple.js
-var React3 = __toESM(require_react());
-var import_prop_types2 = __toESM(require_prop_types());
+var React4 = __toESM(require_react());
+var import_prop_types3 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/ButtonBase/Ripple.js
-var React2 = __toESM(require_react());
-var import_prop_types = __toESM(require_prop_types());
-var import_jsx_runtime = __toESM(require_jsx_runtime());
+var React3 = __toESM(require_react());
+var import_prop_types2 = __toESM(require_prop_types());
+var import_jsx_runtime2 = __toESM(require_jsx_runtime());
 function Ripple(props) {
   const {
     className,
@@ -179,7 +364,7 @@ function Ripple(props) {
     onExited,
     timeout
   } = props;
-  const [leaving, setLeaving] = React2.useState(false);
+  const [leaving, setLeaving] = React3.useState(false);
   const rippleClassName = clsx_default(className, classes.ripple, classes.rippleVisible, pulsate && classes.ripplePulsate);
   const rippleStyles = {
     width: rippleSize,
@@ -191,7 +376,7 @@ function Ripple(props) {
   if (!inProp && !leaving) {
     setLeaving(true);
   }
-  React2.useEffect(() => {
+  React3.useEffect(() => {
     if (!inProp && onExited != null) {
       const timeoutId = setTimeout(onExited, timeout);
       return () => {
@@ -200,10 +385,10 @@ function Ripple(props) {
     }
     return void 0;
   }, [onExited, inProp, timeout]);
-  return (0, import_jsx_runtime.jsx)("span", {
+  return (0, import_jsx_runtime2.jsx)("span", {
     className: rippleClassName,
     style: rippleStyles,
-    children: (0, import_jsx_runtime.jsx)("span", {
+    children: (0, import_jsx_runtime2.jsx)("span", {
       className: childClassName
     })
   });
@@ -212,41 +397,41 @@ true ? Ripple.propTypes = {
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types.default.object.isRequired,
-  className: import_prop_types.default.string,
+  classes: import_prop_types2.default.object.isRequired,
+  className: import_prop_types2.default.string,
   /**
    * @ignore - injected from TransitionGroup
    */
-  in: import_prop_types.default.bool,
+  in: import_prop_types2.default.bool,
   /**
    * @ignore - injected from TransitionGroup
    */
-  onExited: import_prop_types.default.func,
+  onExited: import_prop_types2.default.func,
   /**
    * If `true`, the ripple pulsates, typically indicating the keyboard focus state of an element.
    */
-  pulsate: import_prop_types.default.bool,
+  pulsate: import_prop_types2.default.bool,
   /**
    * Diameter of the ripple.
    */
-  rippleSize: import_prop_types.default.number,
+  rippleSize: import_prop_types2.default.number,
   /**
    * Horizontal position of the ripple center.
    */
-  rippleX: import_prop_types.default.number,
+  rippleX: import_prop_types2.default.number,
   /**
    * Vertical position of the ripple center.
    */
-  rippleY: import_prop_types.default.number,
+  rippleY: import_prop_types2.default.number,
   /**
    * exit delay
    */
-  timeout: import_prop_types.default.number.isRequired
+  timeout: import_prop_types2.default.number.isRequired
 } : void 0;
 var Ripple_default = Ripple;
 
 // node_modules/@mui/material/ButtonBase/TouchRipple.js
-var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+var import_jsx_runtime3 = __toESM(require_jsx_runtime());
 var DURATION = 550;
 var DELAY_RIPPLE = 80;
 var enterKeyframe = keyframes`
@@ -351,7 +536,7 @@ var TouchRippleRipple = styled_default(Ripple_default, {
     animation-delay: 200ms;
   }
 `;
-var TouchRipple = React3.forwardRef(function TouchRipple2(inProps, ref) {
+var TouchRipple = React4.forwardRef(function TouchRipple2(inProps, ref) {
   const props = useDefaultProps({
     props: inProps,
     name: "MuiTouchRipple"
@@ -362,20 +547,20 @@ var TouchRipple = React3.forwardRef(function TouchRipple2(inProps, ref) {
     className,
     ...other
   } = props;
-  const [ripples, setRipples] = React3.useState([]);
-  const nextKey = React3.useRef(0);
-  const rippleCallback = React3.useRef(null);
-  React3.useEffect(() => {
+  const [ripples, setRipples] = React4.useState([]);
+  const nextKey = React4.useRef(0);
+  const rippleCallback = React4.useRef(null);
+  React4.useEffect(() => {
     if (rippleCallback.current) {
       rippleCallback.current();
       rippleCallback.current = null;
     }
   }, [ripples]);
-  const ignoringMouseDown = React3.useRef(false);
+  const ignoringMouseDown = React4.useRef(false);
   const startTimer = useTimeout();
-  const startTimerCommit = React3.useRef(null);
-  const container = React3.useRef(null);
-  const startCommit = React3.useCallback((params) => {
+  const startTimerCommit = React4.useRef(null);
+  const container = React4.useRef(null);
+  const startCommit = React4.useCallback((params) => {
     const {
       pulsate: pulsate2,
       rippleX,
@@ -383,7 +568,7 @@ var TouchRipple = React3.forwardRef(function TouchRipple2(inProps, ref) {
       rippleSize,
       cb
     } = params;
-    setRipples((oldRipples) => [...oldRipples, (0, import_jsx_runtime2.jsx)(TouchRippleRipple, {
+    setRipples((oldRipples) => [...oldRipples, (0, import_jsx_runtime3.jsx)(TouchRippleRipple, {
       classes: {
         ripple: clsx_default(classes.ripple, touchRippleClasses_default.ripple),
         rippleVisible: clsx_default(classes.rippleVisible, touchRippleClasses_default.rippleVisible),
@@ -401,7 +586,7 @@ var TouchRipple = React3.forwardRef(function TouchRipple2(inProps, ref) {
     nextKey.current += 1;
     rippleCallback.current = cb;
   }, [classes]);
-  const start2 = React3.useCallback((event = {}, options = {}, cb = () => {
+  const start2 = React4.useCallback((event = {}, options = {}, cb = () => {
   }) => {
     const {
       pulsate: pulsate2 = false,
@@ -475,12 +660,12 @@ var TouchRipple = React3.forwardRef(function TouchRipple2(inProps, ref) {
       });
     }
   }, [centerProp, startCommit, startTimer]);
-  const pulsate = React3.useCallback(() => {
+  const pulsate = React4.useCallback(() => {
     start2({}, {
       pulsate: true
     });
   }, [start2]);
-  const stop = React3.useCallback((event, cb) => {
+  const stop = React4.useCallback((event, cb) => {
     startTimer.clear();
     if ((event == null ? void 0 : event.type) === "touchend" && startTimerCommit.current) {
       startTimerCommit.current();
@@ -499,16 +684,16 @@ var TouchRipple = React3.forwardRef(function TouchRipple2(inProps, ref) {
     });
     rippleCallback.current = cb;
   }, [startTimer]);
-  React3.useImperativeHandle(ref, () => ({
+  React4.useImperativeHandle(ref, () => ({
     pulsate,
     start: start2,
     stop
   }), [pulsate, start2, stop]);
-  return (0, import_jsx_runtime2.jsx)(TouchRippleRoot, {
+  return (0, import_jsx_runtime3.jsx)(TouchRippleRoot, {
     className: clsx_default(touchRippleClasses_default.root, classes.root, className),
     ref: container,
     ...other,
-    children: (0, import_jsx_runtime2.jsx)(TransitionGroup_default, {
+    children: (0, import_jsx_runtime3.jsx)(TransitionGroup_default, {
       component: null,
       exit: true,
       children: ripples
@@ -520,21 +705,21 @@ true ? TouchRipple.propTypes = {
    * If `true`, the ripple starts at the center of the component
    * rather than at the point of interaction.
    */
-  center: import_prop_types2.default.bool,
+  center: import_prop_types3.default.bool,
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types2.default.object,
+  classes: import_prop_types3.default.object,
   /**
    * @ignore
    */
-  className: import_prop_types2.default.string
+  className: import_prop_types3.default.string
 } : void 0;
 var TouchRipple_default = TouchRipple;
 
 // node_modules/@mui/material/ButtonBase/ButtonBase.js
-var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-var useUtilityClasses = (ownerState) => {
+var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+var useUtilityClasses2 = (ownerState) => {
   const {
     disabled,
     focusVisible,
@@ -594,7 +779,7 @@ var ButtonBaseRoot = styled_default("button", {
     colorAdjust: "exact"
   }
 });
-var ButtonBase = React4.forwardRef(function ButtonBase2(inProps, ref) {
+var ButtonBase = React5.forwardRef(function ButtonBase2(inProps, ref) {
   const props = useDefaultProps({
     props: inProps,
     name: "MuiButtonBase"
@@ -631,21 +816,21 @@ var ButtonBase = React4.forwardRef(function ButtonBase2(inProps, ref) {
     type,
     ...other
   } = props;
-  const buttonRef = React4.useRef(null);
+  const buttonRef = React5.useRef(null);
   const ripple = useLazyRipple();
   const handleRippleRef = useForkRef_default(ripple.ref, touchRippleRef);
-  const [focusVisible, setFocusVisible] = React4.useState(false);
+  const [focusVisible, setFocusVisible] = React5.useState(false);
   if (disabled && focusVisible) {
     setFocusVisible(false);
   }
-  React4.useImperativeHandle(action, () => ({
+  React5.useImperativeHandle(action, () => ({
     focusVisible: () => {
       setFocusVisible(true);
       buttonRef.current.focus();
     }
   }), []);
   const enableTouchRipple = ripple.shouldMount && !disableRipple && !disabled;
-  React4.useEffect(() => {
+  React5.useEffect(() => {
     if (focusVisible && focusRipple && !disableRipple) {
       ripple.pulsate();
     }
@@ -763,8 +948,8 @@ var ButtonBase = React4.forwardRef(function ButtonBase2(inProps, ref) {
     tabIndex,
     focusVisible
   };
-  const classes = useUtilityClasses(ownerState);
-  return (0, import_jsx_runtime3.jsxs)(ButtonBaseRoot, {
+  const classes = useUtilityClasses2(ownerState);
+  return (0, import_jsx_runtime4.jsxs)(ButtonBaseRoot, {
     as: ComponentProp,
     className: clsx_default(classes.root, className),
     ownerState,
@@ -786,7 +971,7 @@ var ButtonBase = React4.forwardRef(function ButtonBase2(inProps, ref) {
     type,
     ...buttonProps,
     ...other,
-    children: [children, enableTouchRipple ? (0, import_jsx_runtime3.jsx)(TouchRipple_default, {
+    children: [children, enableTouchRipple ? (0, import_jsx_runtime4.jsx)(TouchRipple_default, {
       ref: handleRippleRef,
       center: centerRipple,
       ...TouchRippleProps
@@ -808,19 +993,19 @@ true ? ButtonBase.propTypes = {
    * They won't start at the cursor interaction position.
    * @default false
    */
-  centerRipple: import_prop_types3.default.bool,
+  centerRipple: import_prop_types4.default.bool,
   /**
    * The content of the component.
    */
-  children: import_prop_types3.default.node,
+  children: import_prop_types4.default.node,
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types3.default.object,
+  classes: import_prop_types4.default.object,
   /**
    * @ignore
    */
-  className: import_prop_types3.default.string,
+  className: import_prop_types4.default.string,
   /**
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
@@ -830,7 +1015,7 @@ true ? ButtonBase.propTypes = {
    * If `true`, the component is disabled.
    * @default false
    */
-  disabled: import_prop_types3.default.bool,
+  disabled: import_prop_types4.default.bool,
   /**
    * If `true`, the ripple effect is disabled.
    *
@@ -838,17 +1023,17 @@ true ? ButtonBase.propTypes = {
    * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
    * @default false
    */
-  disableRipple: import_prop_types3.default.bool,
+  disableRipple: import_prop_types4.default.bool,
   /**
    * If `true`, the touch ripple effect is disabled.
    * @default false
    */
-  disableTouchRipple: import_prop_types3.default.bool,
+  disableTouchRipple: import_prop_types4.default.bool,
   /**
    * If `true`, the base button will have a keyboard focus ripple.
    * @default false
    */
-  focusRipple: import_prop_types3.default.bool,
+  focusRipple: import_prop_types4.default.bool,
   /**
    * This prop can help identify which element has keyboard focus.
    * The class name will be applied when the element gains the focus through keyboard interaction.
@@ -857,99 +1042,99 @@ true ? ButtonBase.propTypes = {
    * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
    * if needed.
    */
-  focusVisibleClassName: import_prop_types3.default.string,
+  focusVisibleClassName: import_prop_types4.default.string,
   /**
    * @ignore
    */
-  href: import_prop_types3.default.any,
+  href: import_prop_types4.default.any,
   /**
    * The component used to render a link when the `href` prop is provided.
    * @default 'a'
    */
-  LinkComponent: import_prop_types3.default.elementType,
+  LinkComponent: import_prop_types4.default.elementType,
   /**
    * @ignore
    */
-  onBlur: import_prop_types3.default.func,
+  onBlur: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onClick: import_prop_types3.default.func,
+  onClick: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onContextMenu: import_prop_types3.default.func,
+  onContextMenu: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onDragLeave: import_prop_types3.default.func,
+  onDragLeave: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onFocus: import_prop_types3.default.func,
+  onFocus: import_prop_types4.default.func,
   /**
    * Callback fired when the component is focused with a keyboard.
    * We trigger a `onFocus` callback too.
    */
-  onFocusVisible: import_prop_types3.default.func,
+  onFocusVisible: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onKeyDown: import_prop_types3.default.func,
+  onKeyDown: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onKeyUp: import_prop_types3.default.func,
+  onKeyUp: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onMouseDown: import_prop_types3.default.func,
+  onMouseDown: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onMouseLeave: import_prop_types3.default.func,
+  onMouseLeave: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onMouseUp: import_prop_types3.default.func,
+  onMouseUp: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onTouchEnd: import_prop_types3.default.func,
+  onTouchEnd: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onTouchMove: import_prop_types3.default.func,
+  onTouchMove: import_prop_types4.default.func,
   /**
    * @ignore
    */
-  onTouchStart: import_prop_types3.default.func,
+  onTouchStart: import_prop_types4.default.func,
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: import_prop_types3.default.oneOfType([import_prop_types3.default.arrayOf(import_prop_types3.default.oneOfType([import_prop_types3.default.func, import_prop_types3.default.object, import_prop_types3.default.bool])), import_prop_types3.default.func, import_prop_types3.default.object]),
+  sx: import_prop_types4.default.oneOfType([import_prop_types4.default.arrayOf(import_prop_types4.default.oneOfType([import_prop_types4.default.func, import_prop_types4.default.object, import_prop_types4.default.bool])), import_prop_types4.default.func, import_prop_types4.default.object]),
   /**
    * @default 0
    */
-  tabIndex: import_prop_types3.default.number,
+  tabIndex: import_prop_types4.default.number,
   /**
    * Props applied to the `TouchRipple` element.
    */
-  TouchRippleProps: import_prop_types3.default.object,
+  TouchRippleProps: import_prop_types4.default.object,
   /**
    * A ref that points to the `TouchRipple` element.
    */
-  touchRippleRef: import_prop_types3.default.oneOfType([import_prop_types3.default.func, import_prop_types3.default.shape({
-    current: import_prop_types3.default.shape({
-      pulsate: import_prop_types3.default.func.isRequired,
-      start: import_prop_types3.default.func.isRequired,
-      stop: import_prop_types3.default.func.isRequired
+  touchRippleRef: import_prop_types4.default.oneOfType([import_prop_types4.default.func, import_prop_types4.default.shape({
+    current: import_prop_types4.default.shape({
+      pulsate: import_prop_types4.default.func.isRequired,
+      start: import_prop_types4.default.func.isRequired,
+      stop: import_prop_types4.default.func.isRequired
     })
   })]),
   /**
    * @ignore
    */
-  type: import_prop_types3.default.oneOfType([import_prop_types3.default.oneOf(["button", "reset", "submit"]), import_prop_types3.default.string])
+  type: import_prop_types4.default.oneOfType([import_prop_types4.default.oneOf(["button", "reset", "submit"]), import_prop_types4.default.string])
 } : void 0;
 var ButtonBase_default = ButtonBase;
 
@@ -961,10 +1146,10 @@ var iconButtonClasses = generateUtilityClasses("MuiIconButton", ["root", "disabl
 var iconButtonClasses_default = iconButtonClasses;
 
 // node_modules/@mui/material/IconButton/IconButton.js
-var React5 = __toESM(require_react());
-var import_prop_types4 = __toESM(require_prop_types());
-var import_jsx_runtime4 = __toESM(require_jsx_runtime());
-var useUtilityClasses2 = (ownerState) => {
+var React6 = __toESM(require_react());
+var import_prop_types5 = __toESM(require_prop_types());
+var import_jsx_runtime5 = __toESM(require_jsx_runtime());
+var useUtilityClasses3 = (ownerState) => {
   const {
     classes,
     disabled,
@@ -1087,7 +1272,7 @@ var IconButtonRoot = styled_default(ButtonBase_default, {
     color: (theme.vars || theme).palette.action.disabled
   }
 })));
-var IconButton = React5.forwardRef(function IconButton2(inProps, ref) {
+var IconButton = React6.forwardRef(function IconButton2(inProps, ref) {
   const props = useDefaultProps({
     props: inProps,
     name: "MuiIconButton"
@@ -1110,8 +1295,8 @@ var IconButton = React5.forwardRef(function IconButton2(inProps, ref) {
     disableFocusRipple,
     size
   };
-  const classes = useUtilityClasses2(ownerState);
-  return (0, import_jsx_runtime4.jsx)(IconButtonRoot, {
+  const classes = useUtilityClasses3(ownerState);
+  return (0, import_jsx_runtime5.jsx)(IconButtonRoot, {
     className: clsx_default(classes.root, className),
     centerRipple: true,
     focusRipple: !disableFocusRipple,
@@ -1130,8 +1315,8 @@ true ? IconButton.propTypes = {
   /**
    * The icon to display.
    */
-  children: chainPropTypes(import_prop_types4.default.node, (props) => {
-    const found = React5.Children.toArray(props.children).some((child) => React5.isValidElement(child) && child.props.onClick);
+  children: chainPropTypes(import_prop_types5.default.node, (props) => {
+    const found = React6.Children.toArray(props.children).some((child) => React6.isValidElement(child) && child.props.onClick);
     if (found) {
       return new Error(["MUI: You are providing an onClick event listener to a child of a button element.", "Prefer applying it to the IconButton directly.", "This guarantees that the whole <button> will be responsive to click events."].join("\n"));
     }
@@ -1140,28 +1325,28 @@ true ? IconButton.propTypes = {
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types4.default.object,
+  classes: import_prop_types5.default.object,
   /**
    * @ignore
    */
-  className: import_prop_types4.default.string,
+  className: import_prop_types5.default.string,
   /**
    * The color of the component.
    * It supports both default and custom theme colors, which can be added as shown in the
    * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
    * @default 'default'
    */
-  color: import_prop_types4.default.oneOfType([import_prop_types4.default.oneOf(["inherit", "default", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types4.default.string]),
+  color: import_prop_types5.default.oneOfType([import_prop_types5.default.oneOf(["inherit", "default", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types5.default.string]),
   /**
    * If `true`, the component is disabled.
    * @default false
    */
-  disabled: import_prop_types4.default.bool,
+  disabled: import_prop_types5.default.bool,
   /**
    * If `true`, the  keyboard focus ripple is disabled.
    * @default false
    */
-  disableFocusRipple: import_prop_types4.default.bool,
+  disableFocusRipple: import_prop_types5.default.bool,
   /**
    * If `true`, the ripple effect is disabled.
    *
@@ -1169,7 +1354,7 @@ true ? IconButton.propTypes = {
    * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
    * @default false
    */
-  disableRipple: import_prop_types4.default.bool,
+  disableRipple: import_prop_types5.default.bool,
   /**
    * If given, uses a negative margin to counteract the padding on one
    * side (this is often helpful for aligning the left or right
@@ -1177,17 +1362,17 @@ true ? IconButton.propTypes = {
    * size and shape).
    * @default false
    */
-  edge: import_prop_types4.default.oneOf(["end", "start", false]),
+  edge: import_prop_types5.default.oneOf(["end", "start", false]),
   /**
    * The size of the component.
    * `small` is equivalent to the dense button styling.
    * @default 'medium'
    */
-  size: import_prop_types4.default.oneOfType([import_prop_types4.default.oneOf(["small", "medium", "large"]), import_prop_types4.default.string]),
+  size: import_prop_types5.default.oneOfType([import_prop_types5.default.oneOf(["small", "medium", "large"]), import_prop_types5.default.string]),
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: import_prop_types4.default.oneOfType([import_prop_types4.default.arrayOf(import_prop_types4.default.oneOfType([import_prop_types4.default.func, import_prop_types4.default.object, import_prop_types4.default.bool])), import_prop_types4.default.func, import_prop_types4.default.object])
+  sx: import_prop_types5.default.oneOfType([import_prop_types5.default.arrayOf(import_prop_types5.default.oneOfType([import_prop_types5.default.func, import_prop_types5.default.object, import_prop_types5.default.bool])), import_prop_types5.default.func, import_prop_types5.default.object])
 } : void 0;
 var IconButton_default = IconButton;
 
@@ -1198,11 +1383,11 @@ function getPopperUtilityClass(slot) {
 var popperClasses = generateUtilityClasses("MuiPopper", ["root"]);
 
 // node_modules/@mui/material/Popper/Popper.js
-var import_prop_types6 = __toESM(require_prop_types());
-var React7 = __toESM(require_react());
+var import_prop_types7 = __toESM(require_prop_types());
+var React8 = __toESM(require_react());
 
 // node_modules/@mui/material/Popper/BasePopper.js
-var React6 = __toESM(require_react());
+var React7 = __toESM(require_react());
 
 // node_modules/@popperjs/core/lib/enums.js
 var top = "top";
@@ -2670,8 +2855,8 @@ var createPopper3 = popperGenerator({
 });
 
 // node_modules/@mui/material/Popper/BasePopper.js
-var import_prop_types5 = __toESM(require_prop_types());
-var import_jsx_runtime5 = __toESM(require_jsx_runtime());
+var import_prop_types6 = __toESM(require_prop_types());
+var import_jsx_runtime6 = __toESM(require_jsx_runtime());
 function flipPlacement(placement, direction) {
   if (direction === "ltr") {
     return placement;
@@ -2698,7 +2883,7 @@ function isHTMLElement2(element) {
 function isVirtualElement(element) {
   return !isHTMLElement2(element);
 }
-var useUtilityClasses3 = (ownerState) => {
+var useUtilityClasses4 = (ownerState) => {
   const {
     classes
   } = ownerState;
@@ -2708,7 +2893,7 @@ var useUtilityClasses3 = (ownerState) => {
   return composeClasses(slots, getPopperUtilityClass, classes);
 };
 var defaultPopperOptions = {};
-var PopperTooltip = React6.forwardRef(function PopperTooltip2(props, forwardedRef) {
+var PopperTooltip = React7.forwardRef(function PopperTooltip2(props, forwardedRef) {
   const {
     anchorEl,
     children,
@@ -2727,24 +2912,24 @@ var PopperTooltip = React6.forwardRef(function PopperTooltip2(props, forwardedRe
     // prevent from spreading to DOM, it can come from the parent component e.g. Select.
     ...other
   } = props;
-  const tooltipRef = React6.useRef(null);
+  const tooltipRef = React7.useRef(null);
   const ownRef = useForkRef(tooltipRef, forwardedRef);
-  const popperRef = React6.useRef(null);
+  const popperRef = React7.useRef(null);
   const handlePopperRef = useForkRef(popperRef, popperRefProp);
-  const handlePopperRefRef = React6.useRef(handlePopperRef);
+  const handlePopperRefRef = React7.useRef(handlePopperRef);
   useEnhancedEffect_default(() => {
     handlePopperRefRef.current = handlePopperRef;
   }, [handlePopperRef]);
-  React6.useImperativeHandle(popperRefProp, () => popperRef.current, []);
+  React7.useImperativeHandle(popperRefProp, () => popperRef.current, []);
   const rtlPlacement = flipPlacement(initialPlacement, direction);
-  const [placement, setPlacement] = React6.useState(rtlPlacement);
-  const [resolvedAnchorElement, setResolvedAnchorElement] = React6.useState(resolveAnchorEl(anchorEl));
-  React6.useEffect(() => {
+  const [placement, setPlacement] = React7.useState(rtlPlacement);
+  const [resolvedAnchorElement, setResolvedAnchorElement] = React7.useState(resolveAnchorEl(anchorEl));
+  React7.useEffect(() => {
     if (popperRef.current) {
       popperRef.current.forceUpdate();
     }
   });
-  React6.useEffect(() => {
+  React7.useEffect(() => {
     if (anchorEl) {
       setResolvedAnchorElement(resolveAnchorEl(anchorEl));
     }
@@ -2807,7 +2992,7 @@ var PopperTooltip = React6.forwardRef(function PopperTooltip2(props, forwardedRe
   if (TransitionProps !== null) {
     childProps.TransitionProps = TransitionProps;
   }
-  const classes = useUtilityClasses3(props);
+  const classes = useUtilityClasses4(props);
   const Root = slots.root ?? "div";
   const rootProps = useSlotProps_default({
     elementType: Root,
@@ -2820,12 +3005,12 @@ var PopperTooltip = React6.forwardRef(function PopperTooltip2(props, forwardedRe
     ownerState: props,
     className: classes.root
   });
-  return (0, import_jsx_runtime5.jsx)(Root, {
+  return (0, import_jsx_runtime6.jsx)(Root, {
     ...rootProps,
     children: typeof children === "function" ? children(childProps) : children
   });
 });
-var Popper = React6.forwardRef(function Popper2(props, forwardedRef) {
+var Popper = React7.forwardRef(function Popper2(props, forwardedRef) {
   const {
     anchorEl,
     children,
@@ -2844,7 +3029,7 @@ var Popper = React6.forwardRef(function Popper2(props, forwardedRef) {
     slots = {},
     ...other
   } = props;
-  const [exited, setExited] = React6.useState(true);
+  const [exited, setExited] = React7.useState(true);
   const handleEnter = () => {
     setExited(false);
   };
@@ -2867,10 +3052,10 @@ var Popper = React6.forwardRef(function Popper2(props, forwardedRef) {
     onEnter: handleEnter,
     onExited: handleExited
   } : void 0;
-  return (0, import_jsx_runtime5.jsx)(Portal_default, {
+  return (0, import_jsx_runtime6.jsx)(Portal_default, {
     disablePortal,
     container,
-    children: (0, import_jsx_runtime5.jsx)(PopperTooltip, {
+    children: (0, import_jsx_runtime6.jsx)(PopperTooltip, {
       anchorEl,
       direction,
       disablePortal,
@@ -2908,7 +3093,7 @@ true ? Popper.propTypes = {
    * It's used to set the position of the popper.
    * The return value will passed as the reference object of the Popper instance.
    */
-  anchorEl: chainPropTypes(import_prop_types5.default.oneOfType([HTMLElementType, import_prop_types5.default.object, import_prop_types5.default.func]), (props) => {
+  anchorEl: chainPropTypes(import_prop_types6.default.oneOfType([HTMLElementType, import_prop_types6.default.object, import_prop_types6.default.func]), (props) => {
     if (props.open) {
       const resolvedAnchorEl = resolveAnchorEl(props.anchorEl);
       if (resolvedAnchorEl && isHTMLElement2(resolvedAnchorEl) && resolvedAnchorEl.nodeType === 1) {
@@ -2925,197 +3110,7 @@ true ? Popper.propTypes = {
   /**
    * Popper render function or node.
    */
-  children: import_prop_types5.default.oneOfType([import_prop_types5.default.node, import_prop_types5.default.func]),
-  /**
-   * An HTML element or function that returns one.
-   * The `container` will have the portal children appended to it.
-   *
-   * You can also provide a callback, which is called in a React layout effect.
-   * This lets you set the container from a ref, and also makes server-side rendering possible.
-   *
-   * By default, it uses the body of the top-level document object,
-   * so it's simply `document.body` most of the time.
-   */
-  container: import_prop_types5.default.oneOfType([HTMLElementType, import_prop_types5.default.func]),
-  /**
-   * Direction of the text.
-   * @default 'ltr'
-   */
-  direction: import_prop_types5.default.oneOf(["ltr", "rtl"]),
-  /**
-   * The `children` will be under the DOM hierarchy of the parent component.
-   * @default false
-   */
-  disablePortal: import_prop_types5.default.bool,
-  /**
-   * Always keep the children in the DOM.
-   * This prop can be useful in SEO situation or
-   * when you want to maximize the responsiveness of the Popper.
-   * @default false
-   */
-  keepMounted: import_prop_types5.default.bool,
-  /**
-   * Popper.js is based on a "plugin-like" architecture,
-   * most of its features are fully encapsulated "modifiers".
-   *
-   * A modifier is a function that is called each time Popper.js needs to
-   * compute the position of the popper.
-   * For this reason, modifiers should be very performant to avoid bottlenecks.
-   * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
-   */
-  modifiers: import_prop_types5.default.arrayOf(import_prop_types5.default.shape({
-    data: import_prop_types5.default.object,
-    effect: import_prop_types5.default.func,
-    enabled: import_prop_types5.default.bool,
-    fn: import_prop_types5.default.func,
-    name: import_prop_types5.default.any,
-    options: import_prop_types5.default.object,
-    phase: import_prop_types5.default.oneOf(["afterMain", "afterRead", "afterWrite", "beforeMain", "beforeRead", "beforeWrite", "main", "read", "write"]),
-    requires: import_prop_types5.default.arrayOf(import_prop_types5.default.string),
-    requiresIfExists: import_prop_types5.default.arrayOf(import_prop_types5.default.string)
-  })),
-  /**
-   * If `true`, the component is shown.
-   */
-  open: import_prop_types5.default.bool.isRequired,
-  /**
-   * Popper placement.
-   * @default 'bottom'
-   */
-  placement: import_prop_types5.default.oneOf(["auto-end", "auto-start", "auto", "bottom-end", "bottom-start", "bottom", "left-end", "left-start", "left", "right-end", "right-start", "right", "top-end", "top-start", "top"]),
-  /**
-   * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
-   * @default {}
-   */
-  popperOptions: import_prop_types5.default.shape({
-    modifiers: import_prop_types5.default.array,
-    onFirstUpdate: import_prop_types5.default.func,
-    placement: import_prop_types5.default.oneOf(["auto-end", "auto-start", "auto", "bottom-end", "bottom-start", "bottom", "left-end", "left-start", "left", "right-end", "right-start", "right", "top-end", "top-start", "top"]),
-    strategy: import_prop_types5.default.oneOf(["absolute", "fixed"])
-  }),
-  /**
-   * A ref that points to the used popper instance.
-   */
-  popperRef: refType_default,
-  /**
-   * The props used for each slot inside the Popper.
-   * @default {}
-   */
-  slotProps: import_prop_types5.default.shape({
-    root: import_prop_types5.default.oneOfType([import_prop_types5.default.func, import_prop_types5.default.object])
-  }),
-  /**
-   * The components used for each slot inside the Popper.
-   * Either a string to use a HTML element or a component.
-   * @default {}
-   */
-  slots: import_prop_types5.default.shape({
-    root: import_prop_types5.default.elementType
-  }),
-  /**
-   * Help supporting a react-transition-group/Transition component.
-   * @default false
-   */
-  transition: import_prop_types5.default.bool
-} : void 0;
-var BasePopper_default = Popper;
-
-// node_modules/@mui/material/Popper/Popper.js
-var import_jsx_runtime6 = __toESM(require_jsx_runtime());
-var PopperRoot = styled_default(BasePopper_default, {
-  name: "MuiPopper",
-  slot: "Root",
-  overridesResolver: (props, styles) => styles.root
-})({});
-var Popper3 = React7.forwardRef(function Popper4(inProps, ref) {
-  const isRtl = useRtl();
-  const props = useDefaultProps({
-    props: inProps,
-    name: "MuiPopper"
-  });
-  const {
-    anchorEl,
-    component,
-    components,
-    componentsProps,
-    container,
-    disablePortal,
-    keepMounted,
-    modifiers,
-    open,
-    placement,
-    popperOptions,
-    popperRef,
-    transition,
-    slots,
-    slotProps,
-    ...other
-  } = props;
-  const RootComponent = (slots == null ? void 0 : slots.root) ?? (components == null ? void 0 : components.Root);
-  const otherProps = {
-    anchorEl,
-    container,
-    disablePortal,
-    keepMounted,
-    modifiers,
-    open,
-    placement,
-    popperOptions,
-    popperRef,
-    transition,
-    ...other
-  };
-  return (0, import_jsx_runtime6.jsx)(PopperRoot, {
-    as: component,
-    direction: isRtl ? "rtl" : "ltr",
-    slots: {
-      root: RootComponent
-    },
-    slotProps: slotProps ?? componentsProps,
-    ...otherProps,
-    ref
-  });
-});
-true ? Popper3.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │ To update them, edit the TypeScript types and run `pnpm proptypes`. │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
-   * or a function that returns either.
-   * It's used to set the position of the popper.
-   * The return value will passed as the reference object of the Popper instance.
-   */
-  anchorEl: import_prop_types6.default.oneOfType([HTMLElementType, import_prop_types6.default.object, import_prop_types6.default.func]),
-  /**
-   * Popper render function or node.
-   */
   children: import_prop_types6.default.oneOfType([import_prop_types6.default.node, import_prop_types6.default.func]),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types6.default.elementType,
-  /**
-   * The components used for each slot inside the Popper.
-   * Either a string to use a HTML element or a component.
-   *
-   * @deprecated use the `slots` prop instead. This prop will be removed in v7. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/).
-   * @default {}
-   */
-  components: import_prop_types6.default.shape({
-    Root: import_prop_types6.default.elementType
-  }),
-  /**
-   * The props used for each slot inside the Popper.
-   *
-   * @deprecated use the `slotProps` prop instead. This prop will be removed in v7. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/).
-   * @default {}
-   */
-  componentsProps: import_prop_types6.default.shape({
-    root: import_prop_types6.default.oneOfType([import_prop_types6.default.func, import_prop_types6.default.object])
-  }),
   /**
    * An HTML element or function that returns one.
    * The `container` will have the portal children appended to it.
@@ -3127,6 +3122,11 @@ true ? Popper3.propTypes = {
    * so it's simply `document.body` most of the time.
    */
   container: import_prop_types6.default.oneOfType([HTMLElementType, import_prop_types6.default.func]),
+  /**
+   * Direction of the text.
+   * @default 'ltr'
+   */
+  direction: import_prop_types6.default.oneOf(["ltr", "rtl"]),
   /**
    * The `children` will be under the DOM hierarchy of the parent component.
    * @default false
@@ -3198,16 +3198,1491 @@ true ? Popper3.propTypes = {
     root: import_prop_types6.default.elementType
   }),
   /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types6.default.oneOfType([import_prop_types6.default.arrayOf(import_prop_types6.default.oneOfType([import_prop_types6.default.func, import_prop_types6.default.object, import_prop_types6.default.bool])), import_prop_types6.default.func, import_prop_types6.default.object]),
-  /**
    * Help supporting a react-transition-group/Transition component.
    * @default false
    */
   transition: import_prop_types6.default.bool
 } : void 0;
+var BasePopper_default = Popper;
+
+// node_modules/@mui/material/Popper/Popper.js
+var import_jsx_runtime7 = __toESM(require_jsx_runtime());
+var PopperRoot = styled_default(BasePopper_default, {
+  name: "MuiPopper",
+  slot: "Root",
+  overridesResolver: (props, styles) => styles.root
+})({});
+var Popper3 = React8.forwardRef(function Popper4(inProps, ref) {
+  const isRtl = useRtl();
+  const props = useDefaultProps({
+    props: inProps,
+    name: "MuiPopper"
+  });
+  const {
+    anchorEl,
+    component,
+    components,
+    componentsProps,
+    container,
+    disablePortal,
+    keepMounted,
+    modifiers,
+    open,
+    placement,
+    popperOptions,
+    popperRef,
+    transition,
+    slots,
+    slotProps,
+    ...other
+  } = props;
+  const RootComponent = (slots == null ? void 0 : slots.root) ?? (components == null ? void 0 : components.Root);
+  const otherProps = {
+    anchorEl,
+    container,
+    disablePortal,
+    keepMounted,
+    modifiers,
+    open,
+    placement,
+    popperOptions,
+    popperRef,
+    transition,
+    ...other
+  };
+  return (0, import_jsx_runtime7.jsx)(PopperRoot, {
+    as: component,
+    direction: isRtl ? "rtl" : "ltr",
+    slots: {
+      root: RootComponent
+    },
+    slotProps: slotProps ?? componentsProps,
+    ...otherProps,
+    ref
+  });
+});
+true ? Popper3.propTypes = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │ To update them, edit the TypeScript types and run `pnpm proptypes`. │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
+   * or a function that returns either.
+   * It's used to set the position of the popper.
+   * The return value will passed as the reference object of the Popper instance.
+   */
+  anchorEl: import_prop_types7.default.oneOfType([HTMLElementType, import_prop_types7.default.object, import_prop_types7.default.func]),
+  /**
+   * Popper render function or node.
+   */
+  children: import_prop_types7.default.oneOfType([import_prop_types7.default.node, import_prop_types7.default.func]),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: import_prop_types7.default.elementType,
+  /**
+   * The components used for each slot inside the Popper.
+   * Either a string to use a HTML element or a component.
+   *
+   * @deprecated use the `slots` prop instead. This prop will be removed in v7. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/).
+   * @default {}
+   */
+  components: import_prop_types7.default.shape({
+    Root: import_prop_types7.default.elementType
+  }),
+  /**
+   * The props used for each slot inside the Popper.
+   *
+   * @deprecated use the `slotProps` prop instead. This prop will be removed in v7. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/).
+   * @default {}
+   */
+  componentsProps: import_prop_types7.default.shape({
+    root: import_prop_types7.default.oneOfType([import_prop_types7.default.func, import_prop_types7.default.object])
+  }),
+  /**
+   * An HTML element or function that returns one.
+   * The `container` will have the portal children appended to it.
+   *
+   * You can also provide a callback, which is called in a React layout effect.
+   * This lets you set the container from a ref, and also makes server-side rendering possible.
+   *
+   * By default, it uses the body of the top-level document object,
+   * so it's simply `document.body` most of the time.
+   */
+  container: import_prop_types7.default.oneOfType([HTMLElementType, import_prop_types7.default.func]),
+  /**
+   * The `children` will be under the DOM hierarchy of the parent component.
+   * @default false
+   */
+  disablePortal: import_prop_types7.default.bool,
+  /**
+   * Always keep the children in the DOM.
+   * This prop can be useful in SEO situation or
+   * when you want to maximize the responsiveness of the Popper.
+   * @default false
+   */
+  keepMounted: import_prop_types7.default.bool,
+  /**
+   * Popper.js is based on a "plugin-like" architecture,
+   * most of its features are fully encapsulated "modifiers".
+   *
+   * A modifier is a function that is called each time Popper.js needs to
+   * compute the position of the popper.
+   * For this reason, modifiers should be very performant to avoid bottlenecks.
+   * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
+   */
+  modifiers: import_prop_types7.default.arrayOf(import_prop_types7.default.shape({
+    data: import_prop_types7.default.object,
+    effect: import_prop_types7.default.func,
+    enabled: import_prop_types7.default.bool,
+    fn: import_prop_types7.default.func,
+    name: import_prop_types7.default.any,
+    options: import_prop_types7.default.object,
+    phase: import_prop_types7.default.oneOf(["afterMain", "afterRead", "afterWrite", "beforeMain", "beforeRead", "beforeWrite", "main", "read", "write"]),
+    requires: import_prop_types7.default.arrayOf(import_prop_types7.default.string),
+    requiresIfExists: import_prop_types7.default.arrayOf(import_prop_types7.default.string)
+  })),
+  /**
+   * If `true`, the component is shown.
+   */
+  open: import_prop_types7.default.bool.isRequired,
+  /**
+   * Popper placement.
+   * @default 'bottom'
+   */
+  placement: import_prop_types7.default.oneOf(["auto-end", "auto-start", "auto", "bottom-end", "bottom-start", "bottom", "left-end", "left-start", "left", "right-end", "right-start", "right", "top-end", "top-start", "top"]),
+  /**
+   * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
+   * @default {}
+   */
+  popperOptions: import_prop_types7.default.shape({
+    modifiers: import_prop_types7.default.array,
+    onFirstUpdate: import_prop_types7.default.func,
+    placement: import_prop_types7.default.oneOf(["auto-end", "auto-start", "auto", "bottom-end", "bottom-start", "bottom", "left-end", "left-start", "left", "right-end", "right-start", "right", "top-end", "top-start", "top"]),
+    strategy: import_prop_types7.default.oneOf(["absolute", "fixed"])
+  }),
+  /**
+   * A ref that points to the used popper instance.
+   */
+  popperRef: refType_default,
+  /**
+   * The props used for each slot inside the Popper.
+   * @default {}
+   */
+  slotProps: import_prop_types7.default.shape({
+    root: import_prop_types7.default.oneOfType([import_prop_types7.default.func, import_prop_types7.default.object])
+  }),
+  /**
+   * The components used for each slot inside the Popper.
+   * Either a string to use a HTML element or a component.
+   * @default {}
+   */
+  slots: import_prop_types7.default.shape({
+    root: import_prop_types7.default.elementType
+  }),
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: import_prop_types7.default.oneOfType([import_prop_types7.default.arrayOf(import_prop_types7.default.oneOfType([import_prop_types7.default.func, import_prop_types7.default.object, import_prop_types7.default.bool])), import_prop_types7.default.func, import_prop_types7.default.object]),
+  /**
+   * Help supporting a react-transition-group/Transition component.
+   * @default false
+   */
+  transition: import_prop_types7.default.bool
+} : void 0;
 var Popper_default = Popper3;
+
+// node_modules/@mui/material/Button/buttonClasses.js
+function getButtonUtilityClass(slot) {
+  return generateUtilityClass("MuiButton", slot);
+}
+var buttonClasses = generateUtilityClasses("MuiButton", ["root", "text", "textInherit", "textPrimary", "textSecondary", "textSuccess", "textError", "textInfo", "textWarning", "outlined", "outlinedInherit", "outlinedPrimary", "outlinedSecondary", "outlinedSuccess", "outlinedError", "outlinedInfo", "outlinedWarning", "contained", "containedInherit", "containedPrimary", "containedSecondary", "containedSuccess", "containedError", "containedInfo", "containedWarning", "disableElevation", "focusVisible", "disabled", "colorInherit", "colorPrimary", "colorSecondary", "colorSuccess", "colorError", "colorInfo", "colorWarning", "textSizeSmall", "textSizeMedium", "textSizeLarge", "outlinedSizeSmall", "outlinedSizeMedium", "outlinedSizeLarge", "containedSizeSmall", "containedSizeMedium", "containedSizeLarge", "sizeMedium", "sizeSmall", "sizeLarge", "fullWidth", "startIcon", "endIcon", "icon", "iconSizeSmall", "iconSizeMedium", "iconSizeLarge"]);
+var buttonClasses_default = buttonClasses;
+
+// node_modules/@mui/material/ButtonGroup/ButtonGroupContext.js
+var React9 = __toESM(require_react());
+var ButtonGroupContext = React9.createContext({});
+if (true) {
+  ButtonGroupContext.displayName = "ButtonGroupContext";
+}
+var ButtonGroupContext_default = ButtonGroupContext;
+
+// node_modules/@mui/material/ButtonGroup/ButtonGroupButtonContext.js
+var React10 = __toESM(require_react());
+var ButtonGroupButtonContext = React10.createContext(void 0);
+if (true) {
+  ButtonGroupButtonContext.displayName = "ButtonGroupButtonContext";
+}
+var ButtonGroupButtonContext_default = ButtonGroupButtonContext;
+
+// node_modules/@mui/material/Button/Button.js
+var React11 = __toESM(require_react());
+var import_prop_types8 = __toESM(require_prop_types());
+var import_jsx_runtime8 = __toESM(require_jsx_runtime());
+var useUtilityClasses5 = (ownerState) => {
+  const {
+    color,
+    disableElevation,
+    fullWidth,
+    size,
+    variant,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ["root", variant, `${variant}${capitalize_default(color)}`, `size${capitalize_default(size)}`, `${variant}Size${capitalize_default(size)}`, `color${capitalize_default(color)}`, disableElevation && "disableElevation", fullWidth && "fullWidth"],
+    label: ["label"],
+    startIcon: ["icon", "startIcon", `iconSize${capitalize_default(size)}`],
+    endIcon: ["icon", "endIcon", `iconSize${capitalize_default(size)}`]
+  };
+  const composedClasses = composeClasses(slots, getButtonUtilityClass, classes);
+  return {
+    ...classes,
+    // forward the focused, disabled, etc. classes to the ButtonBase
+    ...composedClasses
+  };
+};
+var commonIconStyles = [{
+  props: {
+    size: "small"
+  },
+  style: {
+    "& > *:nth-of-type(1)": {
+      fontSize: 18
+    }
+  }
+}, {
+  props: {
+    size: "medium"
+  },
+  style: {
+    "& > *:nth-of-type(1)": {
+      fontSize: 20
+    }
+  }
+}, {
+  props: {
+    size: "large"
+  },
+  style: {
+    "& > *:nth-of-type(1)": {
+      fontSize: 22
+    }
+  }
+}];
+var ButtonRoot = styled_default(ButtonBase_default, {
+  shouldForwardProp: (prop) => rootShouldForwardProp_default(prop) || prop === "classes",
+  name: "MuiButton",
+  slot: "Root",
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, styles[ownerState.variant], styles[`${ownerState.variant}${capitalize_default(ownerState.color)}`], styles[`size${capitalize_default(ownerState.size)}`], styles[`${ownerState.variant}Size${capitalize_default(ownerState.size)}`], ownerState.color === "inherit" && styles.colorInherit, ownerState.disableElevation && styles.disableElevation, ownerState.fullWidth && styles.fullWidth];
+  }
+})(memoTheme_default(({
+  theme
+}) => {
+  const inheritContainedBackgroundColor = theme.palette.mode === "light" ? theme.palette.grey[300] : theme.palette.grey[800];
+  const inheritContainedHoverBackgroundColor = theme.palette.mode === "light" ? theme.palette.grey.A100 : theme.palette.grey[700];
+  return {
+    ...theme.typography.button,
+    minWidth: 64,
+    padding: "6px 16px",
+    border: 0,
+    borderRadius: (theme.vars || theme).shape.borderRadius,
+    transition: theme.transitions.create(["background-color", "box-shadow", "border-color", "color"], {
+      duration: theme.transitions.duration.short
+    }),
+    "&:hover": {
+      textDecoration: "none"
+    },
+    [`&.${buttonClasses_default.disabled}`]: {
+      color: (theme.vars || theme).palette.action.disabled
+    },
+    variants: [{
+      props: {
+        variant: "contained"
+      },
+      style: {
+        color: `var(--variant-containedColor)`,
+        backgroundColor: `var(--variant-containedBg)`,
+        boxShadow: (theme.vars || theme).shadows[2],
+        "&:hover": {
+          boxShadow: (theme.vars || theme).shadows[4],
+          // Reset on touch devices, it doesn't add specificity
+          "@media (hover: none)": {
+            boxShadow: (theme.vars || theme).shadows[2]
+          }
+        },
+        "&:active": {
+          boxShadow: (theme.vars || theme).shadows[8]
+        },
+        [`&.${buttonClasses_default.focusVisible}`]: {
+          boxShadow: (theme.vars || theme).shadows[6]
+        },
+        [`&.${buttonClasses_default.disabled}`]: {
+          color: (theme.vars || theme).palette.action.disabled,
+          boxShadow: (theme.vars || theme).shadows[0],
+          backgroundColor: (theme.vars || theme).palette.action.disabledBackground
+        }
+      }
+    }, {
+      props: {
+        variant: "outlined"
+      },
+      style: {
+        padding: "5px 15px",
+        border: "1px solid currentColor",
+        borderColor: `var(--variant-outlinedBorder, currentColor)`,
+        backgroundColor: `var(--variant-outlinedBg)`,
+        color: `var(--variant-outlinedColor)`,
+        [`&.${buttonClasses_default.disabled}`]: {
+          border: `1px solid ${(theme.vars || theme).palette.action.disabledBackground}`
+        }
+      }
+    }, {
+      props: {
+        variant: "text"
+      },
+      style: {
+        padding: "6px 8px",
+        color: `var(--variant-textColor)`,
+        backgroundColor: `var(--variant-textBg)`
+      }
+    }, ...Object.entries(theme.palette).filter(createSimplePaletteValueFilter()).map(([color]) => ({
+      props: {
+        color
+      },
+      style: {
+        "--variant-textColor": (theme.vars || theme).palette[color].main,
+        "--variant-outlinedColor": (theme.vars || theme).palette[color].main,
+        "--variant-outlinedBorder": theme.vars ? `rgba(${theme.vars.palette[color].mainChannel} / 0.5)` : alpha(theme.palette[color].main, 0.5),
+        "--variant-containedColor": (theme.vars || theme).palette[color].contrastText,
+        "--variant-containedBg": (theme.vars || theme).palette[color].main,
+        "@media (hover: hover)": {
+          "&:hover": {
+            "--variant-containedBg": (theme.vars || theme).palette[color].dark,
+            "--variant-textBg": theme.vars ? `rgba(${theme.vars.palette[color].mainChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette[color].main, theme.palette.action.hoverOpacity),
+            "--variant-outlinedBorder": (theme.vars || theme).palette[color].main,
+            "--variant-outlinedBg": theme.vars ? `rgba(${theme.vars.palette[color].mainChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette[color].main, theme.palette.action.hoverOpacity)
+          }
+        }
+      }
+    })), {
+      props: {
+        color: "inherit"
+      },
+      style: {
+        color: "inherit",
+        borderColor: "currentColor",
+        "--variant-containedBg": theme.vars ? theme.vars.palette.Button.inheritContainedBg : inheritContainedBackgroundColor,
+        "@media (hover: hover)": {
+          "&:hover": {
+            "--variant-containedBg": theme.vars ? theme.vars.palette.Button.inheritContainedHoverBg : inheritContainedHoverBackgroundColor,
+            "--variant-textBg": theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette.text.primary, theme.palette.action.hoverOpacity),
+            "--variant-outlinedBg": theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette.text.primary, theme.palette.action.hoverOpacity)
+          }
+        }
+      }
+    }, {
+      props: {
+        size: "small",
+        variant: "text"
+      },
+      style: {
+        padding: "4px 5px",
+        fontSize: theme.typography.pxToRem(13)
+      }
+    }, {
+      props: {
+        size: "large",
+        variant: "text"
+      },
+      style: {
+        padding: "8px 11px",
+        fontSize: theme.typography.pxToRem(15)
+      }
+    }, {
+      props: {
+        size: "small",
+        variant: "outlined"
+      },
+      style: {
+        padding: "3px 9px",
+        fontSize: theme.typography.pxToRem(13)
+      }
+    }, {
+      props: {
+        size: "large",
+        variant: "outlined"
+      },
+      style: {
+        padding: "7px 21px",
+        fontSize: theme.typography.pxToRem(15)
+      }
+    }, {
+      props: {
+        size: "small",
+        variant: "contained"
+      },
+      style: {
+        padding: "4px 10px",
+        fontSize: theme.typography.pxToRem(13)
+      }
+    }, {
+      props: {
+        size: "large",
+        variant: "contained"
+      },
+      style: {
+        padding: "8px 22px",
+        fontSize: theme.typography.pxToRem(15)
+      }
+    }, {
+      props: {
+        disableElevation: true
+      },
+      style: {
+        boxShadow: "none",
+        "&:hover": {
+          boxShadow: "none"
+        },
+        [`&.${buttonClasses_default.focusVisible}`]: {
+          boxShadow: "none"
+        },
+        "&:active": {
+          boxShadow: "none"
+        },
+        [`&.${buttonClasses_default.disabled}`]: {
+          boxShadow: "none"
+        }
+      }
+    }, {
+      props: {
+        fullWidth: true
+      },
+      style: {
+        width: "100%"
+      }
+    }]
+  };
+}));
+var ButtonStartIcon = styled_default("span", {
+  name: "MuiButton",
+  slot: "StartIcon",
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.startIcon, styles[`iconSize${capitalize_default(ownerState.size)}`]];
+  }
+})({
+  display: "inherit",
+  marginRight: 8,
+  marginLeft: -4,
+  variants: [{
+    props: {
+      size: "small"
+    },
+    style: {
+      marginLeft: -2
+    }
+  }, ...commonIconStyles]
+});
+var ButtonEndIcon = styled_default("span", {
+  name: "MuiButton",
+  slot: "EndIcon",
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.endIcon, styles[`iconSize${capitalize_default(ownerState.size)}`]];
+  }
+})({
+  display: "inherit",
+  marginRight: -4,
+  marginLeft: 8,
+  variants: [{
+    props: {
+      size: "small"
+    },
+    style: {
+      marginRight: -2
+    }
+  }, ...commonIconStyles]
+});
+var Button = React11.forwardRef(function Button2(inProps, ref) {
+  const contextProps = React11.useContext(ButtonGroupContext_default);
+  const buttonGroupButtonContextPositionClassName = React11.useContext(ButtonGroupButtonContext_default);
+  const resolvedProps = resolveProps(contextProps, inProps);
+  const props = useDefaultProps({
+    props: resolvedProps,
+    name: "MuiButton"
+  });
+  const {
+    children,
+    color = "primary",
+    component = "button",
+    className,
+    disabled = false,
+    disableElevation = false,
+    disableFocusRipple = false,
+    endIcon: endIconProp,
+    focusVisibleClassName,
+    fullWidth = false,
+    size = "medium",
+    startIcon: startIconProp,
+    type,
+    variant = "text",
+    ...other
+  } = props;
+  const ownerState = {
+    ...props,
+    color,
+    component,
+    disabled,
+    disableElevation,
+    disableFocusRipple,
+    fullWidth,
+    size,
+    type,
+    variant
+  };
+  const classes = useUtilityClasses5(ownerState);
+  const startIcon = startIconProp && (0, import_jsx_runtime8.jsx)(ButtonStartIcon, {
+    className: classes.startIcon,
+    ownerState,
+    children: startIconProp
+  });
+  const endIcon = endIconProp && (0, import_jsx_runtime8.jsx)(ButtonEndIcon, {
+    className: classes.endIcon,
+    ownerState,
+    children: endIconProp
+  });
+  const positionClassName = buttonGroupButtonContextPositionClassName || "";
+  return (0, import_jsx_runtime8.jsxs)(ButtonRoot, {
+    ownerState,
+    className: clsx_default(contextProps.className, classes.root, className, positionClassName),
+    component,
+    disabled,
+    focusRipple: !disableFocusRipple,
+    focusVisibleClassName: clsx_default(classes.focusVisible, focusVisibleClassName),
+    ref,
+    type,
+    ...other,
+    classes,
+    children: [startIcon, children, endIcon]
+  });
+});
+true ? Button.propTypes = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * The content of the component.
+   */
+  children: import_prop_types8.default.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: import_prop_types8.default.object,
+  /**
+   * @ignore
+   */
+  className: import_prop_types8.default.string,
+  /**
+   * The color of the component.
+   * It supports both default and custom theme colors, which can be added as shown in the
+   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
+   * @default 'primary'
+   */
+  color: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["inherit", "primary", "secondary", "success", "error", "info", "warning"]), import_prop_types8.default.string]),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: import_prop_types8.default.elementType,
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: import_prop_types8.default.bool,
+  /**
+   * If `true`, no elevation is used.
+   * @default false
+   */
+  disableElevation: import_prop_types8.default.bool,
+  /**
+   * If `true`, the  keyboard focus ripple is disabled.
+   * @default false
+   */
+  disableFocusRipple: import_prop_types8.default.bool,
+  /**
+   * If `true`, the ripple effect is disabled.
+   *
+   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
+   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
+   * @default false
+   */
+  disableRipple: import_prop_types8.default.bool,
+  /**
+   * Element placed after the children.
+   */
+  endIcon: import_prop_types8.default.node,
+  /**
+   * @ignore
+   */
+  focusVisibleClassName: import_prop_types8.default.string,
+  /**
+   * If `true`, the button will take up the full width of its container.
+   * @default false
+   */
+  fullWidth: import_prop_types8.default.bool,
+  /**
+   * The URL to link to when the button is clicked.
+   * If defined, an `a` element will be used as the root node.
+   */
+  href: import_prop_types8.default.string,
+  /**
+   * The size of the component.
+   * `small` is equivalent to the dense button styling.
+   * @default 'medium'
+   */
+  size: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["small", "medium", "large"]), import_prop_types8.default.string]),
+  /**
+   * Element placed before the children.
+   */
+  startIcon: import_prop_types8.default.node,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: import_prop_types8.default.oneOfType([import_prop_types8.default.arrayOf(import_prop_types8.default.oneOfType([import_prop_types8.default.func, import_prop_types8.default.object, import_prop_types8.default.bool])), import_prop_types8.default.func, import_prop_types8.default.object]),
+  /**
+   * @ignore
+   */
+  type: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["button", "reset", "submit"]), import_prop_types8.default.string]),
+  /**
+   * The variant to use.
+   * @default 'text'
+   */
+  variant: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["contained", "outlined", "text"]), import_prop_types8.default.string])
+} : void 0;
+var Button_default = Button;
+
+// node_modules/@mui/material/DialogActions/dialogActionsClasses.js
+function getDialogActionsUtilityClass(slot) {
+  return generateUtilityClass("MuiDialogActions", slot);
+}
+var dialogActionsClasses = generateUtilityClasses("MuiDialogActions", ["root", "spacing"]);
+var dialogActionsClasses_default = dialogActionsClasses;
+
+// node_modules/@mui/material/DialogActions/DialogActions.js
+var React12 = __toESM(require_react());
+var import_prop_types9 = __toESM(require_prop_types());
+var import_jsx_runtime9 = __toESM(require_jsx_runtime());
+var useUtilityClasses6 = (ownerState) => {
+  const {
+    classes,
+    disableSpacing
+  } = ownerState;
+  const slots = {
+    root: ["root", !disableSpacing && "spacing"]
+  };
+  return composeClasses(slots, getDialogActionsUtilityClass, classes);
+};
+var DialogActionsRoot = styled_default("div", {
+  name: "MuiDialogActions",
+  slot: "Root",
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, !ownerState.disableSpacing && styles.spacing];
+  }
+})({
+  display: "flex",
+  alignItems: "center",
+  padding: 8,
+  justifyContent: "flex-end",
+  flex: "0 0 auto",
+  variants: [{
+    props: ({
+      ownerState
+    }) => !ownerState.disableSpacing,
+    style: {
+      "& > :not(style) ~ :not(style)": {
+        marginLeft: 8
+      }
+    }
+  }]
+});
+var DialogActions = React12.forwardRef(function DialogActions2(inProps, ref) {
+  const props = useDefaultProps({
+    props: inProps,
+    name: "MuiDialogActions"
+  });
+  const {
+    className,
+    disableSpacing = false,
+    ...other
+  } = props;
+  const ownerState = {
+    ...props,
+    disableSpacing
+  };
+  const classes = useUtilityClasses6(ownerState);
+  return (0, import_jsx_runtime9.jsx)(DialogActionsRoot, {
+    className: clsx_default(classes.root, className),
+    ownerState,
+    ref,
+    ...other
+  });
+});
+true ? DialogActions.propTypes = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * The content of the component.
+   */
+  children: import_prop_types9.default.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: import_prop_types9.default.object,
+  /**
+   * @ignore
+   */
+  className: import_prop_types9.default.string,
+  /**
+   * If `true`, the actions do not have additional margin.
+   * @default false
+   */
+  disableSpacing: import_prop_types9.default.bool,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: import_prop_types9.default.oneOfType([import_prop_types9.default.arrayOf(import_prop_types9.default.oneOfType([import_prop_types9.default.func, import_prop_types9.default.object, import_prop_types9.default.bool])), import_prop_types9.default.func, import_prop_types9.default.object])
+} : void 0;
+var DialogActions_default = DialogActions;
+
+// node_modules/@mui/material/ListItem/listItemClasses.js
+function getListItemUtilityClass(slot) {
+  return generateUtilityClass("MuiListItem", slot);
+}
+var listItemClasses = generateUtilityClasses("MuiListItem", ["root", "container", "dense", "alignItemsFlexStart", "divider", "gutters", "padding", "secondaryAction"]);
+var listItemClasses_default = listItemClasses;
+
+// node_modules/@mui/material/ListItemButton/listItemButtonClasses.js
+function getListItemButtonUtilityClass(slot) {
+  return generateUtilityClass("MuiListItemButton", slot);
+}
+var listItemButtonClasses = generateUtilityClasses("MuiListItemButton", ["root", "focusVisible", "dense", "alignItemsFlexStart", "disabled", "divider", "gutters", "selected"]);
+var listItemButtonClasses_default = listItemButtonClasses;
+
+// node_modules/@mui/material/ListItemButton/ListItemButton.js
+var React13 = __toESM(require_react());
+var import_prop_types10 = __toESM(require_prop_types());
+var import_jsx_runtime10 = __toESM(require_jsx_runtime());
+var overridesResolver2 = (props, styles) => {
+  const {
+    ownerState
+  } = props;
+  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === "flex-start" && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters];
+};
+var useUtilityClasses7 = (ownerState) => {
+  const {
+    alignItems,
+    classes,
+    dense,
+    disabled,
+    disableGutters,
+    divider,
+    selected
+  } = ownerState;
+  const slots = {
+    root: ["root", dense && "dense", !disableGutters && "gutters", divider && "divider", disabled && "disabled", alignItems === "flex-start" && "alignItemsFlexStart", selected && "selected"]
+  };
+  const composedClasses = composeClasses(slots, getListItemButtonUtilityClass, classes);
+  return {
+    ...classes,
+    ...composedClasses
+  };
+};
+var ListItemButtonRoot = styled_default(ButtonBase_default, {
+  shouldForwardProp: (prop) => rootShouldForwardProp_default(prop) || prop === "classes",
+  name: "MuiListItemButton",
+  slot: "Root",
+  overridesResolver: overridesResolver2
+})(memoTheme_default(({
+  theme
+}) => ({
+  display: "flex",
+  flexGrow: 1,
+  justifyContent: "flex-start",
+  alignItems: "center",
+  position: "relative",
+  textDecoration: "none",
+  minWidth: 0,
+  boxSizing: "border-box",
+  textAlign: "left",
+  paddingTop: 8,
+  paddingBottom: 8,
+  transition: theme.transitions.create("background-color", {
+    duration: theme.transitions.duration.shortest
+  }),
+  "&:hover": {
+    textDecoration: "none",
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+    // Reset on touch devices, it doesn't add specificity
+    "@media (hover: none)": {
+      backgroundColor: "transparent"
+    }
+  },
+  [`&.${listItemButtonClasses_default.selected}`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+    [`&.${listItemButtonClasses_default.focusVisible}`]: {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
+    }
+  },
+  [`&.${listItemButtonClasses_default.selected}:hover`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    "@media (hover: none)": {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity)
+    }
+  },
+  [`&.${listItemButtonClasses_default.focusVisible}`]: {
+    backgroundColor: (theme.vars || theme).palette.action.focus
+  },
+  [`&.${listItemButtonClasses_default.disabled}`]: {
+    opacity: (theme.vars || theme).palette.action.disabledOpacity
+  },
+  variants: [{
+    props: ({
+      ownerState
+    }) => ownerState.divider,
+    style: {
+      borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+      backgroundClip: "padding-box"
+    }
+  }, {
+    props: {
+      alignItems: "flex-start"
+    },
+    style: {
+      alignItems: "flex-start"
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => !ownerState.disableGutters,
+    style: {
+      paddingLeft: 16,
+      paddingRight: 16
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => ownerState.dense,
+    style: {
+      paddingTop: 4,
+      paddingBottom: 4
+    }
+  }]
+})));
+var ListItemButton = React13.forwardRef(function ListItemButton2(inProps, ref) {
+  const props = useDefaultProps({
+    props: inProps,
+    name: "MuiListItemButton"
+  });
+  const {
+    alignItems = "center",
+    autoFocus = false,
+    component = "div",
+    children,
+    dense = false,
+    disableGutters = false,
+    divider = false,
+    focusVisibleClassName,
+    selected = false,
+    className,
+    ...other
+  } = props;
+  const context = React13.useContext(ListContext_default);
+  const childContext = React13.useMemo(() => ({
+    dense: dense || context.dense || false,
+    alignItems,
+    disableGutters
+  }), [alignItems, context.dense, dense, disableGutters]);
+  const listItemRef = React13.useRef(null);
+  useEnhancedEffect_default2(() => {
+    if (autoFocus) {
+      if (listItemRef.current) {
+        listItemRef.current.focus();
+      } else if (true) {
+        console.error("MUI: Unable to set focus to a ListItemButton whose component has not been rendered.");
+      }
+    }
+  }, [autoFocus]);
+  const ownerState = {
+    ...props,
+    alignItems,
+    dense: childContext.dense,
+    disableGutters,
+    divider,
+    selected
+  };
+  const classes = useUtilityClasses7(ownerState);
+  const handleRef = useForkRef_default(listItemRef, ref);
+  return (0, import_jsx_runtime10.jsx)(ListContext_default.Provider, {
+    value: childContext,
+    children: (0, import_jsx_runtime10.jsx)(ListItemButtonRoot, {
+      ref: handleRef,
+      href: other.href || other.to,
+      component: (other.href || other.to) && component === "div" ? "button" : component,
+      focusVisibleClassName: clsx_default(classes.focusVisible, focusVisibleClassName),
+      ownerState,
+      className: clsx_default(classes.root, className),
+      ...other,
+      classes,
+      children
+    })
+  });
+});
+true ? ListItemButton.propTypes = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * Defines the `align-items` style property.
+   * @default 'center'
+   */
+  alignItems: import_prop_types10.default.oneOf(["center", "flex-start"]),
+  /**
+   * If `true`, the list item is focused during the first mount.
+   * Focus will also be triggered if the value changes from false to true.
+   * @default false
+   */
+  autoFocus: import_prop_types10.default.bool,
+  /**
+   * The content of the component if a `ListItemSecondaryAction` is used it must
+   * be the last child.
+   */
+  children: import_prop_types10.default.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: import_prop_types10.default.object,
+  /**
+   * @ignore
+   */
+  className: import_prop_types10.default.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: import_prop_types10.default.elementType,
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
+   * The prop defaults to the value inherited from the parent List component.
+   * @default false
+   */
+  dense: import_prop_types10.default.bool,
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: import_prop_types10.default.bool,
+  /**
+   * If `true`, the left and right padding is removed.
+   * @default false
+   */
+  disableGutters: import_prop_types10.default.bool,
+  /**
+   * If `true`, a 1px light border is added to the bottom of the list item.
+   * @default false
+   */
+  divider: import_prop_types10.default.bool,
+  /**
+   * This prop can help identify which element has keyboard focus.
+   * The class name will be applied when the element gains the focus through keyboard interaction.
+   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
+   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
+   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
+   * if needed.
+   */
+  focusVisibleClassName: import_prop_types10.default.string,
+  /**
+   * @ignore
+   */
+  href: import_prop_types10.default.string,
+  /**
+   * Use to apply selected styling.
+   * @default false
+   */
+  selected: import_prop_types10.default.bool,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: import_prop_types10.default.oneOfType([import_prop_types10.default.arrayOf(import_prop_types10.default.oneOfType([import_prop_types10.default.func, import_prop_types10.default.object, import_prop_types10.default.bool])), import_prop_types10.default.func, import_prop_types10.default.object])
+} : void 0;
+var ListItemButton_default = ListItemButton;
+
+// node_modules/@mui/material/ListItemSecondaryAction/listItemSecondaryActionClasses.js
+function getListItemSecondaryActionClassesUtilityClass(slot) {
+  return generateUtilityClass("MuiListItemSecondaryAction", slot);
+}
+var listItemSecondaryActionClasses = generateUtilityClasses("MuiListItemSecondaryAction", ["root", "disableGutters"]);
+var listItemSecondaryActionClasses_default = listItemSecondaryActionClasses;
+
+// node_modules/@mui/material/ListItemSecondaryAction/ListItemSecondaryAction.js
+var React14 = __toESM(require_react());
+var import_prop_types11 = __toESM(require_prop_types());
+var import_jsx_runtime11 = __toESM(require_jsx_runtime());
+var useUtilityClasses8 = (ownerState) => {
+  const {
+    disableGutters,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ["root", disableGutters && "disableGutters"]
+  };
+  return composeClasses(slots, getListItemSecondaryActionClassesUtilityClass, classes);
+};
+var ListItemSecondaryActionRoot = styled_default("div", {
+  name: "MuiListItemSecondaryAction",
+  slot: "Root",
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.disableGutters && styles.disableGutters];
+  }
+})({
+  position: "absolute",
+  right: 16,
+  top: "50%",
+  transform: "translateY(-50%)",
+  variants: [{
+    props: ({
+      ownerState
+    }) => ownerState.disableGutters,
+    style: {
+      right: 0
+    }
+  }]
+});
+var ListItemSecondaryAction = React14.forwardRef(function ListItemSecondaryAction2(inProps, ref) {
+  const props = useDefaultProps({
+    props: inProps,
+    name: "MuiListItemSecondaryAction"
+  });
+  const {
+    className,
+    ...other
+  } = props;
+  const context = React14.useContext(ListContext_default);
+  const ownerState = {
+    ...props,
+    disableGutters: context.disableGutters
+  };
+  const classes = useUtilityClasses8(ownerState);
+  return (0, import_jsx_runtime11.jsx)(ListItemSecondaryActionRoot, {
+    className: clsx_default(classes.root, className),
+    ownerState,
+    ref,
+    ...other
+  });
+});
+true ? ListItemSecondaryAction.propTypes = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * The content of the component, normally an `IconButton` or selection control.
+   */
+  children: import_prop_types11.default.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: import_prop_types11.default.object,
+  /**
+   * @ignore
+   */
+  className: import_prop_types11.default.string,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: import_prop_types11.default.oneOfType([import_prop_types11.default.arrayOf(import_prop_types11.default.oneOfType([import_prop_types11.default.func, import_prop_types11.default.object, import_prop_types11.default.bool])), import_prop_types11.default.func, import_prop_types11.default.object])
+} : void 0;
+ListItemSecondaryAction.muiName = "ListItemSecondaryAction";
+var ListItemSecondaryAction_default = ListItemSecondaryAction;
+
+// node_modules/@mui/material/ListItem/ListItem.js
+var React15 = __toESM(require_react());
+var import_prop_types12 = __toESM(require_prop_types());
+var import_jsx_runtime12 = __toESM(require_jsx_runtime());
+var overridesResolver3 = (props, styles) => {
+  const {
+    ownerState
+  } = props;
+  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === "flex-start" && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters, !ownerState.disablePadding && styles.padding, ownerState.hasSecondaryAction && styles.secondaryAction];
+};
+var useUtilityClasses9 = (ownerState) => {
+  const {
+    alignItems,
+    classes,
+    dense,
+    disableGutters,
+    disablePadding,
+    divider,
+    hasSecondaryAction
+  } = ownerState;
+  const slots = {
+    root: ["root", dense && "dense", !disableGutters && "gutters", !disablePadding && "padding", divider && "divider", alignItems === "flex-start" && "alignItemsFlexStart", hasSecondaryAction && "secondaryAction"],
+    container: ["container"]
+  };
+  return composeClasses(slots, getListItemUtilityClass, classes);
+};
+var ListItemRoot = styled_default("div", {
+  name: "MuiListItem",
+  slot: "Root",
+  overridesResolver: overridesResolver3
+})(memoTheme_default(({
+  theme
+}) => ({
+  display: "flex",
+  justifyContent: "flex-start",
+  alignItems: "center",
+  position: "relative",
+  textDecoration: "none",
+  width: "100%",
+  boxSizing: "border-box",
+  textAlign: "left",
+  variants: [{
+    props: ({
+      ownerState
+    }) => !ownerState.disablePadding,
+    style: {
+      paddingTop: 8,
+      paddingBottom: 8
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => !ownerState.disablePadding && ownerState.dense,
+    style: {
+      paddingTop: 4,
+      paddingBottom: 4
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => !ownerState.disablePadding && !ownerState.disableGutters,
+    style: {
+      paddingLeft: 16,
+      paddingRight: 16
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => !ownerState.disablePadding && !!ownerState.secondaryAction,
+    style: {
+      // Add some space to avoid collision as `ListItemSecondaryAction`
+      // is absolutely positioned.
+      paddingRight: 48
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => !!ownerState.secondaryAction,
+    style: {
+      [`& > .${listItemButtonClasses_default.root}`]: {
+        paddingRight: 48
+      }
+    }
+  }, {
+    props: {
+      alignItems: "flex-start"
+    },
+    style: {
+      alignItems: "flex-start"
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => ownerState.divider,
+    style: {
+      borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+      backgroundClip: "padding-box"
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => ownerState.button,
+    style: {
+      transition: theme.transitions.create("background-color", {
+        duration: theme.transitions.duration.shortest
+      }),
+      "&:hover": {
+        textDecoration: "none",
+        backgroundColor: (theme.vars || theme).palette.action.hover,
+        // Reset on touch devices, it doesn't add specificity
+        "@media (hover: none)": {
+          backgroundColor: "transparent"
+        }
+      }
+    }
+  }, {
+    props: ({
+      ownerState
+    }) => ownerState.hasSecondaryAction,
+    style: {
+      // Add some space to avoid collision as `ListItemSecondaryAction`
+      // is absolutely positioned.
+      paddingRight: 48
+    }
+  }]
+})));
+var ListItemContainer = styled_default("li", {
+  name: "MuiListItem",
+  slot: "Container",
+  overridesResolver: (props, styles) => styles.container
+})({
+  position: "relative"
+});
+var ListItem = React15.forwardRef(function ListItem2(inProps, ref) {
+  const props = useDefaultProps({
+    props: inProps,
+    name: "MuiListItem"
+  });
+  const {
+    alignItems = "center",
+    children: childrenProp,
+    className,
+    component: componentProp,
+    components = {},
+    componentsProps = {},
+    ContainerComponent = "li",
+    ContainerProps: {
+      className: ContainerClassName,
+      ...ContainerProps
+    } = {},
+    dense = false,
+    disableGutters = false,
+    disablePadding = false,
+    divider = false,
+    secondaryAction,
+    slotProps = {},
+    slots = {},
+    ...other
+  } = props;
+  const context = React15.useContext(ListContext_default);
+  const childContext = React15.useMemo(() => ({
+    dense: dense || context.dense || false,
+    alignItems,
+    disableGutters
+  }), [alignItems, context.dense, dense, disableGutters]);
+  const listItemRef = React15.useRef(null);
+  const children = React15.Children.toArray(childrenProp);
+  const hasSecondaryAction = children.length && isMuiElement_default(children[children.length - 1], ["ListItemSecondaryAction"]);
+  const ownerState = {
+    ...props,
+    alignItems,
+    dense: childContext.dense,
+    disableGutters,
+    disablePadding,
+    divider,
+    hasSecondaryAction
+  };
+  const classes = useUtilityClasses9(ownerState);
+  const handleRef = useForkRef_default(listItemRef, ref);
+  const Root = slots.root || components.Root || ListItemRoot;
+  const rootProps = slotProps.root || componentsProps.root || {};
+  const componentProps = {
+    className: clsx_default(classes.root, rootProps.className, className),
+    ...other
+  };
+  let Component = componentProp || "li";
+  if (hasSecondaryAction) {
+    Component = !componentProps.component && !componentProp ? "div" : Component;
+    if (ContainerComponent === "li") {
+      if (Component === "li") {
+        Component = "div";
+      } else if (componentProps.component === "li") {
+        componentProps.component = "div";
+      }
+    }
+    return (0, import_jsx_runtime12.jsx)(ListContext_default.Provider, {
+      value: childContext,
+      children: (0, import_jsx_runtime12.jsxs)(ListItemContainer, {
+        as: ContainerComponent,
+        className: clsx_default(classes.container, ContainerClassName),
+        ref: handleRef,
+        ownerState,
+        ...ContainerProps,
+        children: [(0, import_jsx_runtime12.jsx)(Root, {
+          ...rootProps,
+          ...!isHostComponent_default(Root) && {
+            as: Component,
+            ownerState: {
+              ...ownerState,
+              ...rootProps.ownerState
+            }
+          },
+          ...componentProps,
+          children
+        }), children.pop()]
+      })
+    });
+  }
+  return (0, import_jsx_runtime12.jsx)(ListContext_default.Provider, {
+    value: childContext,
+    children: (0, import_jsx_runtime12.jsxs)(Root, {
+      ...rootProps,
+      as: Component,
+      ref: handleRef,
+      ...!isHostComponent_default(Root) && {
+        ownerState: {
+          ...ownerState,
+          ...rootProps.ownerState
+        }
+      },
+      ...componentProps,
+      children: [children, secondaryAction && (0, import_jsx_runtime12.jsx)(ListItemSecondaryAction_default, {
+        children: secondaryAction
+      })]
+    })
+  });
+});
+true ? ListItem.propTypes = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * Defines the `align-items` style property.
+   * @default 'center'
+   */
+  alignItems: import_prop_types12.default.oneOf(["center", "flex-start"]),
+  /**
+   * The content of the component if a `ListItemSecondaryAction` is used it must
+   * be the last child.
+   */
+  children: chainPropTypes(import_prop_types12.default.node, (props) => {
+    const children = React15.Children.toArray(props.children);
+    let secondaryActionIndex = -1;
+    for (let i = children.length - 1; i >= 0; i -= 1) {
+      const child = children[i];
+      if (isMuiElement_default(child, ["ListItemSecondaryAction"])) {
+        secondaryActionIndex = i;
+        break;
+      }
+    }
+    if (secondaryActionIndex !== -1 && secondaryActionIndex !== children.length - 1) {
+      return new Error("MUI: You used an element after ListItemSecondaryAction. For ListItem to detect that it has a secondary action you must pass it as the last child to ListItem.");
+    }
+    return null;
+  }),
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: import_prop_types12.default.object,
+  /**
+   * @ignore
+   */
+  className: import_prop_types12.default.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: import_prop_types12.default.elementType,
+  /**
+   * The components used for each slot inside.
+   *
+   * @deprecated Use the `slots` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+   * @default {}
+   */
+  components: import_prop_types12.default.shape({
+    Root: import_prop_types12.default.elementType
+  }),
+  /**
+   * The extra props for the slot components.
+   * You can override the existing props or add new ones.
+   *
+   * @deprecated Use the `slotProps` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+   * @default {}
+   */
+  componentsProps: import_prop_types12.default.shape({
+    root: import_prop_types12.default.object
+  }),
+  /**
+   * The container component used when a `ListItemSecondaryAction` is the last child.
+   * @default 'li'
+   * @deprecated Use the `component` or `slots.root` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+   */
+  ContainerComponent: elementTypeAcceptingRef_default,
+  /**
+   * Props applied to the container component if used.
+   * @default {}
+   * @deprecated Use the `slotProps.root` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+   */
+  ContainerProps: import_prop_types12.default.object,
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
+   * The prop defaults to the value inherited from the parent List component.
+   * @default false
+   */
+  dense: import_prop_types12.default.bool,
+  /**
+   * If `true`, the left and right padding is removed.
+   * @default false
+   */
+  disableGutters: import_prop_types12.default.bool,
+  /**
+   * If `true`, all padding is removed.
+   * @default false
+   */
+  disablePadding: import_prop_types12.default.bool,
+  /**
+   * If `true`, a 1px light border is added to the bottom of the list item.
+   * @default false
+   */
+  divider: import_prop_types12.default.bool,
+  /**
+   * The element to display at the end of ListItem.
+   */
+  secondaryAction: import_prop_types12.default.node,
+  /**
+   * The extra props for the slot components.
+   * You can override the existing props or add new ones.
+   *
+   * @default {}
+   */
+  slotProps: import_prop_types12.default.shape({
+    root: import_prop_types12.default.object
+  }),
+  /**
+   * The components used for each slot inside.
+   *
+   * @default {}
+   */
+  slots: import_prop_types12.default.shape({
+    root: import_prop_types12.default.elementType
+  }),
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: import_prop_types12.default.oneOfType([import_prop_types12.default.arrayOf(import_prop_types12.default.oneOfType([import_prop_types12.default.func, import_prop_types12.default.object, import_prop_types12.default.bool])), import_prop_types12.default.func, import_prop_types12.default.object])
+} : void 0;
+var ListItem_default = ListItem;
 
 // node_modules/@mui/material/Chip/chipClasses.js
 function getChipUtilityClass(slot) {
@@ -3217,19 +4692,19 @@ var chipClasses = generateUtilityClasses("MuiChip", ["root", "sizeSmall", "sizeM
 var chipClasses_default = chipClasses;
 
 // node_modules/@mui/material/Chip/Chip.js
-var React9 = __toESM(require_react());
-var import_prop_types7 = __toESM(require_prop_types());
+var React17 = __toESM(require_react());
+var import_prop_types13 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/internal/svg-icons/Cancel.js
-var React8 = __toESM(require_react());
-var import_jsx_runtime7 = __toESM(require_jsx_runtime());
-var Cancel_default = createSvgIcon((0, import_jsx_runtime7.jsx)("path", {
+var React16 = __toESM(require_react());
+var import_jsx_runtime13 = __toESM(require_jsx_runtime());
+var Cancel_default = createSvgIcon((0, import_jsx_runtime13.jsx)("path", {
   d: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
 }), "Cancel");
 
 // node_modules/@mui/material/Chip/Chip.js
-var import_jsx_runtime8 = __toESM(require_jsx_runtime());
-var useUtilityClasses4 = (ownerState) => {
+var import_jsx_runtime14 = __toESM(require_jsx_runtime());
+var useUtilityClasses10 = (ownerState) => {
   const {
     classes,
     disabled,
@@ -3555,7 +5030,7 @@ var ChipLabel = styled_default("span", {
 function isDeleteKeyboardEvent(keyboardEvent) {
   return keyboardEvent.key === "Backspace" || keyboardEvent.key === "Delete";
 }
-var Chip = React9.forwardRef(function Chip2(inProps, ref) {
+var Chip = React17.forwardRef(function Chip2(inProps, ref) {
   const props = useDefaultProps({
     props: inProps,
     name: "MuiChip"
@@ -3581,7 +5056,7 @@ var Chip = React9.forwardRef(function Chip2(inProps, ref) {
     // TODO v6: Rename to `focusableWhenDisabled`.
     ...other
   } = props;
-  const chipRef = React9.useRef(null);
+  const chipRef = React17.useRef(null);
   const handleRef = useForkRef_default(chipRef, ref);
   const handleDeleteIconClick = (event) => {
     event.stopPropagation();
@@ -3615,12 +5090,12 @@ var Chip = React9.forwardRef(function Chip2(inProps, ref) {
     disabled,
     size,
     color,
-    iconColor: React9.isValidElement(iconProp) ? iconProp.props.color || color : color,
+    iconColor: React17.isValidElement(iconProp) ? iconProp.props.color || color : color,
     onDelete: !!onDelete,
     clickable,
     variant
   };
-  const classes = useUtilityClasses4(ownerState);
+  const classes = useUtilityClasses10(ownerState);
   const moreProps = component === ButtonBase_default ? {
     component: ComponentProp || "div",
     focusVisibleClassName: classes.focusVisible,
@@ -3630,23 +5105,23 @@ var Chip = React9.forwardRef(function Chip2(inProps, ref) {
   } : {};
   let deleteIcon = null;
   if (onDelete) {
-    deleteIcon = deleteIconProp && React9.isValidElement(deleteIconProp) ? React9.cloneElement(deleteIconProp, {
+    deleteIcon = deleteIconProp && React17.isValidElement(deleteIconProp) ? React17.cloneElement(deleteIconProp, {
       className: clsx_default(deleteIconProp.props.className, classes.deleteIcon),
       onClick: handleDeleteIconClick
-    }) : (0, import_jsx_runtime8.jsx)(Cancel_default, {
+    }) : (0, import_jsx_runtime14.jsx)(Cancel_default, {
       className: clsx_default(classes.deleteIcon),
       onClick: handleDeleteIconClick
     });
   }
   let avatar = null;
-  if (avatarProp && React9.isValidElement(avatarProp)) {
-    avatar = React9.cloneElement(avatarProp, {
+  if (avatarProp && React17.isValidElement(avatarProp)) {
+    avatar = React17.cloneElement(avatarProp, {
       className: clsx_default(classes.avatar, avatarProp.props.className)
     });
   }
   let icon = null;
-  if (iconProp && React9.isValidElement(iconProp)) {
-    icon = React9.cloneElement(iconProp, {
+  if (iconProp && React17.isValidElement(iconProp)) {
+    icon = React17.cloneElement(iconProp, {
       className: clsx_default(classes.icon, iconProp.props.className)
     });
   }
@@ -3655,7 +5130,7 @@ var Chip = React9.forwardRef(function Chip2(inProps, ref) {
       console.error("MUI: The Chip component can not handle the avatar and the icon prop at the same time. Pick one.");
     }
   }
-  return (0, import_jsx_runtime8.jsxs)(ChipRoot, {
+  return (0, import_jsx_runtime14.jsxs)(ChipRoot, {
     as: component,
     className: clsx_default(classes.root, className),
     disabled: clickable && disabled ? true : void 0,
@@ -3667,7 +5142,7 @@ var Chip = React9.forwardRef(function Chip2(inProps, ref) {
     ownerState,
     ...moreProps,
     ...other,
-    children: [avatar || icon, (0, import_jsx_runtime8.jsx)(ChipLabel, {
+    children: [avatar || icon, (0, import_jsx_runtime14.jsx)(ChipLabel, {
       className: clsx_default(classes.label),
       ownerState,
       children: label
@@ -3682,7 +5157,7 @@ true ? Chip.propTypes = {
   /**
    * The Avatar element to display.
    */
-  avatar: import_prop_types7.default.element,
+  avatar: import_prop_types13.default.element,
   /**
    * This prop isn't supported.
    * Use the `component` prop if you need to change the children structure.
@@ -3691,11 +5166,11 @@ true ? Chip.propTypes = {
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types7.default.object,
+  classes: import_prop_types13.default.object,
   /**
    * @ignore
    */
-  className: import_prop_types7.default.string,
+  className: import_prop_types13.default.string,
   /**
    * If `true`, the chip will appear clickable, and will raise when pressed,
    * even if the onClick prop is not defined.
@@ -3704,463 +5179,168 @@ true ? Chip.propTypes = {
    * along with the component prop to indicate an anchor Chip is clickable.
    * Note: this controls the UI and does not affect the onClick event.
    */
-  clickable: import_prop_types7.default.bool,
+  clickable: import_prop_types13.default.bool,
   /**
    * The color of the component.
    * It supports both default and custom theme colors, which can be added as shown in the
    * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
    * @default 'default'
    */
-  color: import_prop_types7.default.oneOfType([import_prop_types7.default.oneOf(["default", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types7.default.string]),
+  color: import_prop_types13.default.oneOfType([import_prop_types13.default.oneOf(["default", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types13.default.string]),
   /**
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
    */
-  component: import_prop_types7.default.elementType,
+  component: import_prop_types13.default.elementType,
   /**
    * Override the default delete icon element. Shown only if `onDelete` is set.
    */
-  deleteIcon: import_prop_types7.default.element,
+  deleteIcon: import_prop_types13.default.element,
   /**
    * If `true`, the component is disabled.
    * @default false
    */
-  disabled: import_prop_types7.default.bool,
+  disabled: import_prop_types13.default.bool,
   /**
    * Icon element.
    */
-  icon: import_prop_types7.default.element,
+  icon: import_prop_types13.default.element,
   /**
    * The content of the component.
    */
-  label: import_prop_types7.default.node,
+  label: import_prop_types13.default.node,
   /**
    * @ignore
    */
-  onClick: import_prop_types7.default.func,
+  onClick: import_prop_types13.default.func,
   /**
    * Callback fired when the delete icon is clicked.
    * If set, the delete icon will be shown.
    */
-  onDelete: import_prop_types7.default.func,
+  onDelete: import_prop_types13.default.func,
   /**
    * @ignore
    */
-  onKeyDown: import_prop_types7.default.func,
+  onKeyDown: import_prop_types13.default.func,
   /**
    * @ignore
    */
-  onKeyUp: import_prop_types7.default.func,
+  onKeyUp: import_prop_types13.default.func,
   /**
    * The size of the component.
    * @default 'medium'
    */
-  size: import_prop_types7.default.oneOfType([import_prop_types7.default.oneOf(["medium", "small"]), import_prop_types7.default.string]),
+  size: import_prop_types13.default.oneOfType([import_prop_types13.default.oneOf(["medium", "small"]), import_prop_types13.default.string]),
   /**
    * If `true`, allows the disabled chip to escape focus.
    * If `false`, allows the disabled chip to receive focus.
    * @default false
    */
-  skipFocusWhenDisabled: import_prop_types7.default.bool,
+  skipFocusWhenDisabled: import_prop_types13.default.bool,
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: import_prop_types7.default.oneOfType([import_prop_types7.default.arrayOf(import_prop_types7.default.oneOfType([import_prop_types7.default.func, import_prop_types7.default.object, import_prop_types7.default.bool])), import_prop_types7.default.func, import_prop_types7.default.object]),
+  sx: import_prop_types13.default.oneOfType([import_prop_types13.default.arrayOf(import_prop_types13.default.oneOfType([import_prop_types13.default.func, import_prop_types13.default.object, import_prop_types13.default.bool])), import_prop_types13.default.func, import_prop_types13.default.object]),
   /**
    * @ignore
    */
-  tabIndex: import_prop_types7.default.number,
+  tabIndex: import_prop_types13.default.number,
   /**
    * The variant to use.
    * @default 'filled'
    */
-  variant: import_prop_types7.default.oneOfType([import_prop_types7.default.oneOf(["filled", "outlined"]), import_prop_types7.default.string])
+  variant: import_prop_types13.default.oneOfType([import_prop_types13.default.oneOf(["filled", "outlined"]), import_prop_types13.default.string])
 } : void 0;
 var Chip_default = Chip;
 
-// node_modules/@mui/material/Button/buttonClasses.js
-function getButtonUtilityClass(slot) {
-  return generateUtilityClass("MuiButton", slot);
+// node_modules/@mui/material/DialogContent/dialogContentClasses.js
+function getDialogContentUtilityClass(slot) {
+  return generateUtilityClass("MuiDialogContent", slot);
 }
-var buttonClasses = generateUtilityClasses("MuiButton", ["root", "text", "textInherit", "textPrimary", "textSecondary", "textSuccess", "textError", "textInfo", "textWarning", "outlined", "outlinedInherit", "outlinedPrimary", "outlinedSecondary", "outlinedSuccess", "outlinedError", "outlinedInfo", "outlinedWarning", "contained", "containedInherit", "containedPrimary", "containedSecondary", "containedSuccess", "containedError", "containedInfo", "containedWarning", "disableElevation", "focusVisible", "disabled", "colorInherit", "colorPrimary", "colorSecondary", "colorSuccess", "colorError", "colorInfo", "colorWarning", "textSizeSmall", "textSizeMedium", "textSizeLarge", "outlinedSizeSmall", "outlinedSizeMedium", "outlinedSizeLarge", "containedSizeSmall", "containedSizeMedium", "containedSizeLarge", "sizeMedium", "sizeSmall", "sizeLarge", "fullWidth", "startIcon", "endIcon", "icon", "iconSizeSmall", "iconSizeMedium", "iconSizeLarge"]);
-var buttonClasses_default = buttonClasses;
+var dialogContentClasses = generateUtilityClasses("MuiDialogContent", ["root", "dividers"]);
+var dialogContentClasses_default = dialogContentClasses;
 
-// node_modules/@mui/material/ButtonGroup/ButtonGroupContext.js
-var React10 = __toESM(require_react());
-var ButtonGroupContext = React10.createContext({});
-if (true) {
-  ButtonGroupContext.displayName = "ButtonGroupContext";
+// node_modules/@mui/material/DialogTitle/dialogTitleClasses.js
+function getDialogTitleUtilityClass(slot) {
+  return generateUtilityClass("MuiDialogTitle", slot);
 }
-var ButtonGroupContext_default = ButtonGroupContext;
+var dialogTitleClasses = generateUtilityClasses("MuiDialogTitle", ["root"]);
+var dialogTitleClasses_default = dialogTitleClasses;
 
-// node_modules/@mui/material/ButtonGroup/ButtonGroupButtonContext.js
-var React11 = __toESM(require_react());
-var ButtonGroupButtonContext = React11.createContext(void 0);
-if (true) {
-  ButtonGroupButtonContext.displayName = "ButtonGroupButtonContext";
-}
-var ButtonGroupButtonContext_default = ButtonGroupButtonContext;
-
-// node_modules/@mui/material/Button/Button.js
-var React12 = __toESM(require_react());
-var import_prop_types8 = __toESM(require_prop_types());
-var import_jsx_runtime9 = __toESM(require_jsx_runtime());
-var useUtilityClasses5 = (ownerState) => {
+// node_modules/@mui/material/DialogContent/DialogContent.js
+var React18 = __toESM(require_react());
+var import_prop_types14 = __toESM(require_prop_types());
+var import_jsx_runtime15 = __toESM(require_jsx_runtime());
+var useUtilityClasses11 = (ownerState) => {
   const {
-    color,
-    disableElevation,
-    fullWidth,
-    size,
-    variant,
-    classes
+    classes,
+    dividers
   } = ownerState;
   const slots = {
-    root: ["root", variant, `${variant}${capitalize_default(color)}`, `size${capitalize_default(size)}`, `${variant}Size${capitalize_default(size)}`, `color${capitalize_default(color)}`, disableElevation && "disableElevation", fullWidth && "fullWidth"],
-    label: ["label"],
-    startIcon: ["icon", "startIcon", `iconSize${capitalize_default(size)}`],
-    endIcon: ["icon", "endIcon", `iconSize${capitalize_default(size)}`]
+    root: ["root", dividers && "dividers"]
   };
-  const composedClasses = composeClasses(slots, getButtonUtilityClass, classes);
-  return {
-    ...classes,
-    // forward the focused, disabled, etc. classes to the ButtonBase
-    ...composedClasses
-  };
+  return composeClasses(slots, getDialogContentUtilityClass, classes);
 };
-var commonIconStyles = [{
-  props: {
-    size: "small"
-  },
-  style: {
-    "& > *:nth-of-type(1)": {
-      fontSize: 18
-    }
-  }
-}, {
-  props: {
-    size: "medium"
-  },
-  style: {
-    "& > *:nth-of-type(1)": {
-      fontSize: 20
-    }
-  }
-}, {
-  props: {
-    size: "large"
-  },
-  style: {
-    "& > *:nth-of-type(1)": {
-      fontSize: 22
-    }
-  }
-}];
-var ButtonRoot = styled_default(ButtonBase_default, {
-  shouldForwardProp: (prop) => rootShouldForwardProp_default(prop) || prop === "classes",
-  name: "MuiButton",
+var DialogContentRoot = styled_default("div", {
+  name: "MuiDialogContent",
   slot: "Root",
   overridesResolver: (props, styles) => {
     const {
       ownerState
     } = props;
-    return [styles.root, styles[ownerState.variant], styles[`${ownerState.variant}${capitalize_default(ownerState.color)}`], styles[`size${capitalize_default(ownerState.size)}`], styles[`${ownerState.variant}Size${capitalize_default(ownerState.size)}`], ownerState.color === "inherit" && styles.colorInherit, ownerState.disableElevation && styles.disableElevation, ownerState.fullWidth && styles.fullWidth];
+    return [styles.root, ownerState.dividers && styles.dividers];
   }
 })(memoTheme_default(({
   theme
-}) => {
-  const inheritContainedBackgroundColor = theme.palette.mode === "light" ? theme.palette.grey[300] : theme.palette.grey[800];
-  const inheritContainedHoverBackgroundColor = theme.palette.mode === "light" ? theme.palette.grey.A100 : theme.palette.grey[700];
-  return {
-    ...theme.typography.button,
-    minWidth: 64,
-    padding: "6px 16px",
-    border: 0,
-    borderRadius: (theme.vars || theme).shape.borderRadius,
-    transition: theme.transitions.create(["background-color", "box-shadow", "border-color", "color"], {
-      duration: theme.transitions.duration.short
-    }),
-    "&:hover": {
-      textDecoration: "none"
-    },
-    [`&.${buttonClasses_default.disabled}`]: {
-      color: (theme.vars || theme).palette.action.disabled
-    },
-    variants: [{
-      props: {
-        variant: "contained"
-      },
-      style: {
-        color: `var(--variant-containedColor)`,
-        backgroundColor: `var(--variant-containedBg)`,
-        boxShadow: (theme.vars || theme).shadows[2],
-        "&:hover": {
-          boxShadow: (theme.vars || theme).shadows[4],
-          // Reset on touch devices, it doesn't add specificity
-          "@media (hover: none)": {
-            boxShadow: (theme.vars || theme).shadows[2]
-          }
-        },
-        "&:active": {
-          boxShadow: (theme.vars || theme).shadows[8]
-        },
-        [`&.${buttonClasses_default.focusVisible}`]: {
-          boxShadow: (theme.vars || theme).shadows[6]
-        },
-        [`&.${buttonClasses_default.disabled}`]: {
-          color: (theme.vars || theme).palette.action.disabled,
-          boxShadow: (theme.vars || theme).shadows[0],
-          backgroundColor: (theme.vars || theme).palette.action.disabledBackground
-        }
-      }
-    }, {
-      props: {
-        variant: "outlined"
-      },
-      style: {
-        padding: "5px 15px",
-        border: "1px solid currentColor",
-        borderColor: `var(--variant-outlinedBorder, currentColor)`,
-        backgroundColor: `var(--variant-outlinedBg)`,
-        color: `var(--variant-outlinedColor)`,
-        [`&.${buttonClasses_default.disabled}`]: {
-          border: `1px solid ${(theme.vars || theme).palette.action.disabledBackground}`
-        }
-      }
-    }, {
-      props: {
-        variant: "text"
-      },
-      style: {
-        padding: "6px 8px",
-        color: `var(--variant-textColor)`,
-        backgroundColor: `var(--variant-textBg)`
-      }
-    }, ...Object.entries(theme.palette).filter(createSimplePaletteValueFilter()).map(([color]) => ({
-      props: {
-        color
-      },
-      style: {
-        "--variant-textColor": (theme.vars || theme).palette[color].main,
-        "--variant-outlinedColor": (theme.vars || theme).palette[color].main,
-        "--variant-outlinedBorder": theme.vars ? `rgba(${theme.vars.palette[color].mainChannel} / 0.5)` : alpha(theme.palette[color].main, 0.5),
-        "--variant-containedColor": (theme.vars || theme).palette[color].contrastText,
-        "--variant-containedBg": (theme.vars || theme).palette[color].main,
-        "@media (hover: hover)": {
-          "&:hover": {
-            "--variant-containedBg": (theme.vars || theme).palette[color].dark,
-            "--variant-textBg": theme.vars ? `rgba(${theme.vars.palette[color].mainChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette[color].main, theme.palette.action.hoverOpacity),
-            "--variant-outlinedBorder": (theme.vars || theme).palette[color].main,
-            "--variant-outlinedBg": theme.vars ? `rgba(${theme.vars.palette[color].mainChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette[color].main, theme.palette.action.hoverOpacity)
-          }
-        }
-      }
-    })), {
-      props: {
-        color: "inherit"
-      },
-      style: {
-        color: "inherit",
-        borderColor: "currentColor",
-        "--variant-containedBg": theme.vars ? theme.vars.palette.Button.inheritContainedBg : inheritContainedBackgroundColor,
-        "@media (hover: hover)": {
-          "&:hover": {
-            "--variant-containedBg": theme.vars ? theme.vars.palette.Button.inheritContainedHoverBg : inheritContainedHoverBackgroundColor,
-            "--variant-textBg": theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette.text.primary, theme.palette.action.hoverOpacity),
-            "--variant-outlinedBg": theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette.text.primary, theme.palette.action.hoverOpacity)
-          }
-        }
-      }
-    }, {
-      props: {
-        size: "small",
-        variant: "text"
-      },
-      style: {
-        padding: "4px 5px",
-        fontSize: theme.typography.pxToRem(13)
-      }
-    }, {
-      props: {
-        size: "large",
-        variant: "text"
-      },
-      style: {
-        padding: "8px 11px",
-        fontSize: theme.typography.pxToRem(15)
-      }
-    }, {
-      props: {
-        size: "small",
-        variant: "outlined"
-      },
-      style: {
-        padding: "3px 9px",
-        fontSize: theme.typography.pxToRem(13)
-      }
-    }, {
-      props: {
-        size: "large",
-        variant: "outlined"
-      },
-      style: {
-        padding: "7px 21px",
-        fontSize: theme.typography.pxToRem(15)
-      }
-    }, {
-      props: {
-        size: "small",
-        variant: "contained"
-      },
-      style: {
-        padding: "4px 10px",
-        fontSize: theme.typography.pxToRem(13)
-      }
-    }, {
-      props: {
-        size: "large",
-        variant: "contained"
-      },
-      style: {
-        padding: "8px 22px",
-        fontSize: theme.typography.pxToRem(15)
-      }
-    }, {
-      props: {
-        disableElevation: true
-      },
-      style: {
-        boxShadow: "none",
-        "&:hover": {
-          boxShadow: "none"
-        },
-        [`&.${buttonClasses_default.focusVisible}`]: {
-          boxShadow: "none"
-        },
-        "&:active": {
-          boxShadow: "none"
-        },
-        [`&.${buttonClasses_default.disabled}`]: {
-          boxShadow: "none"
-        }
-      }
-    }, {
-      props: {
-        fullWidth: true
-      },
-      style: {
-        width: "100%"
-      }
-    }]
-  };
-}));
-var ButtonStartIcon = styled_default("span", {
-  name: "MuiButton",
-  slot: "StartIcon",
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.startIcon, styles[`iconSize${capitalize_default(ownerState.size)}`]];
-  }
-})({
-  display: "inherit",
-  marginRight: 8,
-  marginLeft: -4,
+}) => ({
+  flex: "1 1 auto",
+  // Add iOS momentum scrolling for iOS < 13.0
+  WebkitOverflowScrolling: "touch",
+  overflowY: "auto",
+  padding: "20px 24px",
   variants: [{
-    props: {
-      size: "small"
-    },
-    style: {
-      marginLeft: -2
-    }
-  }, ...commonIconStyles]
-});
-var ButtonEndIcon = styled_default("span", {
-  name: "MuiButton",
-  slot: "EndIcon",
-  overridesResolver: (props, styles) => {
-    const {
+    props: ({
       ownerState
-    } = props;
-    return [styles.endIcon, styles[`iconSize${capitalize_default(ownerState.size)}`]];
-  }
-})({
-  display: "inherit",
-  marginRight: -4,
-  marginLeft: 8,
-  variants: [{
-    props: {
-      size: "small"
-    },
+    }) => ownerState.dividers,
     style: {
-      marginRight: -2
+      padding: "16px 24px",
+      borderTop: `1px solid ${(theme.vars || theme).palette.divider}`,
+      borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`
     }
-  }, ...commonIconStyles]
-});
-var Button = React12.forwardRef(function Button2(inProps, ref) {
-  const contextProps = React12.useContext(ButtonGroupContext_default);
-  const buttonGroupButtonContextPositionClassName = React12.useContext(ButtonGroupButtonContext_default);
-  const resolvedProps = resolveProps(contextProps, inProps);
+  }, {
+    props: ({
+      ownerState
+    }) => !ownerState.dividers,
+    style: {
+      [`.${dialogTitleClasses_default.root} + &`]: {
+        paddingTop: 0
+      }
+    }
+  }]
+})));
+var DialogContent = React18.forwardRef(function DialogContent2(inProps, ref) {
   const props = useDefaultProps({
-    props: resolvedProps,
-    name: "MuiButton"
+    props: inProps,
+    name: "MuiDialogContent"
   });
   const {
-    children,
-    color = "primary",
-    component = "button",
     className,
-    disabled = false,
-    disableElevation = false,
-    disableFocusRipple = false,
-    endIcon: endIconProp,
-    focusVisibleClassName,
-    fullWidth = false,
-    size = "medium",
-    startIcon: startIconProp,
-    type,
-    variant = "text",
+    dividers = false,
     ...other
   } = props;
   const ownerState = {
     ...props,
-    color,
-    component,
-    disabled,
-    disableElevation,
-    disableFocusRipple,
-    fullWidth,
-    size,
-    type,
-    variant
+    dividers
   };
-  const classes = useUtilityClasses5(ownerState);
-  const startIcon = startIconProp && (0, import_jsx_runtime9.jsx)(ButtonStartIcon, {
-    className: classes.startIcon,
+  const classes = useUtilityClasses11(ownerState);
+  return (0, import_jsx_runtime15.jsx)(DialogContentRoot, {
+    className: clsx_default(classes.root, className),
     ownerState,
-    children: startIconProp
-  });
-  const endIcon = endIconProp && (0, import_jsx_runtime9.jsx)(ButtonEndIcon, {
-    className: classes.endIcon,
-    ownerState,
-    children: endIconProp
-  });
-  const positionClassName = buttonGroupButtonContextPositionClassName || "";
-  return (0, import_jsx_runtime9.jsxs)(ButtonRoot, {
-    ownerState,
-    className: clsx_default(contextProps.className, classes.root, className, positionClassName),
-    component,
-    disabled,
-    focusRipple: !disableFocusRipple,
-    focusVisibleClassName: clsx_default(classes.focusVisible, focusVisibleClassName),
     ref,
-    type,
-    ...other,
-    classes,
-    children: [startIcon, children, endIcon]
+    ...other
   });
 });
-true ? Button.propTypes = {
+true ? DialogContent.propTypes = {
   // ┌────────────────────────────── Warning ──────────────────────────────┐
   // │ These PropTypes are generated from the TypeScript type definitions. │
   // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
@@ -4168,93 +5348,26 @@ true ? Button.propTypes = {
   /**
    * The content of the component.
    */
-  children: import_prop_types8.default.node,
+  children: import_prop_types14.default.node,
   /**
    * Override or extend the styles applied to the component.
    */
-  classes: import_prop_types8.default.object,
+  classes: import_prop_types14.default.object,
   /**
    * @ignore
    */
-  className: import_prop_types8.default.string,
+  className: import_prop_types14.default.string,
   /**
-   * The color of the component.
-   * It supports both default and custom theme colors, which can be added as shown in the
-   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
-   * @default 'primary'
-   */
-  color: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["inherit", "primary", "secondary", "success", "error", "info", "warning"]), import_prop_types8.default.string]),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types8.default.elementType,
-  /**
-   * If `true`, the component is disabled.
+   * Display the top and bottom dividers.
    * @default false
    */
-  disabled: import_prop_types8.default.bool,
-  /**
-   * If `true`, no elevation is used.
-   * @default false
-   */
-  disableElevation: import_prop_types8.default.bool,
-  /**
-   * If `true`, the  keyboard focus ripple is disabled.
-   * @default false
-   */
-  disableFocusRipple: import_prop_types8.default.bool,
-  /**
-   * If `true`, the ripple effect is disabled.
-   *
-   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
-   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
-   * @default false
-   */
-  disableRipple: import_prop_types8.default.bool,
-  /**
-   * Element placed after the children.
-   */
-  endIcon: import_prop_types8.default.node,
-  /**
-   * @ignore
-   */
-  focusVisibleClassName: import_prop_types8.default.string,
-  /**
-   * If `true`, the button will take up the full width of its container.
-   * @default false
-   */
-  fullWidth: import_prop_types8.default.bool,
-  /**
-   * The URL to link to when the button is clicked.
-   * If defined, an `a` element will be used as the root node.
-   */
-  href: import_prop_types8.default.string,
-  /**
-   * The size of the component.
-   * `small` is equivalent to the dense button styling.
-   * @default 'medium'
-   */
-  size: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["small", "medium", "large"]), import_prop_types8.default.string]),
-  /**
-   * Element placed before the children.
-   */
-  startIcon: import_prop_types8.default.node,
+  dividers: import_prop_types14.default.bool,
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: import_prop_types8.default.oneOfType([import_prop_types8.default.arrayOf(import_prop_types8.default.oneOfType([import_prop_types8.default.func, import_prop_types8.default.object, import_prop_types8.default.bool])), import_prop_types8.default.func, import_prop_types8.default.object]),
-  /**
-   * @ignore
-   */
-  type: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["button", "reset", "submit"]), import_prop_types8.default.string]),
-  /**
-   * The variant to use.
-   * @default 'text'
-   */
-  variant: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["contained", "outlined", "text"]), import_prop_types8.default.string])
+  sx: import_prop_types14.default.oneOfType([import_prop_types14.default.arrayOf(import_prop_types14.default.oneOfType([import_prop_types14.default.func, import_prop_types14.default.object, import_prop_types14.default.bool])), import_prop_types14.default.func, import_prop_types14.default.object])
 } : void 0;
-var Button_default = Button;
+var DialogContent_default = DialogContent;
 
 // node_modules/@mui/material/Dialog/dialogClasses.js
 function getDialogUtilityClass(slot) {
@@ -4264,19 +5377,19 @@ var dialogClasses = generateUtilityClasses("MuiDialog", ["root", "scrollPaper", 
 var dialogClasses_default = dialogClasses;
 
 // node_modules/@mui/material/Dialog/Dialog.js
-var React14 = __toESM(require_react());
-var import_prop_types9 = __toESM(require_prop_types());
+var React20 = __toESM(require_react());
+var import_prop_types15 = __toESM(require_prop_types());
 
 // node_modules/@mui/material/Dialog/DialogContext.js
-var React13 = __toESM(require_react());
-var DialogContext = React13.createContext({});
+var React19 = __toESM(require_react());
+var DialogContext = React19.createContext({});
 if (true) {
   DialogContext.displayName = "DialogContext";
 }
 var DialogContext_default = DialogContext;
 
 // node_modules/@mui/material/Dialog/Dialog.js
-var import_jsx_runtime10 = __toESM(require_jsx_runtime());
+var import_jsx_runtime16 = __toESM(require_jsx_runtime());
 var DialogBackdrop = styled_default(Backdrop_default, {
   name: "MuiDialog",
   slot: "Backdrop",
@@ -4285,7 +5398,7 @@ var DialogBackdrop = styled_default(Backdrop_default, {
   // Improve scrollable dialog support.
   zIndex: -1
 });
-var useUtilityClasses6 = (ownerState) => {
+var useUtilityClasses12 = (ownerState) => {
   const {
     classes,
     scroll,
@@ -4446,7 +5559,7 @@ var DialogPaper = styled_default(Paper_default, {
     }
   }]
 })));
-var Dialog = React14.forwardRef(function Dialog2(inProps, ref) {
+var Dialog = React20.forwardRef(function Dialog2(inProps, ref) {
   const props = useDefaultProps({
     props: inProps,
     name: "MuiDialog"
@@ -4488,8 +5601,8 @@ var Dialog = React14.forwardRef(function Dialog2(inProps, ref) {
     maxWidth,
     scroll
   };
-  const classes = useUtilityClasses6(ownerState);
-  const backdropClick = React14.useRef();
+  const classes = useUtilityClasses12(ownerState);
+  const backdropClick = React20.useRef();
   const handleMouseDown = (event) => {
     backdropClick.current = event.target === event.currentTarget;
   };
@@ -4509,12 +5622,12 @@ var Dialog = React14.forwardRef(function Dialog2(inProps, ref) {
     }
   };
   const ariaLabelledby = useId(ariaLabelledbyProp);
-  const dialogContextValue = React14.useMemo(() => {
+  const dialogContextValue = React20.useMemo(() => {
     return {
       titleId: ariaLabelledby
     };
   }, [ariaLabelledby]);
-  return (0, import_jsx_runtime10.jsx)(DialogRoot, {
+  return (0, import_jsx_runtime16.jsx)(DialogRoot, {
     className: clsx_default(classes.root, className),
     closeAfterTransition: true,
     components: {
@@ -4534,17 +5647,17 @@ var Dialog = React14.forwardRef(function Dialog2(inProps, ref) {
     onClick: handleBackdropClick,
     ownerState,
     ...other,
-    children: (0, import_jsx_runtime10.jsx)(TransitionComponent, {
+    children: (0, import_jsx_runtime16.jsx)(TransitionComponent, {
       appear: true,
       in: open,
       timeout: transitionDuration,
       role: "presentation",
       ...TransitionProps,
-      children: (0, import_jsx_runtime10.jsx)(DialogContainer, {
+      children: (0, import_jsx_runtime16.jsx)(DialogContainer, {
         className: clsx_default(classes.container),
         onMouseDown: handleMouseDown,
         ownerState,
-        children: (0, import_jsx_runtime10.jsx)(DialogPaper, {
+        children: (0, import_jsx_runtime16.jsx)(DialogPaper, {
           as: PaperComponent,
           elevation: 24,
           role: "dialog",
@@ -4554,7 +5667,7 @@ var Dialog = React14.forwardRef(function Dialog2(inProps, ref) {
           ...PaperProps,
           className: clsx_default(classes.paper, PaperProps.className),
           ownerState,
-          children: (0, import_jsx_runtime10.jsx)(DialogContext_default.Provider, {
+          children: (0, import_jsx_runtime16.jsx)(DialogContext_default.Provider, {
             value: dialogContextValue,
             children
           })
@@ -4571,17 +5684,17 @@ true ? Dialog.propTypes = {
   /**
    * The id(s) of the element(s) that describe the dialog.
    */
-  "aria-describedby": import_prop_types9.default.string,
+  "aria-describedby": import_prop_types15.default.string,
   /**
    * The id(s) of the element(s) that label the dialog.
    */
-  "aria-labelledby": import_prop_types9.default.string,
+  "aria-labelledby": import_prop_types15.default.string,
   /**
    * Informs assistive technologies that the element is modal.
    * It's added on the element with role="dialog".
    * @default true
    */
-  "aria-modal": import_prop_types9.default.oneOfType([import_prop_types9.default.oneOf(["false", "true"]), import_prop_types9.default.bool]),
+  "aria-modal": import_prop_types15.default.oneOfType([import_prop_types15.default.oneOf(["false", "true"]), import_prop_types15.default.bool]),
   /**
    * A backdrop component. This prop enables custom backdrop rendering.
    * @deprecated Use `slots.backdrop` instead. While this prop currently works, it will be removed in the next major version.
@@ -4596,1133 +5709,15 @@ true ? Dialog.propTypes = {
    *   zIndex: -1,
    * })
    */
-  BackdropComponent: import_prop_types9.default.elementType,
+  BackdropComponent: import_prop_types15.default.elementType,
   /**
    * @ignore
    */
-  BackdropProps: import_prop_types9.default.object,
+  BackdropProps: import_prop_types15.default.object,
   /**
    * Dialog children, usually the included sub-components.
    */
-  children: import_prop_types9.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types9.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types9.default.string,
-  /**
-   * If `true`, hitting escape will not fire the `onClose` callback.
-   * @default false
-   */
-  disableEscapeKeyDown: import_prop_types9.default.bool,
-  /**
-   * If `true`, the dialog is full-screen.
-   * @default false
-   */
-  fullScreen: import_prop_types9.default.bool,
-  /**
-   * If `true`, the dialog stretches to `maxWidth`.
-   *
-   * Notice that the dialog width grow is limited by the default margin.
-   * @default false
-   */
-  fullWidth: import_prop_types9.default.bool,
-  /**
-   * Determine the max-width of the dialog.
-   * The dialog width grows with the size of the screen.
-   * Set to `false` to disable `maxWidth`.
-   * @default 'sm'
-   */
-  maxWidth: import_prop_types9.default.oneOfType([import_prop_types9.default.oneOf(["xs", "sm", "md", "lg", "xl", false]), import_prop_types9.default.string]),
-  /**
-   * Callback fired when the backdrop is clicked.
-   * @deprecated Use the `onClose` prop with the `reason` argument to handle the `backdropClick` events.
-   */
-  onBackdropClick: import_prop_types9.default.func,
-  /**
-   * @ignore
-   */
-  onClick: import_prop_types9.default.func,
-  /**
-   * Callback fired when the component requests to be closed.
-   *
-   * @param {object} event The event source of the callback.
-   * @param {string} reason Can be: `"escapeKeyDown"`, `"backdropClick"`.
-   */
-  onClose: import_prop_types9.default.func,
-  /**
-   * If `true`, the component is shown.
-   */
-  open: import_prop_types9.default.bool.isRequired,
-  /**
-   * The component used to render the body of the dialog.
-   * @default Paper
-   */
-  PaperComponent: import_prop_types9.default.elementType,
-  /**
-   * Props applied to the [`Paper`](https://mui.com/material-ui/api/paper/) element.
-   * @default {}
-   */
-  PaperProps: import_prop_types9.default.object,
-  /**
-   * Determine the container for scrolling the dialog.
-   * @default 'paper'
-   */
-  scroll: import_prop_types9.default.oneOf(["body", "paper"]),
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types9.default.oneOfType([import_prop_types9.default.arrayOf(import_prop_types9.default.oneOfType([import_prop_types9.default.func, import_prop_types9.default.object, import_prop_types9.default.bool])), import_prop_types9.default.func, import_prop_types9.default.object]),
-  /**
-   * The component used for the transition.
-   * [Follow this guide](https://mui.com/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
-   * @default Fade
-   */
-  TransitionComponent: import_prop_types9.default.elementType,
-  /**
-   * The duration for the transition, in milliseconds.
-   * You may specify a single timeout for all transitions, or individually with an object.
-   * @default {
-   *   enter: theme.transitions.duration.enteringScreen,
-   *   exit: theme.transitions.duration.leavingScreen,
-   * }
-   */
-  transitionDuration: import_prop_types9.default.oneOfType([import_prop_types9.default.number, import_prop_types9.default.shape({
-    appear: import_prop_types9.default.number,
-    enter: import_prop_types9.default.number,
-    exit: import_prop_types9.default.number
-  })]),
-  /**
-   * Props applied to the transition element.
-   * By default, the element is based on this [`Transition`](https://reactcommunity.org/react-transition-group/transition/) component.
-   */
-  TransitionProps: import_prop_types9.default.object
-} : void 0;
-var Dialog_default = Dialog;
-
-// node_modules/@mui/material/DialogActions/dialogActionsClasses.js
-function getDialogActionsUtilityClass(slot) {
-  return generateUtilityClass("MuiDialogActions", slot);
-}
-var dialogActionsClasses = generateUtilityClasses("MuiDialogActions", ["root", "spacing"]);
-var dialogActionsClasses_default = dialogActionsClasses;
-
-// node_modules/@mui/material/DialogActions/DialogActions.js
-var React15 = __toESM(require_react());
-var import_prop_types10 = __toESM(require_prop_types());
-var import_jsx_runtime11 = __toESM(require_jsx_runtime());
-var useUtilityClasses7 = (ownerState) => {
-  const {
-    classes,
-    disableSpacing
-  } = ownerState;
-  const slots = {
-    root: ["root", !disableSpacing && "spacing"]
-  };
-  return composeClasses(slots, getDialogActionsUtilityClass, classes);
-};
-var DialogActionsRoot = styled_default("div", {
-  name: "MuiDialogActions",
-  slot: "Root",
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, !ownerState.disableSpacing && styles.spacing];
-  }
-})({
-  display: "flex",
-  alignItems: "center",
-  padding: 8,
-  justifyContent: "flex-end",
-  flex: "0 0 auto",
-  variants: [{
-    props: ({
-      ownerState
-    }) => !ownerState.disableSpacing,
-    style: {
-      "& > :not(style) ~ :not(style)": {
-        marginLeft: 8
-      }
-    }
-  }]
-});
-var DialogActions = React15.forwardRef(function DialogActions2(inProps, ref) {
-  const props = useDefaultProps({
-    props: inProps,
-    name: "MuiDialogActions"
-  });
-  const {
-    className,
-    disableSpacing = false,
-    ...other
-  } = props;
-  const ownerState = {
-    ...props,
-    disableSpacing
-  };
-  const classes = useUtilityClasses7(ownerState);
-  return (0, import_jsx_runtime11.jsx)(DialogActionsRoot, {
-    className: clsx_default(classes.root, className),
-    ownerState,
-    ref,
-    ...other
-  });
-});
-true ? DialogActions.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types10.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types10.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types10.default.string,
-  /**
-   * If `true`, the actions do not have additional margin.
-   * @default false
-   */
-  disableSpacing: import_prop_types10.default.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types10.default.oneOfType([import_prop_types10.default.arrayOf(import_prop_types10.default.oneOfType([import_prop_types10.default.func, import_prop_types10.default.object, import_prop_types10.default.bool])), import_prop_types10.default.func, import_prop_types10.default.object])
-} : void 0;
-var DialogActions_default = DialogActions;
-
-// node_modules/@mui/material/DialogContent/dialogContentClasses.js
-function getDialogContentUtilityClass(slot) {
-  return generateUtilityClass("MuiDialogContent", slot);
-}
-var dialogContentClasses = generateUtilityClasses("MuiDialogContent", ["root", "dividers"]);
-var dialogContentClasses_default = dialogContentClasses;
-
-// node_modules/@mui/material/DialogTitle/dialogTitleClasses.js
-function getDialogTitleUtilityClass(slot) {
-  return generateUtilityClass("MuiDialogTitle", slot);
-}
-var dialogTitleClasses = generateUtilityClasses("MuiDialogTitle", ["root"]);
-var dialogTitleClasses_default = dialogTitleClasses;
-
-// node_modules/@mui/material/DialogContent/DialogContent.js
-var React16 = __toESM(require_react());
-var import_prop_types11 = __toESM(require_prop_types());
-var import_jsx_runtime12 = __toESM(require_jsx_runtime());
-var useUtilityClasses8 = (ownerState) => {
-  const {
-    classes,
-    dividers
-  } = ownerState;
-  const slots = {
-    root: ["root", dividers && "dividers"]
-  };
-  return composeClasses(slots, getDialogContentUtilityClass, classes);
-};
-var DialogContentRoot = styled_default("div", {
-  name: "MuiDialogContent",
-  slot: "Root",
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, ownerState.dividers && styles.dividers];
-  }
-})(memoTheme_default(({
-  theme
-}) => ({
-  flex: "1 1 auto",
-  // Add iOS momentum scrolling for iOS < 13.0
-  WebkitOverflowScrolling: "touch",
-  overflowY: "auto",
-  padding: "20px 24px",
-  variants: [{
-    props: ({
-      ownerState
-    }) => ownerState.dividers,
-    style: {
-      padding: "16px 24px",
-      borderTop: `1px solid ${(theme.vars || theme).palette.divider}`,
-      borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => !ownerState.dividers,
-    style: {
-      [`.${dialogTitleClasses_default.root} + &`]: {
-        paddingTop: 0
-      }
-    }
-  }]
-})));
-var DialogContent = React16.forwardRef(function DialogContent2(inProps, ref) {
-  const props = useDefaultProps({
-    props: inProps,
-    name: "MuiDialogContent"
-  });
-  const {
-    className,
-    dividers = false,
-    ...other
-  } = props;
-  const ownerState = {
-    ...props,
-    dividers
-  };
-  const classes = useUtilityClasses8(ownerState);
-  return (0, import_jsx_runtime12.jsx)(DialogContentRoot, {
-    className: clsx_default(classes.root, className),
-    ownerState,
-    ref,
-    ...other
-  });
-});
-true ? DialogContent.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component.
-   */
-  children: import_prop_types11.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types11.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types11.default.string,
-  /**
-   * Display the top and bottom dividers.
-   * @default false
-   */
-  dividers: import_prop_types11.default.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types11.default.oneOfType([import_prop_types11.default.arrayOf(import_prop_types11.default.oneOfType([import_prop_types11.default.func, import_prop_types11.default.object, import_prop_types11.default.bool])), import_prop_types11.default.func, import_prop_types11.default.object])
-} : void 0;
-var DialogContent_default = DialogContent;
-
-// node_modules/@mui/material/InputAdornment/inputAdornmentClasses.js
-function getInputAdornmentUtilityClass(slot) {
-  return generateUtilityClass("MuiInputAdornment", slot);
-}
-var inputAdornmentClasses = generateUtilityClasses("MuiInputAdornment", ["root", "filled", "standard", "outlined", "positionStart", "positionEnd", "disablePointerEvents", "hiddenLabel", "sizeSmall"]);
-var inputAdornmentClasses_default = inputAdornmentClasses;
-
-// node_modules/@mui/material/InputAdornment/InputAdornment.js
-var React17 = __toESM(require_react());
-var import_prop_types12 = __toESM(require_prop_types());
-var import_jsx_runtime13 = __toESM(require_jsx_runtime());
-var _span;
-var overridesResolver = (props, styles) => {
-  const {
-    ownerState
-  } = props;
-  return [styles.root, styles[`position${capitalize_default(ownerState.position)}`], ownerState.disablePointerEvents === true && styles.disablePointerEvents, styles[ownerState.variant]];
-};
-var useUtilityClasses9 = (ownerState) => {
-  const {
-    classes,
-    disablePointerEvents,
-    hiddenLabel,
-    position,
-    size,
-    variant
-  } = ownerState;
-  const slots = {
-    root: ["root", disablePointerEvents && "disablePointerEvents", position && `position${capitalize_default(position)}`, variant, hiddenLabel && "hiddenLabel", size && `size${capitalize_default(size)}`]
-  };
-  return composeClasses(slots, getInputAdornmentUtilityClass, classes);
-};
-var InputAdornmentRoot = styled_default("div", {
-  name: "MuiInputAdornment",
-  slot: "Root",
-  overridesResolver
-})(memoTheme_default(({
-  theme
-}) => ({
-  display: "flex",
-  maxHeight: "2em",
-  alignItems: "center",
-  whiteSpace: "nowrap",
-  color: (theme.vars || theme).palette.action.active,
-  variants: [{
-    props: {
-      variant: "filled"
-    },
-    style: {
-      [`&.${inputAdornmentClasses_default.positionStart}&:not(.${inputAdornmentClasses_default.hiddenLabel})`]: {
-        marginTop: 16
-      }
-    }
-  }, {
-    props: {
-      position: "start"
-    },
-    style: {
-      marginRight: 8
-    }
-  }, {
-    props: {
-      position: "end"
-    },
-    style: {
-      marginLeft: 8
-    }
-  }, {
-    props: {
-      disablePointerEvents: true
-    },
-    style: {
-      pointerEvents: "none"
-    }
-  }]
-})));
-var InputAdornment = React17.forwardRef(function InputAdornment2(inProps, ref) {
-  const props = useDefaultProps({
-    props: inProps,
-    name: "MuiInputAdornment"
-  });
-  const {
-    children,
-    className,
-    component = "div",
-    disablePointerEvents = false,
-    disableTypography = false,
-    position,
-    variant: variantProp,
-    ...other
-  } = props;
-  const muiFormControl = useFormControl() || {};
-  let variant = variantProp;
-  if (variantProp && muiFormControl.variant) {
-    if (true) {
-      if (variantProp === muiFormControl.variant) {
-        console.error("MUI: The `InputAdornment` variant infers the variant prop you do not have to provide one.");
-      }
-    }
-  }
-  if (muiFormControl && !variant) {
-    variant = muiFormControl.variant;
-  }
-  const ownerState = {
-    ...props,
-    hiddenLabel: muiFormControl.hiddenLabel,
-    size: muiFormControl.size,
-    disablePointerEvents,
-    position,
-    variant
-  };
-  const classes = useUtilityClasses9(ownerState);
-  return (0, import_jsx_runtime13.jsx)(FormControlContext_default.Provider, {
-    value: null,
-    children: (0, import_jsx_runtime13.jsx)(InputAdornmentRoot, {
-      as: component,
-      ownerState,
-      className: clsx_default(classes.root, className),
-      ref,
-      ...other,
-      children: typeof children === "string" && !disableTypography ? (0, import_jsx_runtime13.jsx)(Typography_default, {
-        color: "textSecondary",
-        children
-      }) : (0, import_jsx_runtime13.jsxs)(React17.Fragment, {
-        children: [position === "start" ? (
-          /* notranslate needed while Google Translate will not fix zero-width space issue */
-          _span || (_span = (0, import_jsx_runtime13.jsx)("span", {
-            className: "notranslate",
-            children: "​"
-          }))
-        ) : null, children]
-      })
-    })
-  });
-});
-true ? InputAdornment.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component, normally an `IconButton` or string.
-   */
-  children: import_prop_types12.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types12.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types12.default.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types12.default.elementType,
-  /**
-   * Disable pointer events on the root.
-   * This allows for the content of the adornment to focus the `input` on click.
-   * @default false
-   */
-  disablePointerEvents: import_prop_types12.default.bool,
-  /**
-   * If children is a string then disable wrapping in a Typography component.
-   * @default false
-   */
-  disableTypography: import_prop_types12.default.bool,
-  /**
-   * The position this adornment should appear relative to the `Input`.
-   */
-  position: import_prop_types12.default.oneOf(["end", "start"]).isRequired,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types12.default.oneOfType([import_prop_types12.default.arrayOf(import_prop_types12.default.oneOfType([import_prop_types12.default.func, import_prop_types12.default.object, import_prop_types12.default.bool])), import_prop_types12.default.func, import_prop_types12.default.object]),
-  /**
-   * The variant to use.
-   * Note: If you are using the `TextField` component or the `FormControl` component
-   * you do not have to set this manually.
-   */
-  variant: import_prop_types12.default.oneOf(["filled", "outlined", "standard"])
-} : void 0;
-var InputAdornment_default = InputAdornment;
-
-// node_modules/@mui/material/ListItem/listItemClasses.js
-function getListItemUtilityClass(slot) {
-  return generateUtilityClass("MuiListItem", slot);
-}
-var listItemClasses = generateUtilityClasses("MuiListItem", ["root", "container", "dense", "alignItemsFlexStart", "divider", "gutters", "padding", "secondaryAction"]);
-var listItemClasses_default = listItemClasses;
-
-// node_modules/@mui/material/ListItemButton/listItemButtonClasses.js
-function getListItemButtonUtilityClass(slot) {
-  return generateUtilityClass("MuiListItemButton", slot);
-}
-var listItemButtonClasses = generateUtilityClasses("MuiListItemButton", ["root", "focusVisible", "dense", "alignItemsFlexStart", "disabled", "divider", "gutters", "selected"]);
-var listItemButtonClasses_default = listItemButtonClasses;
-
-// node_modules/@mui/material/ListItemButton/ListItemButton.js
-var React18 = __toESM(require_react());
-var import_prop_types13 = __toESM(require_prop_types());
-var import_jsx_runtime14 = __toESM(require_jsx_runtime());
-var overridesResolver2 = (props, styles) => {
-  const {
-    ownerState
-  } = props;
-  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === "flex-start" && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters];
-};
-var useUtilityClasses10 = (ownerState) => {
-  const {
-    alignItems,
-    classes,
-    dense,
-    disabled,
-    disableGutters,
-    divider,
-    selected
-  } = ownerState;
-  const slots = {
-    root: ["root", dense && "dense", !disableGutters && "gutters", divider && "divider", disabled && "disabled", alignItems === "flex-start" && "alignItemsFlexStart", selected && "selected"]
-  };
-  const composedClasses = composeClasses(slots, getListItemButtonUtilityClass, classes);
-  return {
-    ...classes,
-    ...composedClasses
-  };
-};
-var ListItemButtonRoot = styled_default(ButtonBase_default, {
-  shouldForwardProp: (prop) => rootShouldForwardProp_default(prop) || prop === "classes",
-  name: "MuiListItemButton",
-  slot: "Root",
-  overridesResolver: overridesResolver2
-})(memoTheme_default(({
-  theme
-}) => ({
-  display: "flex",
-  flexGrow: 1,
-  justifyContent: "flex-start",
-  alignItems: "center",
-  position: "relative",
-  textDecoration: "none",
-  minWidth: 0,
-  boxSizing: "border-box",
-  textAlign: "left",
-  paddingTop: 8,
-  paddingBottom: 8,
-  transition: theme.transitions.create("background-color", {
-    duration: theme.transitions.duration.shortest
-  }),
-  "&:hover": {
-    textDecoration: "none",
-    backgroundColor: (theme.vars || theme).palette.action.hover,
-    // Reset on touch devices, it doesn't add specificity
-    "@media (hover: none)": {
-      backgroundColor: "transparent"
-    }
-  },
-  [`&.${listItemButtonClasses_default.selected}`]: {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-    [`&.${listItemButtonClasses_default.focusVisible}`]: {
-      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
-    }
-  },
-  [`&.${listItemButtonClasses_default.selected}:hover`]: {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
-    // Reset on touch devices, it doesn't add specificity
-    "@media (hover: none)": {
-      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity)
-    }
-  },
-  [`&.${listItemButtonClasses_default.focusVisible}`]: {
-    backgroundColor: (theme.vars || theme).palette.action.focus
-  },
-  [`&.${listItemButtonClasses_default.disabled}`]: {
-    opacity: (theme.vars || theme).palette.action.disabledOpacity
-  },
-  variants: [{
-    props: ({
-      ownerState
-    }) => ownerState.divider,
-    style: {
-      borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
-      backgroundClip: "padding-box"
-    }
-  }, {
-    props: {
-      alignItems: "flex-start"
-    },
-    style: {
-      alignItems: "flex-start"
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => !ownerState.disableGutters,
-    style: {
-      paddingLeft: 16,
-      paddingRight: 16
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => ownerState.dense,
-    style: {
-      paddingTop: 4,
-      paddingBottom: 4
-    }
-  }]
-})));
-var ListItemButton = React18.forwardRef(function ListItemButton2(inProps, ref) {
-  const props = useDefaultProps({
-    props: inProps,
-    name: "MuiListItemButton"
-  });
-  const {
-    alignItems = "center",
-    autoFocus = false,
-    component = "div",
-    children,
-    dense = false,
-    disableGutters = false,
-    divider = false,
-    focusVisibleClassName,
-    selected = false,
-    className,
-    ...other
-  } = props;
-  const context = React18.useContext(ListContext_default);
-  const childContext = React18.useMemo(() => ({
-    dense: dense || context.dense || false,
-    alignItems,
-    disableGutters
-  }), [alignItems, context.dense, dense, disableGutters]);
-  const listItemRef = React18.useRef(null);
-  useEnhancedEffect_default2(() => {
-    if (autoFocus) {
-      if (listItemRef.current) {
-        listItemRef.current.focus();
-      } else if (true) {
-        console.error("MUI: Unable to set focus to a ListItemButton whose component has not been rendered.");
-      }
-    }
-  }, [autoFocus]);
-  const ownerState = {
-    ...props,
-    alignItems,
-    dense: childContext.dense,
-    disableGutters,
-    divider,
-    selected
-  };
-  const classes = useUtilityClasses10(ownerState);
-  const handleRef = useForkRef_default(listItemRef, ref);
-  return (0, import_jsx_runtime14.jsx)(ListContext_default.Provider, {
-    value: childContext,
-    children: (0, import_jsx_runtime14.jsx)(ListItemButtonRoot, {
-      ref: handleRef,
-      href: other.href || other.to,
-      component: (other.href || other.to) && component === "div" ? "button" : component,
-      focusVisibleClassName: clsx_default(classes.focusVisible, focusVisibleClassName),
-      ownerState,
-      className: clsx_default(classes.root, className),
-      ...other,
-      classes,
-      children
-    })
-  });
-});
-true ? ListItemButton.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * Defines the `align-items` style property.
-   * @default 'center'
-   */
-  alignItems: import_prop_types13.default.oneOf(["center", "flex-start"]),
-  /**
-   * If `true`, the list item is focused during the first mount.
-   * Focus will also be triggered if the value changes from false to true.
-   * @default false
-   */
-  autoFocus: import_prop_types13.default.bool,
-  /**
-   * The content of the component if a `ListItemSecondaryAction` is used it must
-   * be the last child.
-   */
-  children: import_prop_types13.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types13.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types13.default.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types13.default.elementType,
-  /**
-   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
-   * The prop defaults to the value inherited from the parent List component.
-   * @default false
-   */
-  dense: import_prop_types13.default.bool,
-  /**
-   * If `true`, the component is disabled.
-   * @default false
-   */
-  disabled: import_prop_types13.default.bool,
-  /**
-   * If `true`, the left and right padding is removed.
-   * @default false
-   */
-  disableGutters: import_prop_types13.default.bool,
-  /**
-   * If `true`, a 1px light border is added to the bottom of the list item.
-   * @default false
-   */
-  divider: import_prop_types13.default.bool,
-  /**
-   * This prop can help identify which element has keyboard focus.
-   * The class name will be applied when the element gains the focus through keyboard interaction.
-   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
-   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
-   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
-   * if needed.
-   */
-  focusVisibleClassName: import_prop_types13.default.string,
-  /**
-   * @ignore
-   */
-  href: import_prop_types13.default.string,
-  /**
-   * Use to apply selected styling.
-   * @default false
-   */
-  selected: import_prop_types13.default.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types13.default.oneOfType([import_prop_types13.default.arrayOf(import_prop_types13.default.oneOfType([import_prop_types13.default.func, import_prop_types13.default.object, import_prop_types13.default.bool])), import_prop_types13.default.func, import_prop_types13.default.object])
-} : void 0;
-var ListItemButton_default = ListItemButton;
-
-// node_modules/@mui/material/ListItemSecondaryAction/listItemSecondaryActionClasses.js
-function getListItemSecondaryActionClassesUtilityClass(slot) {
-  return generateUtilityClass("MuiListItemSecondaryAction", slot);
-}
-var listItemSecondaryActionClasses = generateUtilityClasses("MuiListItemSecondaryAction", ["root", "disableGutters"]);
-var listItemSecondaryActionClasses_default = listItemSecondaryActionClasses;
-
-// node_modules/@mui/material/ListItemSecondaryAction/ListItemSecondaryAction.js
-var React19 = __toESM(require_react());
-var import_prop_types14 = __toESM(require_prop_types());
-var import_jsx_runtime15 = __toESM(require_jsx_runtime());
-var useUtilityClasses11 = (ownerState) => {
-  const {
-    disableGutters,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ["root", disableGutters && "disableGutters"]
-  };
-  return composeClasses(slots, getListItemSecondaryActionClassesUtilityClass, classes);
-};
-var ListItemSecondaryActionRoot = styled_default("div", {
-  name: "MuiListItemSecondaryAction",
-  slot: "Root",
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, ownerState.disableGutters && styles.disableGutters];
-  }
-})({
-  position: "absolute",
-  right: 16,
-  top: "50%",
-  transform: "translateY(-50%)",
-  variants: [{
-    props: ({
-      ownerState
-    }) => ownerState.disableGutters,
-    style: {
-      right: 0
-    }
-  }]
-});
-var ListItemSecondaryAction = React19.forwardRef(function ListItemSecondaryAction2(inProps, ref) {
-  const props = useDefaultProps({
-    props: inProps,
-    name: "MuiListItemSecondaryAction"
-  });
-  const {
-    className,
-    ...other
-  } = props;
-  const context = React19.useContext(ListContext_default);
-  const ownerState = {
-    ...props,
-    disableGutters: context.disableGutters
-  };
-  const classes = useUtilityClasses11(ownerState);
-  return (0, import_jsx_runtime15.jsx)(ListItemSecondaryActionRoot, {
-    className: clsx_default(classes.root, className),
-    ownerState,
-    ref,
-    ...other
-  });
-});
-true ? ListItemSecondaryAction.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * The content of the component, normally an `IconButton` or selection control.
-   */
-  children: import_prop_types14.default.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: import_prop_types14.default.object,
-  /**
-   * @ignore
-   */
-  className: import_prop_types14.default.string,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: import_prop_types14.default.oneOfType([import_prop_types14.default.arrayOf(import_prop_types14.default.oneOfType([import_prop_types14.default.func, import_prop_types14.default.object, import_prop_types14.default.bool])), import_prop_types14.default.func, import_prop_types14.default.object])
-} : void 0;
-ListItemSecondaryAction.muiName = "ListItemSecondaryAction";
-var ListItemSecondaryAction_default = ListItemSecondaryAction;
-
-// node_modules/@mui/material/ListItem/ListItem.js
-var React20 = __toESM(require_react());
-var import_prop_types15 = __toESM(require_prop_types());
-var import_jsx_runtime16 = __toESM(require_jsx_runtime());
-var overridesResolver3 = (props, styles) => {
-  const {
-    ownerState
-  } = props;
-  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === "flex-start" && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters, !ownerState.disablePadding && styles.padding, ownerState.hasSecondaryAction && styles.secondaryAction];
-};
-var useUtilityClasses12 = (ownerState) => {
-  const {
-    alignItems,
-    classes,
-    dense,
-    disableGutters,
-    disablePadding,
-    divider,
-    hasSecondaryAction
-  } = ownerState;
-  const slots = {
-    root: ["root", dense && "dense", !disableGutters && "gutters", !disablePadding && "padding", divider && "divider", alignItems === "flex-start" && "alignItemsFlexStart", hasSecondaryAction && "secondaryAction"],
-    container: ["container"]
-  };
-  return composeClasses(slots, getListItemUtilityClass, classes);
-};
-var ListItemRoot = styled_default("div", {
-  name: "MuiListItem",
-  slot: "Root",
-  overridesResolver: overridesResolver3
-})(memoTheme_default(({
-  theme
-}) => ({
-  display: "flex",
-  justifyContent: "flex-start",
-  alignItems: "center",
-  position: "relative",
-  textDecoration: "none",
-  width: "100%",
-  boxSizing: "border-box",
-  textAlign: "left",
-  variants: [{
-    props: ({
-      ownerState
-    }) => !ownerState.disablePadding,
-    style: {
-      paddingTop: 8,
-      paddingBottom: 8
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => !ownerState.disablePadding && ownerState.dense,
-    style: {
-      paddingTop: 4,
-      paddingBottom: 4
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => !ownerState.disablePadding && !ownerState.disableGutters,
-    style: {
-      paddingLeft: 16,
-      paddingRight: 16
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => !ownerState.disablePadding && !!ownerState.secondaryAction,
-    style: {
-      // Add some space to avoid collision as `ListItemSecondaryAction`
-      // is absolutely positioned.
-      paddingRight: 48
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => !!ownerState.secondaryAction,
-    style: {
-      [`& > .${listItemButtonClasses_default.root}`]: {
-        paddingRight: 48
-      }
-    }
-  }, {
-    props: {
-      alignItems: "flex-start"
-    },
-    style: {
-      alignItems: "flex-start"
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => ownerState.divider,
-    style: {
-      borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
-      backgroundClip: "padding-box"
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => ownerState.button,
-    style: {
-      transition: theme.transitions.create("background-color", {
-        duration: theme.transitions.duration.shortest
-      }),
-      "&:hover": {
-        textDecoration: "none",
-        backgroundColor: (theme.vars || theme).palette.action.hover,
-        // Reset on touch devices, it doesn't add specificity
-        "@media (hover: none)": {
-          backgroundColor: "transparent"
-        }
-      }
-    }
-  }, {
-    props: ({
-      ownerState
-    }) => ownerState.hasSecondaryAction,
-    style: {
-      // Add some space to avoid collision as `ListItemSecondaryAction`
-      // is absolutely positioned.
-      paddingRight: 48
-    }
-  }]
-})));
-var ListItemContainer = styled_default("li", {
-  name: "MuiListItem",
-  slot: "Container",
-  overridesResolver: (props, styles) => styles.container
-})({
-  position: "relative"
-});
-var ListItem = React20.forwardRef(function ListItem2(inProps, ref) {
-  const props = useDefaultProps({
-    props: inProps,
-    name: "MuiListItem"
-  });
-  const {
-    alignItems = "center",
-    children: childrenProp,
-    className,
-    component: componentProp,
-    components = {},
-    componentsProps = {},
-    ContainerComponent = "li",
-    ContainerProps: {
-      className: ContainerClassName,
-      ...ContainerProps
-    } = {},
-    dense = false,
-    disableGutters = false,
-    disablePadding = false,
-    divider = false,
-    secondaryAction,
-    slotProps = {},
-    slots = {},
-    ...other
-  } = props;
-  const context = React20.useContext(ListContext_default);
-  const childContext = React20.useMemo(() => ({
-    dense: dense || context.dense || false,
-    alignItems,
-    disableGutters
-  }), [alignItems, context.dense, dense, disableGutters]);
-  const listItemRef = React20.useRef(null);
-  const children = React20.Children.toArray(childrenProp);
-  const hasSecondaryAction = children.length && isMuiElement_default(children[children.length - 1], ["ListItemSecondaryAction"]);
-  const ownerState = {
-    ...props,
-    alignItems,
-    dense: childContext.dense,
-    disableGutters,
-    disablePadding,
-    divider,
-    hasSecondaryAction
-  };
-  const classes = useUtilityClasses12(ownerState);
-  const handleRef = useForkRef_default(listItemRef, ref);
-  const Root = slots.root || components.Root || ListItemRoot;
-  const rootProps = slotProps.root || componentsProps.root || {};
-  const componentProps = {
-    className: clsx_default(classes.root, rootProps.className, className),
-    ...other
-  };
-  let Component = componentProp || "li";
-  if (hasSecondaryAction) {
-    Component = !componentProps.component && !componentProp ? "div" : Component;
-    if (ContainerComponent === "li") {
-      if (Component === "li") {
-        Component = "div";
-      } else if (componentProps.component === "li") {
-        componentProps.component = "div";
-      }
-    }
-    return (0, import_jsx_runtime16.jsx)(ListContext_default.Provider, {
-      value: childContext,
-      children: (0, import_jsx_runtime16.jsxs)(ListItemContainer, {
-        as: ContainerComponent,
-        className: clsx_default(classes.container, ContainerClassName),
-        ref: handleRef,
-        ownerState,
-        ...ContainerProps,
-        children: [(0, import_jsx_runtime16.jsx)(Root, {
-          ...rootProps,
-          ...!isHostComponent_default(Root) && {
-            as: Component,
-            ownerState: {
-              ...ownerState,
-              ...rootProps.ownerState
-            }
-          },
-          ...componentProps,
-          children
-        }), children.pop()]
-      })
-    });
-  }
-  return (0, import_jsx_runtime16.jsx)(ListContext_default.Provider, {
-    value: childContext,
-    children: (0, import_jsx_runtime16.jsxs)(Root, {
-      ...rootProps,
-      as: Component,
-      ref: handleRef,
-      ...!isHostComponent_default(Root) && {
-        ownerState: {
-          ...ownerState,
-          ...rootProps.ownerState
-        }
-      },
-      ...componentProps,
-      children: [children, secondaryAction && (0, import_jsx_runtime16.jsx)(ListItemSecondaryAction_default, {
-        children: secondaryAction
-      })]
-    })
-  });
-});
-true ? ListItem.propTypes = {
-  // ┌────────────────────────────── Warning ──────────────────────────────┐
-  // │ These PropTypes are generated from the TypeScript type definitions. │
-  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
-  // └─────────────────────────────────────────────────────────────────────┘
-  /**
-   * Defines the `align-items` style property.
-   * @default 'center'
-   */
-  alignItems: import_prop_types15.default.oneOf(["center", "flex-start"]),
-  /**
-   * The content of the component if a `ListItemSecondaryAction` is used it must
-   * be the last child.
-   */
-  children: chainPropTypes(import_prop_types15.default.node, (props) => {
-    const children = React20.Children.toArray(props.children);
-    let secondaryActionIndex = -1;
-    for (let i = children.length - 1; i >= 0; i -= 1) {
-      const child = children[i];
-      if (isMuiElement_default(child, ["ListItemSecondaryAction"])) {
-        secondaryActionIndex = i;
-        break;
-      }
-    }
-    if (secondaryActionIndex !== -1 && secondaryActionIndex !== children.length - 1) {
-      return new Error("MUI: You used an element after ListItemSecondaryAction. For ListItem to detect that it has a secondary action you must pass it as the last child to ListItem.");
-    }
-    return null;
-  }),
+  children: import_prop_types15.default.node,
   /**
    * Override or extend the styles applied to the component.
    */
@@ -5732,91 +5727,99 @@ true ? ListItem.propTypes = {
    */
   className: import_prop_types15.default.string,
   /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: import_prop_types15.default.elementType,
-  /**
-   * The components used for each slot inside.
-   *
-   * @deprecated Use the `slots` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   * @default {}
-   */
-  components: import_prop_types15.default.shape({
-    Root: import_prop_types15.default.elementType
-  }),
-  /**
-   * The extra props for the slot components.
-   * You can override the existing props or add new ones.
-   *
-   * @deprecated Use the `slotProps` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   * @default {}
-   */
-  componentsProps: import_prop_types15.default.shape({
-    root: import_prop_types15.default.object
-  }),
-  /**
-   * The container component used when a `ListItemSecondaryAction` is the last child.
-   * @default 'li'
-   * @deprecated Use the `component` or `slots.root` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  ContainerComponent: elementTypeAcceptingRef_default,
-  /**
-   * Props applied to the container component if used.
-   * @default {}
-   * @deprecated Use the `slotProps.root` prop instead. This prop will be removed in v7. See [Migrating from deprecated APIs](https://mui.com/material-ui/migration/migrating-from-deprecated-apis/) for more details.
-   */
-  ContainerProps: import_prop_types15.default.object,
-  /**
-   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
-   * The prop defaults to the value inherited from the parent List component.
+   * If `true`, hitting escape will not fire the `onClose` callback.
    * @default false
    */
-  dense: import_prop_types15.default.bool,
+  disableEscapeKeyDown: import_prop_types15.default.bool,
   /**
-   * If `true`, the left and right padding is removed.
+   * If `true`, the dialog is full-screen.
    * @default false
    */
-  disableGutters: import_prop_types15.default.bool,
+  fullScreen: import_prop_types15.default.bool,
   /**
-   * If `true`, all padding is removed.
-   * @default false
-   */
-  disablePadding: import_prop_types15.default.bool,
-  /**
-   * If `true`, a 1px light border is added to the bottom of the list item.
-   * @default false
-   */
-  divider: import_prop_types15.default.bool,
-  /**
-   * The element to display at the end of ListItem.
-   */
-  secondaryAction: import_prop_types15.default.node,
-  /**
-   * The extra props for the slot components.
-   * You can override the existing props or add new ones.
+   * If `true`, the dialog stretches to `maxWidth`.
    *
+   * Notice that the dialog width grow is limited by the default margin.
+   * @default false
+   */
+  fullWidth: import_prop_types15.default.bool,
+  /**
+   * Determine the max-width of the dialog.
+   * The dialog width grows with the size of the screen.
+   * Set to `false` to disable `maxWidth`.
+   * @default 'sm'
+   */
+  maxWidth: import_prop_types15.default.oneOfType([import_prop_types15.default.oneOf(["xs", "sm", "md", "lg", "xl", false]), import_prop_types15.default.string]),
+  /**
+   * Callback fired when the backdrop is clicked.
+   * @deprecated Use the `onClose` prop with the `reason` argument to handle the `backdropClick` events.
+   */
+  onBackdropClick: import_prop_types15.default.func,
+  /**
+   * @ignore
+   */
+  onClick: import_prop_types15.default.func,
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {object} event The event source of the callback.
+   * @param {string} reason Can be: `"escapeKeyDown"`, `"backdropClick"`.
+   */
+  onClose: import_prop_types15.default.func,
+  /**
+   * If `true`, the component is shown.
+   */
+  open: import_prop_types15.default.bool.isRequired,
+  /**
+   * The component used to render the body of the dialog.
+   * @default Paper
+   */
+  PaperComponent: import_prop_types15.default.elementType,
+  /**
+   * Props applied to the [`Paper`](https://mui.com/material-ui/api/paper/) element.
    * @default {}
    */
-  slotProps: import_prop_types15.default.shape({
-    root: import_prop_types15.default.object
-  }),
+  PaperProps: import_prop_types15.default.object,
   /**
-   * The components used for each slot inside.
-   *
-   * @default {}
+   * Determine the container for scrolling the dialog.
+   * @default 'paper'
    */
-  slots: import_prop_types15.default.shape({
-    root: import_prop_types15.default.elementType
-  }),
+  scroll: import_prop_types15.default.oneOf(["body", "paper"]),
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: import_prop_types15.default.oneOfType([import_prop_types15.default.arrayOf(import_prop_types15.default.oneOfType([import_prop_types15.default.func, import_prop_types15.default.object, import_prop_types15.default.bool])), import_prop_types15.default.func, import_prop_types15.default.object])
+  sx: import_prop_types15.default.oneOfType([import_prop_types15.default.arrayOf(import_prop_types15.default.oneOfType([import_prop_types15.default.func, import_prop_types15.default.object, import_prop_types15.default.bool])), import_prop_types15.default.func, import_prop_types15.default.object]),
+  /**
+   * The component used for the transition.
+   * [Follow this guide](https://mui.com/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
+   * @default Fade
+   */
+  TransitionComponent: import_prop_types15.default.elementType,
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   * @default {
+   *   enter: theme.transitions.duration.enteringScreen,
+   *   exit: theme.transitions.duration.leavingScreen,
+   * }
+   */
+  transitionDuration: import_prop_types15.default.oneOfType([import_prop_types15.default.number, import_prop_types15.default.shape({
+    appear: import_prop_types15.default.number,
+    enter: import_prop_types15.default.number,
+    exit: import_prop_types15.default.number
+  })]),
+  /**
+   * Props applied to the transition element.
+   * By default, the element is based on this [`Transition`](https://reactcommunity.org/react-transition-group/transition/) component.
+   */
+  TransitionProps: import_prop_types15.default.object
 } : void 0;
-var ListItem_default = ListItem;
+var Dialog_default = Dialog;
 
 export {
+  getInputAdornmentUtilityClass,
+  inputAdornmentClasses_default,
+  InputAdornment_default,
   getTouchRippleUtilityClass,
   touchRippleClasses_default,
   getButtonBaseUtilityClass,
@@ -5827,29 +5830,14 @@ export {
   IconButton_default,
   getPopperUtilityClass,
   Popper_default,
-  getChipUtilityClass,
-  chipClasses_default,
-  Chip_default,
   getButtonUtilityClass,
   buttonClasses_default,
   ButtonGroupContext_default,
   ButtonGroupButtonContext_default,
   Button_default,
-  getDialogUtilityClass,
-  dialogClasses_default,
-  DialogContext_default,
-  Dialog_default,
   getDialogActionsUtilityClass,
   dialogActionsClasses_default,
   DialogActions_default,
-  getDialogContentUtilityClass,
-  dialogContentClasses_default,
-  getDialogTitleUtilityClass,
-  dialogTitleClasses_default,
-  DialogContent_default,
-  getInputAdornmentUtilityClass,
-  inputAdornmentClasses_default,
-  InputAdornment_default,
   getListItemUtilityClass,
   listItemClasses_default,
   getListItemButtonUtilityClass,
@@ -5858,6 +5846,18 @@ export {
   getListItemSecondaryActionClassesUtilityClass,
   listItemSecondaryActionClasses_default,
   ListItemSecondaryAction_default,
-  ListItem_default
+  ListItem_default,
+  getChipUtilityClass,
+  chipClasses_default,
+  Chip_default,
+  getDialogContentUtilityClass,
+  dialogContentClasses_default,
+  getDialogTitleUtilityClass,
+  dialogTitleClasses_default,
+  DialogContent_default,
+  getDialogUtilityClass,
+  dialogClasses_default,
+  DialogContext_default,
+  Dialog_default
 };
-//# sourceMappingURL=chunk-SSZKPVZG.js.map
+//# sourceMappingURL=chunk-JEHZO3RM.js.map

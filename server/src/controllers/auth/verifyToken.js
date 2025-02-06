@@ -3,7 +3,7 @@ const User = require("../../models//Employees/Employee");
 const { JWT_SECRET } = process.env;
 
 const verifyToken = async (req, res) => {
-  const token = req.headers.cookie.split("=")[1];
+  const token = req.headers.cookie?.split("=")[1];
   console.log("token", token);
 
   try {

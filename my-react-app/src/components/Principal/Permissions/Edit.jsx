@@ -6,10 +6,10 @@ const Edit = ({ setShowEdit, children, upDate }) => {
   return (
     <div
       ref={ref}
-      className={`w-[70%]   h-[80%] bg-white  flex flex-col justify-center
-    border-stone-500 border shadow-lg fixed top-20 z-40 rounded-xl `}
+      className={`w-[95%]   h-[95%] bg-white  flex flex-col justify-center
+    border-stone-500 border shadow-lg fixed top-5 z-40 rounded-xl `}
     >
-      <div className="p-6 flex  flex-col h-[80%] space-y-4 overflow-y-auto">
+      <div className="p-6 flex  flex-col h-[90%] space-y-4 overflow-y-auto">
         {children}
       </div>
 

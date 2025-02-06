@@ -1,10 +1,15 @@
+import { useState } from "react";
 import Card from "../Card";
+import { scanQRCode } from "../Escaneo/Escaneo";
 
 const RegisterAsistencia = () => {
+  const [qrResult, setQrResult] = useState(null);
   const preloadImage = (src) => {
     const img = new Image();
     img.src = src;
   };
+  const escanear = () => scanQRCode(setQrResult);
+  console.log("qrResult", qrResult);
 
   preloadImage("/FONDO-ASISTENCIAS.webp");
   self.addEventListener("fetch", (event) => {
@@ -31,10 +36,26 @@ const RegisterAsistencia = () => {
       className=" h-screen bg-cover px-10 bg-center bg-no-repeat bg-fixed "
     >
       <div className=" flex justify-center items-center h-full ">
-        <Card titulo="HORA DE INGRESO" imagen="/HORA DE INGRESO.webp" />
-        <Card titulo="INICIO ALMUERZO" imagen="/INICIO ALMUERZO.webp" />
-        <Card titulo="FIN ALMUERZO" imagen="/FIN ALMUERZO.webp" />
-        <Card titulo="HORA DE SALIDA" imagen="/HORA DE SALIDA.webp" />
+        <Card
+          titulo="HORA DE INGRESO"
+          imagen="/HORA DE INGRESO.webp"
+          onclick={() => escanear()}
+        />
+        <Card
+          titulo="INICIO ALMUERZO"
+          onclick={() => escanear()}
+          imagen="/INICIO ALMUERZO.webp"
+        />
+        <Card
+          titulo="FIN ALMUERZO"
+          onclick={() => escanear()}
+          imagen="/FIN ALMUERZO.webp"
+        />
+        <Card
+          titulo="HORA DE SALIDA"
+          onclick={() => escanear()}
+          imagen="/HORA DE SALIDA.webp"
+        />
       </div>
     </div>
   );
