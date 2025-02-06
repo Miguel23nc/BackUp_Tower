@@ -19,7 +19,7 @@ const QRCodeScanner = ({ onScanResult, onClose }) => {
     try {
       setLoading(true);
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" }, // Usar cámara trasera
+        video: { facingMode: "user" }, // Usar cámara trasera
       });
 
       if (videoRef.current) {
@@ -67,7 +67,7 @@ const QRCodeScanner = ({ onScanResult, onClose }) => {
   }, []);
 
   return (
-    <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col justify-center items-center text-white z-50">
+    <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex flex-col justify-center items-center text-white z-50">
       <button
         className="absolute top-4 right-4 bg-red-600 px-4 py-2 rounded"
         onClick={onClose}

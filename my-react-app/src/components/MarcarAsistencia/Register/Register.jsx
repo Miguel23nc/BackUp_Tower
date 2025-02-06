@@ -19,7 +19,12 @@ const RegisterAsistencia = () => {
     const img = new Image();
     img.src = "/FONDO-ASISTENCIAS.webp";
   }, []);
-
+  useEffect(() => {
+    if (scanResult) {
+      sendMessage(`Qr escaneado : ${scanResult}`, "Éxito");
+      setScanResult(null);
+    }
+  }, [scanResult, sendMessage]);
   return (
     <div
       style={{ backgroundImage: "url(/FONDO-ASISTENCIAS.webp)" }}
