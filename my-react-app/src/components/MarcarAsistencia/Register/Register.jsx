@@ -3,7 +3,7 @@ import Card from "../Card";
 import QRCodeScanner from "../Escaneo/Escaneo.jsx";
 import useSendMessage from "../../../recicle/senMessage";
 import PopUp from "../../../recicle/popUps";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getEmployees } from "../../../redux/actions.js";
 
 const RegisterAsistencia = () => {
