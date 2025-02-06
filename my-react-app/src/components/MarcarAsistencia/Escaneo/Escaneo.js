@@ -1,8 +1,6 @@
 import jsQR from "jsqr";
-import useSendMessage from "../../../recicle/senMessage";
 
 export const scanQRCode = async (onResult) => {
-  const sendMessage = useSendMessage();
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: "environment" },
@@ -25,7 +23,7 @@ export const scanQRCode = async (onResult) => {
 
     let timeout = setTimeout(() => {
       stopCamera();
-      sendMessage("No se encontró un código QR", "error");
+      throw new Error("No se encontró un código QR");
     }, 10000); // Detener después de 10 segundos si no encuentra un QR
 
     const scan = () => {
@@ -52,7 +50,7 @@ export const scanQRCode = async (onResult) => {
 
     scan();
   } catch (err) {
-    sendMessage("Ocurrió un error al intentar escanear el código QR", "error");
     console.error(err);
+    throw new Error(err.message);
   }
 };

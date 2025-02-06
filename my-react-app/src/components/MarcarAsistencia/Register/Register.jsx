@@ -1,14 +1,23 @@
 import { useState } from "react";
 import Card from "../Card";
 import { scanQRCode } from "../Escaneo/Escaneo";
+import useSendMessage from "../../../recicle/senMessage";
+import PopUp from "../../../recicle/popUps";
 
 const RegisterAsistencia = () => {
   const [qrResult, setQrResult] = useState(null);
+  const sendMessage = useSendMessage();
   const preloadImage = (src) => {
     const img = new Image();
     img.src = src;
   };
-  const escanear = () => scanQRCode(setQrResult);
+  const escanear = async () => {
+    try {
+      await scanQRCode(setQrResult);
+    } catch (error) {
+      sendMessage(error.message, "Error");
+    }
+  };
   console.log("qrResult", qrResult);
 
   preloadImage("/FONDO-ASISTENCIAS.webp");
@@ -35,6 +44,7 @@ const RegisterAsistencia = () => {
       loading="lazy"
       className=" h-screen bg-cover px-10 bg-center bg-no-repeat bg-fixed "
     >
+      <PopUp />
       <div className=" flex justify-center items-center h-full ">
         <Card
           titulo="HORA DE INGRESO"
