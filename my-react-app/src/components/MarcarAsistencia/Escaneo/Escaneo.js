@@ -1,23 +1,20 @@
 import jsQR from "jsqr";
 
-export const scanQRCode = async (onResult) => {
+export const scanQRCode = async (videoElement, onResult) => {
+  if (!videoElement) {
+    throw new Error("El videoElement es null o no está disponible");
+  }
+
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "environment" },
-    });
-
-    const video = document.createElement("video");
-    video.srcObject = stream;
-    video.setAttribute("playsinline", "true");
-    document.body.appendChild(video);
-    video.play();
-
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
     const stopCamera = () => {
-      stream.getTracks().forEach((track) => track.stop());
-      video.remove();
+      const stream = videoElement.srcObject;
+      if (stream) {
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
+      }
       canvas.remove();
     };
 
@@ -27,14 +24,14 @@ export const scanQRCode = async (onResult) => {
     }, 10000); // Detener después de 10 segundos si no encuentra un QR
 
     const scan = () => {
-      if (video.readyState !== video.HAVE_ENOUGH_DATA) {
+      if (videoElement.readyState !== videoElement.HAVE_ENOUGH_DATA) {
         requestAnimationFrame(scan);
         return;
       }
 
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.width = videoElement.videoWidth;
+      canvas.height = videoElement.videoHeight;
+      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
