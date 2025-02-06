@@ -33,7 +33,7 @@ const Card = memo(({ titulo, imagen, onclick }) => {
   return (
     <div
       className="flex text-center 
-     flex-col justify-center hover:scale-110 scale-100 transition-all items-center sm:w-3/12 h-4/6 m-5 xl:w-2/12"
+     flex-col justify-center hover:scale-110 scale-100 transition-all items-center sm:w-3/12 m-5 xl:w-2/12"
     >
       <button onClick={onclick}>
         {!loaded && <LoadingSpinner />}

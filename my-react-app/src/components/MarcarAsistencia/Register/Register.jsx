@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../Card";
 import QRCodeScanner from "../Escaneo/Escaneo.jsx";
 import useSendMessage from "../../../recicle/senMessage";
@@ -8,34 +8,21 @@ const RegisterAsistencia = () => {
   const [scanResult, setScanResult] = useState(null); // Almacenamos el resultado del escaneo
   const [isScanning, setIsScanning] = useState(false);
   const sendMessage = useSendMessage();
-  console.log("scanResult", scanResult);
 
   const handleScanResult = (data) => {
     setScanResult(data);
     console.log("QR Result:", data);
-  };
-  const preloadImage = (src) => {
-    const img = new Image();
-    img.src = src;
-  };
-
-  const escanear = async () => {
-    console.log("Escanear");
-    try {
-      setIsScanning((prev) => !prev); // Cambiar el estado de escaneo
-    } catch (error) {
-      sendMessage(error.message, "Error");
-    }
+    setIsScanning(false); // Cierra el escáner al obtener un resultado
   };
 
   useEffect(() => {
-    preloadImage("/FONDO-ASISTENCIAS.webp");
+    const img = new Image();
+    img.src = "/FONDO-ASISTENCIAS.webp";
   }, []);
 
   return (
     <div
       style={{ backgroundImage: "url(/FONDO-ASISTENCIAS.webp)" }}
-      loading="lazy"
       className="h-screen bg-cover px-10 bg-center bg-no-repeat bg-fixed"
     >
       <PopUp />
@@ -43,28 +30,28 @@ const RegisterAsistencia = () => {
         {isScanning && (
           <QRCodeScanner
             onScanResult={handleScanResult}
-            onclose={setIsScanning}
+            onClose={() => setIsScanning(false)}
           />
         )}
 
         <Card
           titulo="HORA DE INGRESO"
           imagen="/HORA DE INGRESO.webp"
-          onclick={() => escanear()}
+          onclick={() => setIsScanning(true)}
         />
         <Card
           titulo="INICIO ALMUERZO"
-          onclick={() => escanear()}
+          onclick={() => setIsScanning(true)}
           imagen="/INICIO ALMUERZO.webp"
         />
         <Card
           titulo="FIN ALMUERZO"
-          onclick={() => escanear()}
+          onclick={() => setIsScanning(true)}
           imagen="/FIN ALMUERZO.webp"
         />
         <Card
           titulo="HORA DE SALIDA"
-          onclick={() => escanear()}
+          onclick={() => setIsScanning(true)}
           imagen="/HORA DE SALIDA.webp"
         />
       </div>
