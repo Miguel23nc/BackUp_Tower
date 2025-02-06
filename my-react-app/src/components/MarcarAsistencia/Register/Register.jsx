@@ -3,12 +3,20 @@ import Card from "../Card";
 import QRCodeScanner from "../Escaneo/Escaneo.jsx";
 import useSendMessage from "../../../recicle/senMessage";
 import PopUp from "../../../recicle/popUps";
+import { useDispatch } from "react-redux";
+import { getEmployees } from "../../../redux/actions.js";
 
 const RegisterAsistencia = () => {
   const [scanResult, setScanResult] = useState(null); // Almacenamos el resultado del escaneo
   const [isScanning, setIsScanning] = useState(false);
   const sendMessage = useSendMessage();
-
+  const colaboradores = useSelector((state) => state.employees);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (colaboradores.length === 0 || !colaboradores) {
+      dispatch(getEmployees());
+    }
+  }, [colaboradores, dispatch]);
   const handleScanResult = (data) => {
     setScanResult(data);
     console.log("QR Result:", data);
@@ -21,8 +29,10 @@ const RegisterAsistencia = () => {
   }, []);
   useEffect(() => {
     if (scanResult) {
-      sendMessage(`Qr escaneado : ${scanResult}`, "Éxito");
-      setScanResult(null);
+      const findColaborador = colaboradores.find(
+        (colaborador) => colaborador.documentNumber === scanResult
+      );
+      sendMessage(`Qr escaneado: ${scanResult}, ${findColaborador}`, "Éxito");
     }
   }, [scanResult, sendMessage]);
   return (
