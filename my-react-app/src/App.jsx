@@ -23,6 +23,36 @@ const MarcarAsistencia = lazy(() =>
 function App() {
   const location = useLocation();
   const path = ["/asistencia", "/home", "/"].includes(location.pathname);
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((reg) => {
+        console.log("Service Worker registrado", reg);
+
+        // Listen for the 'beforeinstallprompt' event (opcional para control manual)
+        window.addEventListener("beforeinstallprompt", (event) => {
+          // Guarda el evento para mostrar el prompt más tarde
+          let deferredPrompt;
+          deferredPrompt = event;
+
+          // Opcional: mostrar el botón para instalar manualmente
+          const installButton = document.createElement("button");
+          installButton.innerText = "Instalar App";
+          installButton.addEventListener("click", () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choice) => {
+              if (choice.outcome === "accepted") {
+                console.log("Usuario instaló la app");
+              } else {
+                console.log("Usuario canceló la instalación");
+              }
+            });
+          });
+          document.body.appendChild(installButton);
+        });
+      })
+      .catch((err) => console.log("Error registrando SW:", err));
+  }
 
   return (
     <AuthProvider>
