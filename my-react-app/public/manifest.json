@@ -1,6 +1,6 @@
 {
     "name": "SoftTower PWA",
-    "short_name": "PWA",
+    "short_name": "SoftTower",
     "description": "SoftTower RRRHH",
     "start_url": "/",
     "display": "standalone",

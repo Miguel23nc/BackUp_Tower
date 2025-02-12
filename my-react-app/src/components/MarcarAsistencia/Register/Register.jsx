@@ -33,7 +33,7 @@ const RegisterAsistencia = () => {
 
     try {
       const findColaborador = colaboradores.find(
-        (colaborador) => colaborador.documentType === documentType
+        (colaborador) => colaborador.documentNumber === documentType.toString()
       );
 
       if (!findColaborador) {
