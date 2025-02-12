@@ -1,24 +1,17 @@
 const AsistenciaColaborador = require("../../../../models/RecursosHumanos/AsistenciaColaborador");
 
 const updateAsistenciaColaborador = async (req, res) => {
-  const {
-    _id,
-    colaborador,
-    fecha,
-    ingreso,
-    salida,
-    inicioAlmuerzo,
-    finAlmuerzo,
-  } = req.body;
+  const { colaborador, fecha, ingreso, salida, inicioAlmuerzo, finAlmuerzo } =
+    req.body;
   try {
-    if (!_id) {
-      return res.status(400).json({ message: "El _id es requerido" });
-    }
-    const findAsistenciaColaborador = await AsistenciaColaborador.findById(_id);
+    const findAsistenciaColaborador = await AsistenciaColaborador.findOne({
+      colaborador: colaborador,
+      fecha: fecha,
+    });
     if (!findAsistenciaColaborador) {
       return res
         .status(404)
-        .json({ message: "AsistenciaColaborador no encontrada" });
+        .json({ message: "No se encontró esta asistencia" });
     }
     if (colaborador) findAsistenciaColaborador.colaborador = colaborador;
     if (fecha) findAsistenciaColaborador.fecha = fecha;
