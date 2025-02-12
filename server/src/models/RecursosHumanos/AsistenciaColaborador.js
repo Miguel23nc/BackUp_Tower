@@ -1,13 +1,19 @@
 const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
+const { Schema } = mongoose;
 
 const asistenciaColaboradorSchema = new Schema({
+  colaborador: {
+    type: Schema.Types.ObjectId,
+    ref: "Employee",
+    required: true,
+  },
   fecha: {
     type: String,
     required: true,
   },
   ingreso: {
     type: String,
+    required: true,
   },
   salida: {
     type: String,
@@ -18,15 +24,17 @@ const asistenciaColaboradorSchema = new Schema({
   finAlmuerzo: {
     type: String,
   },
-  colaborador: {
-    type: Schema.Types.ObjectId,
-    ref: "Employee",
-  },
   minTarde: {
     type: Number,
+    default: 0, // Evita valores `undefined`
   },
   minExtras: {
     type: Number,
+    default: 0,
+  },
+  estado: {
+    type: String,
+    enum: ["PRESENTE", "FALTA", "TARDANZA", "PERMISO", "VACACIONES"],
   },
 });
 

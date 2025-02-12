@@ -3,8 +3,9 @@ import { setMessage } from "../redux/actions";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-const PopUp = ({ ...OtherProps }) => {
+const PopUp = ({ deshabilitar, ...OtherProps }) => {
   console.log("OtherProps", OtherProps);
+  console.log("deshabilitar", deshabilitar);
 
   const { setResponse, setErrors } = useAuth();
   const [showPopUp, setShowPopUp] = useState(false);
@@ -42,13 +43,15 @@ const PopUp = ({ ...OtherProps }) => {
               : "Error desconocido"}
           </p>
           <div className="flex justify-center items-center w-full">
-            <button
-              onClick={handleClosePopUp}
-              disabled={OtherProps.disabled}
-              className="text-white font-medium bg-blue-500 w-10/12 rounded-lg p-3  "
-            >
-              Ok
-            </button>
+            {deshabilitar === true ? null : (
+              <button
+                onClick={handleClosePopUp}
+                {...OtherProps}
+                className="text-white font-medium bg-blue-500 w-10/12 rounded-lg p-3  "
+              >
+                Ok
+              </button>
+            )}
           </div>
         </div>
       </div>

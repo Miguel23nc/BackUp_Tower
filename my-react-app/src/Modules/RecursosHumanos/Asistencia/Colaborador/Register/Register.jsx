@@ -8,21 +8,22 @@ import { useAuth } from "../../../../../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployees } from "../../../../../redux/actions";
 import useSendMessage from "../../../../../recicle/senMessage";
-import Input from "../../../../../recicle/Inputs/Inputs";
+import dayjs from "dayjs";
 
 const RegisterAsistenciaColaborador = () => {
-  const { createAsistenciaColaborador, createAsistenciaVisitante } = useAuth();
+  const { createAsistenciaColaborador } = useAuth();
   const [form, setForm] = useState({
+    colaborador: "",
     fecha: "",
     ingreso: "",
     salida: "",
     inicioAlmuerzo: "",
     finAlmuerzo: "",
-    colaborador: "",
-    tipoAsistencia: "",
   });
   console.log("form", form);
-  
+  const horaLimite = dayjs().hour(8).minute(10).format("hh:mm A");
+  console.log("horaLimite", horaLimite);
+
   const sendMessage = useSendMessage();
   const colaboradores = useSelector((state) => state.employees);
   const dispatch = useDispatch();
@@ -32,23 +33,26 @@ const RegisterAsistenciaColaborador = () => {
   const { error, validateForm } = useValidation();
 
   const register = async () => {
-    const colaboradorId = await colaboradores.find(
-      (colaborador) =>
-        colaborador.lastname + " " + colaborador.name === form.colaborador
-    );
-    if (!colaboradorId)
-      return sendMessage("Colaborador no encontrado", "error");
-    const newForm = {
-      ...form,
-      colaborador: colaboradorId._id,
-    };
-    delete newForm.tipoAsistencia;
-    console.log("newForm", newForm);
-
-    if (form.tipoAsistencia === "VISITANTE") {
-      await createAsistenciaVisitante(newForm);
-    } else {
+    sendMessage("Registrando Asistencia", "Espere");
+    try {
+      const estado = form.ingreso < horaLimite ? "TARDANZA" : "PRESENTE";
+      const colaboradorId = await colaboradores.find(
+        (colaborador) =>
+          colaborador.lastname + " " + colaborador.name === form.colaborador
+      );
+      if (!colaboradorId)
+        return sendMessage("Colaborador no encontrado", "error");
+      const newForm = {
+        ...form,
+        colaborador: colaboradorId._id,
+        estado,
+      };
+      delete newForm.tipoDeColaborador;
+      console.log("newForm", newForm);
       await createAsistenciaColaborador(newForm);
+    } catch (error) {
+      console.log("error", error);
+      sendMessage(error.message, "Error");
     }
   };
 
@@ -58,18 +62,7 @@ const RegisterAsistenciaColaborador = () => {
         <DatosDeAsistencia setForm={setForm} error={error} form={form} />
       </CardPlegable>
       <CardPlegable title="Datos del Colaborador">
-        <div className="flex">
-          <DatoDeColaborador setForm={setForm} error={error} form={form} />
-          <Input
-            label="Tipo de Asistencia"
-            type="select"
-            name="tipoAsistencia"
-            value={form.tipoAsistencia}
-            options={["COLABORADOR", "VISITANTE"]}
-            setForm={setForm}
-            errorOnclick={error.tipoAsistencia}
-          />
-        </div>
+        <DatoDeColaborador setForm={setForm} error={error} form={form} />
       </CardPlegable>
     </Register>
   );

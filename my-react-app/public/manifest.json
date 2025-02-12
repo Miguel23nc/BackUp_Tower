@@ -1,7 +1,7 @@
 {
-    "name": "Mi PWA",
+    "name": "SoftTower PWA",
     "short_name": "PWA",
-    "description": "Una aplicación progresiva de ejemplo",
+    "description": "SoftTower RRRHH",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

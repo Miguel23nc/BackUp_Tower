@@ -4,7 +4,7 @@ const getAllAsistenciaColaborador = async (req, res) => {
   try {
     const asistencia = await AsistenciaColaborador.find().populate(
       "colaborador",
-      "name lastname photo documentType documentNumber state charge business sede"
+      "name lastname photo documentType documentNumber state charge business sede type"
     );
 
     if (!asistencia || asistencia.length === 0) {

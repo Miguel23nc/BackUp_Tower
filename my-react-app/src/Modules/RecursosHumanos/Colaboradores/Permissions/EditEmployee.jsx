@@ -45,6 +45,8 @@ const EditEmployee = (props) => {
   const { error } = useValidation(edition);
 
   const upDate = async () => {
+    dispatch(setMessage("Cargando...", "Espere"));
+
     try {
       if (Object.keys(formFinal).length > 0) {
         if (Object.keys(validateSubModule).length > 0) {

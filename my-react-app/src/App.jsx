@@ -1,14 +1,13 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import Login from "./components/Login/Login";
 import { Provider } from "react-redux";
-import store from "./redux/store";
 import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./ProtectedRoute";
-
-import Error from "./components/Error/Error";
-
 import { lazy, Suspense } from "react";
+import store from "./redux/store";
+
+import ProtectedRoute from "./ProtectedRoute";
 import Loading from "./components/Loading/Loading";
+import Login from "./components/Login/Login";
+import Error from "./components/Error/Error";
 
 const Home = lazy(() => import("./components/Home/Home"));
 const SideBar = lazy(() => import("./components/SideBar/SideBar"));
@@ -23,36 +22,6 @@ const MarcarAsistencia = lazy(() =>
 function App() {
   const location = useLocation();
   const path = ["/asistencia", "/home", "/"].includes(location.pathname);
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((reg) => {
-        console.log("Service Worker registrado", reg);
-
-        // Listen for the 'beforeinstallprompt' event (opcional para control manual)
-        window.addEventListener("beforeinstallprompt", (event) => {
-          // Guarda el evento para mostrar el prompt más tarde
-          let deferredPrompt;
-          deferredPrompt = event;
-
-          // Opcional: mostrar el botón para instalar manualmente
-          const installButton = document.createElement("button");
-          installButton.innerText = "Instalar App";
-          installButton.addEventListener("click", () => {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choice) => {
-              if (choice.outcome === "accepted") {
-                console.log("Usuario instaló la app");
-              } else {
-                console.log("Usuario canceló la instalación");
-              }
-            });
-          });
-          document.body.appendChild(installButton);
-        });
-      })
-      .catch((err) => console.log("Error registrando SW:", err));
-  }
 
   return (
     <AuthProvider>

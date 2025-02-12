@@ -18,7 +18,7 @@ const ButtonOk = ({
         onClick={onClick}
         className={` ${color}  text-white ${classe} px-4 py-2 
           rounded-md`}
-        {...OtherProps }
+        {...OtherProps}
       >
         {children}
       </button>

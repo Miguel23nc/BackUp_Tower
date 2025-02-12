@@ -19,9 +19,9 @@ import documentoCloudinary from "../../../../api/cloudinaryDocument";
 import PopUp from "../../../../recicle/popUps";
 
 const Enviar = () => {
+  const [deshabilitar, setDeshabilitar] = useState(false);
   const dispatch = useDispatch();
   const { enviarBoletasDePago } = useAuth();
-  const [deshabilitar, setDeshabilitar] = useState(false);
   const [form, setForm] = useState({
     empresa: "",
     fechaBoletaDePago: "",
@@ -69,9 +69,11 @@ const Enviar = () => {
   };
 
   const enviarCorreo = async (arrayBoletas) => {
+    setDeshabilitar(true);
+    console.log("desabilitar", deshabilitar);
+    
     console.log("arrayBoletas", arrayBoletas);
 
-    setDeshabilitar(true);
     showMessage("Enviando Correo...", "Espere");
     try {
       const formIsValide = validateForm(form);
@@ -95,7 +97,7 @@ const Enviar = () => {
             ...item,
           };
           console.log("newForm", newForm);
-          
+
           const findBusiness = business.find(
             (empresa) => empresa.razonSocial === item.colaborador.business
           );
@@ -139,7 +141,7 @@ const Enviar = () => {
 
   return (
     <div>
-      <PopUp disabled={deshabilitar} />
+      <PopUp deshabilitar={deshabilitar} />
       <CardPlegable title="Datos de Envío">
         <div className="flex">
           <Input

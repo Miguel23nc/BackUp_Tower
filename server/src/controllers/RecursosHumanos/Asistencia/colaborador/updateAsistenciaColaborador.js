@@ -27,6 +27,7 @@ const updateAsistenciaColaborador = async (req, res) => {
     if (inicioAlmuerzo)
       findAsistenciaColaborador.inicioAlmuerzo = inicioAlmuerzo;
     if (finAlmuerzo) findAsistenciaColaborador.finAlmuerzo = finAlmuerzo;
+
     await findAsistenciaColaborador.save();
 
     res.status(200).json({
